@@ -2,10 +2,10 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 
 const ProfileInfo = () => {
-    return <div>
+    return <div className={s.picturesBlock}>
         <div>
             <img
-                src={'https://s.zagranitsa.com/images/articles/6729/870x486/53d189dfcd54fa9ecae756ddf5a7c2ee.jpg?1530714543'}/>
+                src={'https://cdn.fishki.net/upload/post/2019/10/30/3127590/tn/52.jpg'}/>
         </div>
         <div className={s.descriptionBlock}>
             ava + description

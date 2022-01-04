@@ -3,7 +3,7 @@ import s from './Header.module.css'
 
 function Header() {
     return <header className={s.header}>
-        <img src='https://data.1freewallpapers.com/download/psychedelic-abstract-blue-flower-fantasy-art-abstract.jpg'/>
+        <img src='https://webstockreview.net/images/clipart-mountain-mountain-range-1.png' />
     </header>
 }
 

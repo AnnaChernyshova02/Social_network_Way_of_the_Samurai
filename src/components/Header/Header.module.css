@@ -1,7 +1,7 @@
 .header {
     grid-area: h;
-    background-color: steelblue;
+    background: linear-gradient(135deg, #e55d87 0%, rgba(34, 101, 163, .5) 100%);
 }
 .header img {
-    width: 120px;
+    width: 170px;
 }

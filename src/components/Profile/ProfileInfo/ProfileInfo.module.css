@@ -1,4 +1,9 @@
 .descriptionBlock{
     padding: 10px;
+    color: lightgoldenrodyellow;
 }
 
+.picturesBlock img{
+    height: 450px;
+    width: 1000px;
+}
