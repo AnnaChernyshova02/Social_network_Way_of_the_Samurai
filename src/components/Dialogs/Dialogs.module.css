@@ -3,3 +3,13 @@
     grid-template-columns: 2fr 10fr;
 }
 
+.message{
+    padding-left: 10px;
+    color: lightyellow;
+}
+
+.dialogsItems {
+    padding-left: 10px;
+    color: lightyellow;
+}
+

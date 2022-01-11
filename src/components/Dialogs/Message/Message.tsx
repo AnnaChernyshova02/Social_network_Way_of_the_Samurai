@@ -2,13 +2,13 @@ import React from "react";
 import s from './Message.module.css';
 
 
-type MessagePropsType = {
-    massege: string,
+export type MessagePropsType = {
+    message: string,
     id: number,
 }
 
-const Message = ({massege, id}: MessagePropsType) => {
-    return <div className={s.message}>{massege}</div>
+const Message = ({message, id}: MessagePropsType) => {
+    return <div className={s.message}>{message}</div>
 
 }
 

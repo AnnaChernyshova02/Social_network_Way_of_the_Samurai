@@ -1,12 +1,14 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
+import {PostPropsType} from "./Post/Post"
 
 
-function MyPosts() {
+type MyPostsPropsType = {
+    posts: Array<PostPropsType>
+}
 
-    let posts = [{ message: "Hi, how are you?", likeCounts: 15},
-        { message: "It's my first post", likeCounts: 20}]
+function MyPosts({posts}: MyPostsPropsType) {
 
     let postsElement = posts.map( p => <Post message={p.message} likeCounts={p.likeCounts} />)
 
