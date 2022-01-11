@@ -12,13 +12,20 @@ import {DialogItemPropsType} from "./components/Dialogs/DialogItem/DialogItem";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
 import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
 
+
 export type AppPropsType = {
-    dialogs: Array<DialogItemPropsType>
-    messages: Array<MessagePropsType>
-    posts: Array<PostPropsType>
+    state: {
+        messagesPage: {
+            dialogs: Array<DialogItemPropsType>
+            messages: Array<MessagePropsType>
+        }
+        profilePage: {
+            posts: Array<PostPropsType>
+        }
+    }
 }
 
-const App = ({dialogs, messages, posts}: AppPropsType) => {
+const App = ({state}: AppPropsType) => {
 
     return (<BrowserRouter>
         <div className='app-wrapper'>
@@ -26,10 +33,14 @@ const App = ({dialogs, messages, posts}: AppPropsType) => {
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Routes>
-                    <Route path='/dialogs' element={<Dialogs dialogs={dialogs} messages={messages} />}/>
-                    <Route path='/profile' element={<Profile posts={posts}/>} />
-                    <Route path='/news' element={<News/>}/>
-                    <Route path='/music' element={<Music/>}/>
+                    <Route path='/dialogs'
+                           element={<Dialogs dialogs={state.messagesPage.dialogs} messages={state.messagesPage.messages}/>}/>
+                    <Route path='/profile'
+                           element={<Profile posts={state.profilePage.posts}/>}/>
+                    <Route path='/news'
+                           element={<News/>}/>
+                    <Route path='/music'
+                           element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>
                 </Routes>
             </div>
