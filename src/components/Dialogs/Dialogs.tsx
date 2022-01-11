@@ -10,7 +10,7 @@ type DialogsPropsType = {
 
 const Dialogs = ({dialogs, messages}:DialogsPropsType) => {
 
-    let dialogsElement = dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
+    let dialogsElement = dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>);
     let messageElement = messages.map(m => <Message message={m.message} id={m.id}/>);
 
     return (

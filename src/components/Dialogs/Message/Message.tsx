@@ -8,7 +8,14 @@ export type MessagePropsType = {
 }
 
 const Message = ({message, id}: MessagePropsType) => {
-    return <div className={s.message}>{message}</div>
+
+    if (id%2) {
+        return <div className={s.message1}>{message}</div>
+    } else {
+       return <div className={s.message2}>{message}</div>
+    }
+
+
 
 }
 
