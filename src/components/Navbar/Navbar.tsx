@@ -11,7 +11,7 @@ export type NavbarPropsType = {
 function Navbar({navbar}:NavbarPropsType) {
 
     let navbarElement = navbar.map(n => <NavLink to={"/dialogs/" + n.id} className={s.friend}>
-                                            <img src={n.avatar}/>{n.name}</NavLink>);
+                                            <img src={n.avatar} alt={'avatar'}/>{n.name}</NavLink>);
 
     return <nav className={s.nav}>
         <div className={`${s.item} ${s.activeLink}`}>
