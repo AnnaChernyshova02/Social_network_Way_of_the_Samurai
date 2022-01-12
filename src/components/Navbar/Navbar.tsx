@@ -1,10 +1,20 @@
 import React from "react";
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
+import DialogItem, {DialogItemPropsType} from "../Dialogs/DialogItem/DialogItem";
 
-function Navbar() {
+export type NavbarPropsType = {
+    navbar: Array<DialogItemPropsType>
+}
+
+
+function Navbar({navbar}:NavbarPropsType) {
+
+    let navbarElement = navbar.map(n => <NavLink to={"/dialogs/" + n.id} className={s.friend}>
+                                            <img src={n.avatar}/>{n.name}</NavLink>);
+
     return <nav className={s.nav}>
-        <div className={`${s.item} ${s.active}`}>
+        <div className={`${s.item} ${s.activeLink}`}>
             <NavLink to={'/profile'} className={s.activeLink}>Profile</NavLink>
         </div>
         <div className={s.item}>
@@ -19,6 +29,12 @@ function Navbar() {
         <div className={s.item}>
             <NavLink to={'/settings'}>Settings</NavLink>
         </div>
+
+        <div className={s.friends}>
+            My Friends
+         {navbarElement}
+        </div>
+
     </nav>
 }
 

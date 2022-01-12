@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 import Header from "./components/Header/Header";
-import Navbar from "./components/Navbar/Navbar"
+import Navbar, {NavbarPropsType} from "./components/Navbar/Navbar"
 import Dialogs from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Profile from "./components/Profile/Profile";
@@ -12,7 +12,6 @@ import {DialogItemPropsType} from "./components/Dialogs/DialogItem/DialogItem";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
 import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
 
-
 export type AppPropsType = {
     state: {
         messagesPage: {
@@ -22,6 +21,7 @@ export type AppPropsType = {
         profilePage: {
             posts: Array<PostPropsType>
         }
+        navbar: Array<DialogItemPropsType>
     }
 }
 
@@ -30,7 +30,8 @@ const App = ({state}: AppPropsType) => {
     return (<BrowserRouter>
         <div className='app-wrapper'>
             <Header/>
-            <Navbar/>
+            <Navbar navbar={state.navbar}/>
+
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route path='/dialogs'

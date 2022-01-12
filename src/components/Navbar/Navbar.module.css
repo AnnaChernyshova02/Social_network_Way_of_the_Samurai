@@ -11,3 +11,24 @@
 .item a.activeLink {
     color: gold;
 }
+
+.friends {
+    padding-top: 150px;
+    font-size: 27px;
+    font-style: italic;
+    color: white;
+}
+
+.friends img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 10px;
+    vertical-align:middle;
+
+}
+
+.friend {
+    font-size: 15px;
+    color: lightyellow;
+}
