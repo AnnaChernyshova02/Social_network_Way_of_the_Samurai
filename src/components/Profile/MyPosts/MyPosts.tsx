@@ -2,6 +2,7 @@ import React, {createRef, useRef} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {PostPropsType} from "./Post/Post"
+import {addPost} from "../../../Redux/State";
 
 
 type MyPostsPropsType = {
@@ -10,31 +11,30 @@ type MyPostsPropsType = {
 
 function MyPosts({posts}: MyPostsPropsType) {
 
-    let postsElement = posts.map( p => <Post message={p.message} likeCounts={p.likeCounts} />)
-
+    let postsElement = posts.map(p => <Post id={p.id} message={p.message} likeCounts={p.likeCounts}/>)
     let newPostElement = createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
+    let addPosts = () => {
         let text = newPostElement.current?.value;
-        alert(text)
+        addPost(text);
     }
-
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement} />
+                    <textarea ref={newPostElement}/>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={addPosts}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>
-                { postsElement }
+                {postsElement}
             </div>
         </div>
     )
 }
 
 export default MyPosts;
+

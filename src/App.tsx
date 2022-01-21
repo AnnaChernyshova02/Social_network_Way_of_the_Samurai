@@ -11,6 +11,7 @@ import Settings from "./components/Settings/Settings";
 import {DialogItemPropsType} from "./components/Dialogs/DialogItem/DialogItem";
 import {MessagePropsType} from "./components/Dialogs/Message/Message";
 import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
+/*import {AddPostPropsType} from "./Redux/State";*/
 
 export type AppPropsType = {
     state: {
@@ -22,33 +23,34 @@ export type AppPropsType = {
             posts: Array<PostPropsType>
         }
         navbar: Array<DialogItemPropsType>
-    }
+    },
+    addPost: (postMessage: any) => void
 }
 
-const App = ({state}: AppPropsType) => {
+const App = ({state, addPost}: AppPropsType) => {
 
-    return (<BrowserRouter>
-        <div className='app-wrapper'>
-            <Header/>
-            <Navbar navbar={state.navbar}/>
+    return (
+            <div className='app-wrapper'>
+                <Header/>
+                <Navbar navbar={state.navbar}/>
 
-            <div className='app-wrapper-content'>
-                <Routes>
-                    <Route path='/dialogs'
-                           element={<Dialogs dialogs={state.messagesPage.dialogs}
-                                             messages={state.messagesPage.messages}/>}/>
-                    <Route path='/profile'
-                           element={<Profile posts={state.profilePage.posts}/>}/>
-                    <Route path='/news'
-                           element={<News/>}/>
-                    <Route path='/music'
-                           element={<Music/>}/>
-                    <Route path='/settings'
-                           element={<Settings/>}/>
-                </Routes>
+                <div className='app-wrapper-content'>
+                    <Routes>
+                        <Route path='/dialogs'
+                               element={<Dialogs dialogs={state.messagesPage.dialogs}
+                                                 messages={state.messagesPage.messages}/>}/>
+                        <Route path='/profile'
+                               element={<Profile posts={state.profilePage.posts}/>}/>
+                        <Route path='/news'
+                               element={<News/>}/>
+                        <Route path='/music'
+                               element={<Music/>}/>
+                        <Route path='/settings'
+                               element={<Settings/>}/>
+                    </Routes>
+                </div>
             </div>
-        </div>
-    </BrowserRouter>);
+    );
 }
 
 export default App;
