@@ -1,13 +1,7 @@
 import React, {createRef, useRef} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {PostPropsType} from "./Post/Post"
-import {addPost} from "../../../Redux/State";
-
-
-type MyPostsPropsType = {
-    posts: Array<PostPropsType>
-}
+import {addPost, MyPostsPropsType} from "../../../Redux/State";
 
 function MyPosts({posts}: MyPostsPropsType) {
 
@@ -15,8 +9,9 @@ function MyPosts({posts}: MyPostsPropsType) {
     let newPostElement = createRef<HTMLTextAreaElement>();
 
     let addPosts = () => {
-        let text = newPostElement.current?.value;
-        addPost(text);
+        if (newPostElement.current) {
+            addPost(newPostElement.current.value)
+        }
     }
     return (
         <div className={s.postsBlock}>

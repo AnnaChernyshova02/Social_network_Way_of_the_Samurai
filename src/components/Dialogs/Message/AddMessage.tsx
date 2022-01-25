@@ -1,6 +1,4 @@
 import React, {createRef} from "react";
-import s from './Message.module.css';
-import {MessagePropsType} from "./Message";
 import {addMessage} from "../../../Redux/State";
 
 
@@ -9,8 +7,9 @@ const AddMessage = () => {
     let newMessageElement = createRef<HTMLInputElement>();
 
     let addMessages = () => {
-        let text = newMessageElement.current?.value;
-        addMessage(text)
+        if (newMessageElement.current) {
+            addMessage(newMessageElement.current.value)
+        }
     }
 
     return <div>
