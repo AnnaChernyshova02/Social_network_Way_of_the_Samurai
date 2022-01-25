@@ -1,8 +1,47 @@
 import {rerenderEntireTree} from "../render";
 import {v1} from "uuid";
 
+export type MessagePropsType = {
+    message: string,
+    id: string,
+}
+export type DialogItemPropsType = {
+    id: string,
+    name: string,
+    avatar: string,
+}
+export type DialogsPropsType = {
+    dialogs: Array<DialogItemPropsType>
+    messages: Array<MessagePropsType>
+}
+export type MyPostsPropsType = {
+    posts: Array<PostPropsType>
+    addPost: (postMessage: string) => void
+}
+export type ProfilePropsType = {
+    posts: Array<PostPropsType>
+}
+export type PostPropsType = {
+    id: string,
+    message: string,
+    likeCounts: number
+}
+export type SetbarType = {
+    id: string,
+    name: string,
+    avatar: string,
+}
 
-let state = {
+
+export type AppPropsType = {
+    messagesPage: DialogsPropsType,
+    profilePage: ProfilePropsType,
+    navbar: SetbarType,
+    addPost?: (postMessage: string) => void
+}
+
+
+let state: AppPropsType = {
     profilePage: {
         posts: [
             {id: v1(), message: "Hi, how are you?", likeCounts: 15},
@@ -59,21 +98,17 @@ let state = {
         }]
 };
 
-/*export type AddPostPropsType = {
-    postMessage: () => void
-}*/
-
-export let addPost = (postMessage:any) => {
-    let newPost = {
+export let addPost = (postMessage: string) => {
+    const newPost: PostPropsType = {
         id: v1(),
         message: postMessage,
         likeCounts: 0
-        }
+    }
     state.profilePage.posts.push(newPost);
     rerenderEntireTree(state);
 }
 
-export let addMessage = (message: any) => {
+export let addMessage = (message: string) => {
     let newMessage = {
         id: v1(),
         message: message,

@@ -1,14 +1,10 @@
 import React from "react";
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-import DialogItem, {DialogItemPropsType} from "../Dialogs/DialogItem/DialogItem";
-
-export type NavbarPropsType = {
-    navbar: Array<DialogItemPropsType>
-}
+import {AppPropsType} from "../../Redux/State";
 
 
-function Navbar({navbar}:NavbarPropsType) {
+function Navbar({navbar}:AppPropsType) {
 
     let navbarElement = navbar.map(n => <NavLink to={"/dialogs/" + n.id} className={s.friend}>
                                             <img src={n.avatar} alt={'avatar'}/>{n.name}</NavLink>);
