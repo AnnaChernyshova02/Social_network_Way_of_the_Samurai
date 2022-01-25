@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 
 const App = ({messagesPage, profilePage, navbar, addPost}: AppPropsType) => {
-
+//T
     return (
             <div className='app-wrapper'>
                 <Header/>
