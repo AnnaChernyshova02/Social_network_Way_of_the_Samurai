@@ -7,25 +7,23 @@ import Profile from "./components/Profile/Profile";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {AppPropsType} from "./Redux/State";
+import {AppType} from "./Redux/State";
 import Navbar from "./components/Navbar/Navbar";
 
+const App = ({state}: AppType) => {
 
-
-const App = ({messagesPage, profilePage, navbar, addPost}: AppPropsType) => {
-//T
     return (
             <div className='app-wrapper'>
                 <Header/>
-                <Navbar navbar={navbar}/>
+                <Navbar state={state}/>
 
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path='/dialogs'
-                               element={<Dialogs dialogs={messagesPage.dialogs}
-                                                 messages={messagesPage.messages}/>}/>
+                               element={<Dialogs dialogs={state.dialogsPage.dialogs}
+                                                 messages={state.dialogsPage.messages}/>}/>
                         <Route path='/profile'
-                               element={<Profile posts={profilePage.posts}/>}/>
+                               element={<Profile posts={state.profilePage.posts}/>}/>
                         <Route path='/news'
                                element={<News/>}/>
                         <Route path='/music'

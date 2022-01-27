@@ -5,50 +5,57 @@ export type MessagePropsType = {
     message: string,
     id: string,
 }
+
 export type DialogItemPropsType = {
     id: string,
     name: string,
     avatar: string,
 }
+
 export type DialogsPropsType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
 }
+
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
     addPost: (postMessage: string) => void
 }
+
 export type ProfilePropsType = {
     posts: Array<PostPropsType>
 }
+
 export type PostPropsType = {
     id: string,
     message: string,
     likeCounts: number
 }
-export type SetbarType = {
+
+export type NavbarType = {
     id: string,
     name: string,
     avatar: string,
 }
 
-
-export type AppPropsType = {
-    messagesPage: DialogsPropsType,
+export type RootStateType = {
+    dialogsPage: DialogsPropsType,
     profilePage: ProfilePropsType,
-    navbar: SetbarType,
-    addPost?: (postMessage: string) => void
+    navbar: Array<NavbarType>,
 }
 
+export type AppType = {
+    state: RootStateType
+}
 
-let state: AppPropsType = {
+export let state: RootStateType = {
     profilePage: {
         posts: [
             {id: v1(), message: "Hi, how are you?", likeCounts: 15},
             {id: v1(), message: "It's my first post", likeCounts: 20}
         ],
     },
-    messagesPage: {
+    dialogsPage: {
         dialogs: [{
             id: v1(),
             name: 'Ann',
@@ -113,9 +120,8 @@ export let addMessage = (message: string) => {
         id: v1(),
         message: message,
     }
-    state.messagesPage.messages.push(newMessage)
+    state.dialogsPage.messages.push(newMessage)
     rerenderEntireTree(state)
 }
 
 
-export default state
