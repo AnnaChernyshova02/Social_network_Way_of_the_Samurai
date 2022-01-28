@@ -1,52 +1,44 @@
-import {rerenderEntireTree} from "../render";
 import {v1} from "uuid";
+
 
 export type MessagePropsType = {
     message: string,
     id: string,
 }
-
 export type DialogItemPropsType = {
     id: string,
     name: string,
     avatar: string,
 }
-
 export type DialogsPropsType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
 }
-
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
-    addPost: (postMessage: string) => void
+    addPost?: (postMessage: string) => void
+    newTextPosts: string
 }
-
-export type ProfilePropsType = {
-    posts: Array<PostPropsType>
-}
-
 export type PostPropsType = {
     id: string,
     message: string,
     likeCounts: number
 }
-
 export type NavbarType = {
     id: string,
     name: string,
     avatar: string,
 }
-
 export type RootStateType = {
     dialogsPage: DialogsPropsType,
-    profilePage: ProfilePropsType,
+    profilePage: MyPostsPropsType,
     navbar: Array<NavbarType>,
 }
-
 export type AppType = {
     state: RootStateType
 }
+
+let rerenderEntireTree: (state: RootStateType) => void;
 
 export let state: RootStateType = {
     profilePage: {
@@ -54,6 +46,7 @@ export let state: RootStateType = {
             {id: v1(), message: "Hi, how are you?", likeCounts: 15},
             {id: v1(), message: "It's my first post", likeCounts: 20}
         ],
+        newTextPosts: 'Hello',
     },
     dialogsPage: {
         dialogs: [{
@@ -105,17 +98,23 @@ export let state: RootStateType = {
         }]
 };
 
-export let addPost = (postMessage: string) => {
+export const addPost = (newTextPosts:string) => {
     const newPost: PostPropsType = {
         id: v1(),
-        message: postMessage,
+        message: state.profilePage.newTextPosts,
         likeCounts: 0
     }
     state.profilePage.posts.push(newPost);
+    state.profilePage.newTextPosts = '';
     rerenderEntireTree(state);
 }
 
-export let addMessage = (message: string) => {
+export const newPostText = (newText: string) => {
+    state.profilePage.newTextPosts = newText;
+    rerenderEntireTree(state);
+}
+
+export const addMessage = (message: string) => {
     let newMessage = {
         id: v1(),
         message: message,
@@ -124,4 +123,7 @@ export let addMessage = (message: string) => {
     rerenderEntireTree(state)
 }
 
+export const subscribe = (observer: (state: RootStateType)=> void) => {
 
+    rerenderEntireTree = observer
+}

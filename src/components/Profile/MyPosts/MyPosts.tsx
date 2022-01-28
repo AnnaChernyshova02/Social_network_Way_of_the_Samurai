@@ -1,27 +1,36 @@
-import React, {createRef, useRef} from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPost, MyPostsPropsType} from "../../../Redux/State";
+import {addPost, MyPostsPropsType, newPostText} from "../../../Redux/State";
 
-function MyPosts({posts}: MyPostsPropsType) {
+function MyPosts({posts, newTextPosts}: MyPostsPropsType) {
 
-    let postsElement = posts.map(p => <Post id={p.id} message={p.message} likeCounts={p.likeCounts}/>)
-    let newPostElement = createRef<HTMLTextAreaElement>();
+    let postsElement = posts.map(p => <Post id={p.id}
+                                            message={p.message}
+                                            likeCounts={p.likeCounts}/>)
 
     let addPosts = () => {
-        if (newPostElement.current) {
-            addPost(newPostElement.current.value)
-        }
+        addPost(newTextPosts);
     }
+
+    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+            newPostText(e.currentTarget.value)
+        }
+
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea ref={newPostElement}/>
+                    <textarea
+                        onChange={onPostChange}
+                        value={newTextPosts}/>
                 </div>
                 <div>
-                    <button onClick={addPosts}>Add post</button>
+                    <button
+                        onClick={addPosts}>
+                        Add post
+                    </button>
                 </div>
             </div>
             <div className={s.posts}>

@@ -7,7 +7,7 @@ import Profile from "./components/Profile/Profile";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {AppType} from "./Redux/State";
+import {AppType, newPostText} from "./Redux/State";
 import Navbar from "./components/Navbar/Navbar";
 
 const App = ({state}: AppType) => {
@@ -23,7 +23,9 @@ const App = ({state}: AppType) => {
                                element={<Dialogs dialogs={state.dialogsPage.dialogs}
                                                  messages={state.dialogsPage.messages}/>}/>
                         <Route path='/profile'
-                               element={<Profile posts={state.profilePage.posts}/>}/>
+                               element={<Profile posts={state.profilePage.posts}
+                                                 newTextPosts={state.profilePage.newTextPosts}
+                               />}/>
                         <Route path='/news'
                                element={<News/>}/>
                         <Route path='/music'
