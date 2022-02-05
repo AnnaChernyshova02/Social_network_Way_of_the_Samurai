@@ -3,6 +3,7 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {addPost, MyPostsPropsType, newPostText} from "../../../Redux/State";
 
+
 function MyPosts({posts, newTextPosts}: MyPostsPropsType) {
 
     let postsElement = posts.map(p => <Post id={p.id}

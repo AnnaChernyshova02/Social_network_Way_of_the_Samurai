@@ -33,6 +33,10 @@ export type RootStateType = {
     dialogsPage: DialogsPropsType,
     profilePage: MyPostsPropsType,
     navbar: Array<NavbarType>,
+    setAddPost?: (newTextPosts: string) => void,
+    getNewPostText?: (newText: string) => void,
+    setAddMessage?: (message: string) => void,
+    subscribe?: (observer: (state: RootStateType) => void) => void
 }
 export type AppType = {
     state: RootStateType
@@ -49,11 +53,12 @@ export let state: RootStateType = {
         newTextPosts: 'Hello',
     },
     dialogsPage: {
-        dialogs: [{
-            id: v1(),
-            name: 'Ann',
-            avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdvWUjEhawZyijnjoMfam1uBVZ-2zM6VtOBvfVZKBdPPpNGw_HQad3GAe_kH03AvBPNq4&usqp=CAU'
-        },
+        dialogs: [
+            {
+                id: v1(),
+                name: 'Ann',
+                avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdvWUjEhawZyijnjoMfam1uBVZ-2zM6VtOBvfVZKBdPPpNGw_HQad3GAe_kH03AvBPNq4&usqp=CAU'
+            },
             {
                 id: v1(),
                 name: 'Natasha',
@@ -81,11 +86,12 @@ export let state: RootStateType = {
             {id: v1(), message: 'Yo'},
         ]
     },
-    navbar: [{
-        id: v1(),
-        name: 'Ann',
-        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdvWUjEhawZyijnjoMfam1uBVZ-2zM6VtOBvfVZKBdPPpNGw_HQad3GAe_kH03AvBPNq4&usqp=CAU'
-    },
+    navbar: [
+        {
+            id: v1(),
+            name: 'Ann',
+            avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdvWUjEhawZyijnjoMfam1uBVZ-2zM6VtOBvfVZKBdPPpNGw_HQad3GAe_kH03AvBPNq4&usqp=CAU'
+        },
         {
             id: v1(),
             name: 'Natasha',
@@ -95,10 +101,40 @@ export let state: RootStateType = {
             id: v1(),
             name: 'Dima',
             avatar: 'https://картинки-для-срисовки.рф/media/posts_admins/gadkij-ya/gadkij-ya-minon-s-gitaroj.jpg'
-        }]
+        }],
+
+    // setAddPost(newTextPosts: string) {
+    //     const newPost: PostPropsType = {
+    //         id: v1(),
+    //         message: this.profilePage.newTextPosts,
+    //         likeCounts: 0
+    //     }
+    //     this.profilePage.posts.push(newPost);
+    //     this.profilePage.newTextPosts = '';
+    //     rerenderEntireTree(state);
+    // },
+    //
+    // getNewPostText(newText: string) {
+    //     this.profilePage.newTextPosts = newText;
+    //     rerenderEntireTree(state);
+    // },
+    //
+    // setAddMessage(message: string) {
+    //     let newMessage = {
+    //         id: v1(),
+    //         message: message,
+    //     }
+    //     this.dialogsPage.messages.push(newMessage)
+    //     rerenderEntireTree(state)
+    // },
+    //
+    // subscribe (observer: (state: RootStateType) => void) {
+    //     rerenderEntireTree = observer;
+    // }
+
 };
 
-export const addPost = (newTextPosts:string) => {
+export const addPost = (newTextPosts: string) => {
     const newPost: PostPropsType = {
         id: v1(),
         message: state.profilePage.newTextPosts,
@@ -123,7 +159,7 @@ export const addMessage = (message: string) => {
     rerenderEntireTree(state)
 }
 
-export const subscribe = (observer: (state: RootStateType)=> void) => {
+export const subscribe = (observer: (state: RootStateType) => void) => {
 
     rerenderEntireTree = observer
 }
