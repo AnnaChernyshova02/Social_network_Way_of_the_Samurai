@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Message.module.css';
-import {MessagePropsType, state} from "../../../Redux/State";
+import {MessagePropsType} from "../../../Redux/State";
 
 const Message = ({message, id}: MessagePropsType) => {
     return (<div className={s.speechWrapper}>

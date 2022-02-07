@@ -1,11 +1,15 @@
 import React from "react";
 import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-import {AppType, RootStateType} from "../../Redux/State";
+import {NavbarType} from "../../Redux/State";
 
-const Navbar = ({state}: AppType) => {
+type NavType = {
+    navbar: Array<NavbarType>
+}
 
-    let navbarElement = state.navbar.map(n => <NavLink to={"/dialogs/" + n.id} className={s.friend}>
+const Navbar = ({navbar}: NavType) => {
+
+    let navbarElement = navbar.map(n => <NavLink key={n.id} to={"/dialogs/" + n.id} className={s.friend}>
                                             <img src={n.avatar} alt={'avatar'}/>{n.name}</NavLink>);
 
     return <nav className={s.nav}>

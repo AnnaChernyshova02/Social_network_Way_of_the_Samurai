@@ -1,5 +1,5 @@
 import React, {createRef} from "react";
-import {addMessage} from "../../../Redux/State";
+import {store} from "../../../Redux/State";
 
 
 const AddMessage = () => {
@@ -8,7 +8,7 @@ const AddMessage = () => {
 
     let addMessages = () => {
         if (newMessageElement.current) {
-            addMessage(newMessageElement.current.value)
+            store.addMessage(newMessageElement.current.value)
         }
     }
 

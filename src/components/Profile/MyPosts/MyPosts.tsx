@@ -1,12 +1,19 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {addPost, MyPostsPropsType, newPostText} from "../../../Redux/State";
+import {PostPropsType} from "../../../Redux/State";
 
+type NewPostType = {
+    posts: Array<PostPropsType>
+    addPost: (newTextPosts: string) => void
+    newPostText: (newText: string) => void
+    newTextPosts: string
+}
 
-function MyPosts({posts, newTextPosts}: MyPostsPropsType) {
+function MyPosts({addPost, newPostText, posts, newTextPosts}: NewPostType) {
 
-    let postsElement = posts.map(p => <Post id={p.id}
+    let postsElement = posts.map(p => <Post key={p.id}
+                                            id={p.id}
                                             message={p.message}
                                             likeCounts={p.likeCounts}/>)
 
@@ -14,9 +21,13 @@ function MyPosts({posts, newTextPosts}: MyPostsPropsType) {
         addPost(newTextPosts);
     }
 
+    console.log(newTextPosts)
+
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-            newPostText(e.currentTarget.value)
-        }
+        newPostText(e.currentTarget.value)
+    }
+
+    console.log(newPostText)
 
     return (
         <div className={s.postsBlock}>
