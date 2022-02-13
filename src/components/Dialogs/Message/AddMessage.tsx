@@ -1,14 +1,19 @@
 import React, {createRef} from "react";
-import {store} from "../../../Redux/State";
+import {AchionsType} from "../../../Redux/State";
 
+type AddMessagePropsType = {
+    dispatch: (action: AchionsType) => void
+}
 
-const AddMessage = () => {
+const AddMessage = ({dispatch}:AddMessagePropsType) => {
 
     let newMessageElement = createRef<HTMLInputElement>();
 
     let addMessages = () => {
         if (newMessageElement.current) {
-            store.addMessage(newMessageElement.current.value)
+           let message =  newMessageElement.current.value
+            dispatch({type: "ADD-MESSAGE", message: message})
+
         }
     }
 

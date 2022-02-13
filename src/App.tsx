@@ -28,10 +28,10 @@ const App = ({store}: PropsType) => {
                         <Route path='/dialogs'
                                element={<Dialogs dialogs={state.dialogsPage.dialogs}
                                                  messages={state.dialogsPage.messages}
+                                                 dispatch={store.dispatch.bind(store)}
                                />}/>
                         <Route path='/profile'
-                               element={<Profile addPost={store.addPost.bind(store)}
-                                                 newPostText={store.newPostText.bind(store)}
+                               element={<Profile dispatch={store.dispatch.bind(store)}
                                                  posts={state.profilePage.posts}
                                                  newTextPosts={state.profilePage.newTextPosts}
                                />}/>

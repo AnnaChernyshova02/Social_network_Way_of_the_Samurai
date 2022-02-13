@@ -32,16 +32,33 @@ export type RootStateType = {
     profilePage: MyPostsPropsType,
     navbar: Array<NavbarType>,
 }
+export type AddPostActionType = {
+    type: 'ADD-POST'
+}
+
+export type NewPostTextType = {
+    type: 'NEW-POST-TEXT'
+    newText:string
+}
+
+export type AddMessageType = {
+    type: 'ADD-MESSAGE'
+    message:string
+}
+
+export type AchionsType = AddPostActionType | NewPostTextType | AddMessageType
 
 export type StoreType = {
     _state: RootStateType,
-    addPost: (newTextPosts: string) => void
-    newPostText: (newText: string) => void
-    addMessage: (message: string) => void
-    subscribe: (observer: (state: RootStateType) => void) => void
     _callSubscriber: (state: RootStateType) => void
+    //addPost: (newTextPosts: string) => void
+    //newPostText: (newText: string) => void
+    //addMessage: (message: string) => void
+    subscribe: (observer: (state: RootStateType) => void) => void
     getState: () => RootStateType
+    dispatch: (action: AchionsType) => void
 }
+
 
 export const store: StoreType = {
     _state: {
@@ -103,26 +120,26 @@ export const store: StoreType = {
                 avatar: 'https://картинки-для-срисовки.рф/media/posts_admins/gadkij-ya/gadkij-ya-minon-s-gitaroj.jpg'
             }],
     },
-    getState() {
-        return this._state;
-    },
     _callSubscriber(state: RootStateType) {
         console.log('hello')
     },
-    addPost(newTextPosts: string) {
-        const newPost: PostPropsType = {
-            id: v1(),
-            message: this._state.profilePage.newTextPosts,
-            likeCounts: 0
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newTextPosts = '';
-        this._callSubscriber(this._state);
+    getState() {
+        return this._state;
     },
-    newPostText(newText: string) {
-        this._state.profilePage.newTextPosts = newText;
-        this._callSubscriber(this._state);
-    },
+    /*        addPost(newTextPosts: string) {
+            const newPost: PostPropsType = {
+                id: v1(),
+                message: this._state.profilePage.newTextPosts,
+                likeCounts: 0
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newTextPosts = '';
+            this._callSubscriber(this._state);
+        },
+        newPostText(newText: string) {
+            this._state.profilePage.newTextPosts = newText;
+            this._callSubscriber(this._state);
+        },
     addMessage(message: string) {
         let newMessage = {
             id: v1(),
@@ -130,6 +147,30 @@ export const store: StoreType = {
         }
         this._state.dialogsPage.messages.push(newMessage)
         this._callSubscriber(this._state)
+    },*/
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost: PostPropsType = {
+                id: v1(),
+                message: this._state.profilePage.newTextPosts,
+                likeCounts: 0
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newTextPosts = '';
+            this._callSubscriber(this._state);
+        }
+        else if (action.type === 'NEW-POST-TEXT') {
+            this._state.profilePage.newTextPosts = action.newText;
+            this._callSubscriber(this._state);
+        }
+        else if(action.type === 'ADD-MESSAGE'){
+            let newMessage = {
+                id: v1(),
+                message: action.message,
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._callSubscriber(this._state)
+        }
     },
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer;

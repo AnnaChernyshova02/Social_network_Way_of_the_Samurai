@@ -1,22 +1,21 @@
 import React from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {PostPropsType} from "../../Redux/State";
+import {AchionsType, PostPropsType} from "../../Redux/State";
 
-type NewPostType = {
+export type NewPostType = {
     posts: Array<PostPropsType>
-    addPost: (newTextPosts: string) => void
-    newPostText: (newText: string) => void
     newTextPosts: string
+    dispatch: (action: AchionsType) => void
 }
 
-function Profile({posts, newTextPosts, addPost, newPostText}: NewPostType) {
+function Profile({posts, newTextPosts, dispatch}: NewPostType) {
 
     return <div>
         <ProfileInfo/>
         <MyPosts posts={posts}
-                 addPost={addPost}
-                 newPostText={newPostText}
+                 dispatch={dispatch}
+
                  newTextPosts={newTextPosts}
         />
     </div>
