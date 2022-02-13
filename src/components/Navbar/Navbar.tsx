@@ -3,7 +3,7 @@ import s from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
 import {NavbarType} from "../../Redux/State";
 
-type NavType = {
+export type NavType = {
     navbar: Array<NavbarType>
 }
 
@@ -15,6 +15,7 @@ const Navbar = ({navbar}: NavType) => {
 
 
     return <nav className={s.nav}>
+
         <div className={`${s.item} ${s.activeLink}`}>
             <NavLink to={'/profile'} className={s.activeLink}>Profile</NavLink>
         </div>

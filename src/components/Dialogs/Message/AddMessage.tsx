@@ -1,5 +1,7 @@
 import React, {createRef} from "react";
-import {AchionsType, addMessageAction} from "../../../Redux/State";
+import {AchionsType} from "../../../Redux/State";
+import s from './Message.module.css'
+import {addMessageAction} from "../../../Redux/dialogs-reducer";
 
 type AddMessagePropsType = {
     dispatch: (action: AchionsType) => void
@@ -17,10 +19,11 @@ const AddMessage = ({dispatch}:AddMessagePropsType) => {
         }
     }
 
-    return <div>
-        <input ref={newMessageElement}/>
+
+    return <div >
+        <input className={s.inputt} placeholder={'Enter your message'} ref={newMessageElement}/>
         <div>
-            <button onClick={addMessages}>Add post</button>
+            <button className={s.button} onClick={addMessages}>Add post</button>
         </div>
     </div>
 }

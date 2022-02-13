@@ -1,8 +1,7 @@
 import {v1} from "uuid";
-
-const ADD_POST = 'ADD-POST';
-const NEW_POST_TEXT = 'NEW-POST-TEXT';
-const ADD_MESSAGE = "ADD-MESSAGE";
+import ProfileReducer, {addPostAction, newPostTextAction} from "./profile-reducer";
+import DialogsReducer, {addMessageAction} from "./dialogs-reducer";
+import NavbarReducer from "./navbar-reducer";
 
 export type MessagePropsType = {
     message: string,
@@ -48,22 +47,6 @@ export type StoreType = {
     subscribe: (observer: (state: RootStateType) => void) => void
     getState: () => RootStateType
     dispatch: (action: AchionsType) => void
-}
-
-export const addPostAction = () => ({type: ADD_POST} as const)
-
-export const newPostTextAction = (text: string) => {
-    return {
-        type: 'NEW-POST-TEXT',
-        newText: text
-    } as const
-}
-
-export const addMessageAction = (message: string) => {
-    return {
-        type: "ADD-MESSAGE",
-        message: message
-    } as const
 }
 
 export const store: StoreType = {
@@ -133,58 +116,13 @@ export const store: StoreType = {
         return this._state;
     },
     dispatch: function (action) {
-        if (action.type === ADD_POST) {
-            const newPost: PostPropsType = {
-                id: v1(),
-                message: this._state.profilePage.newTextPosts,
-                likeCounts: 0
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newTextPosts = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === NEW_POST_TEXT) {
-            this._state.profilePage.newTextPosts = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === ADD_MESSAGE) {
-            let newMessage = {
-                id: v1(),
-                message: action.message,
-            }
-            this._state.dialogsPage.messages.push(newMessage)
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = DialogsReducer(this._state.dialogsPage, action);
+        this._state.navbar = NavbarReducer(this._state.navbar, action);
+        this._callSubscriber(this._state)
     },
     subscribe(observer: (state: RootStateType) => void) {
         this._callSubscriber = observer;
     },
 
 };
-
-
-
-
-
-
-
-/*        addPost(newTextPosts: string) {
-        const newPost: PostPropsType = {
-            id: v1(),
-            message: this._state.profilePage.newTextPosts,
-            likeCounts: 0
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newTextPosts = '';
-        this._callSubscriber(this._state);
-    },
-    newPostText(newText: string) {
-        this._state.profilePage.newTextPosts = newText;
-        this._callSubscriber(this._state);
-    },
-addMessage(message: string) {
-    let newMessage = {
-        id: v1(),
-        message: message,
-    }
-    this._state.dialogsPage.messages.push(newMessage)
-    this._callSubscriber(this._state)
-},*/

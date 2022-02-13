@@ -1,6 +1,8 @@
 .dialogs {
+    margin: 5px;
     display: grid;
-    grid-template-columns: 2fr 10fr;
+    grid-template-areas: 'n m';
+    grid-template-columns: 20% 80%;
 }
 
 .message{
@@ -8,5 +10,24 @@
     color: lightyellow;
 }
 
+.friends {
+    padding-top: 150px;
+    font-size: 27px;
+    font-style: italic;
+    color: white;
+}
 
+.friends img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    padding: 10px;
+    vertical-align: middle;
+
+}
+
+.friend {
+    font-size: 15px;
+    color: lightyellow;
+}
 

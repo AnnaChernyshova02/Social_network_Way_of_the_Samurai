@@ -2,7 +2,8 @@ import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {NewPostType} from "../Profile";
-import {addPostAction, newPostTextAction} from "../../../Redux/State";
+import {addPostAction, newPostTextAction} from "../../../Redux/profile-reducer";
+
 
 function MyPosts({posts, newTextPosts, dispatch}: NewPostType) {
 
@@ -14,7 +15,6 @@ function MyPosts({posts, newTextPosts, dispatch}: NewPostType) {
     let addPosts = () => {
         //addPost(newTextPosts);
         dispatch(addPostAction())
-
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

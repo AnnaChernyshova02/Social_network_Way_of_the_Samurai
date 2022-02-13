@@ -2,7 +2,7 @@ import React from "react";
 import './App.css';
 import Header from "./components/Header/Header";
 import Dialogs from "./components/Dialogs/Dialogs";
-import {Routes, Route} from 'react-router-dom';
+import {Routes, Route, Navigate} from 'react-router-dom';
 import Profile from "./components/Profile/Profile";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -25,6 +25,7 @@ const App = ({store}: PropsType) => {
 
                 <div className='app-wrapper-content'>
                     <Routes>
+                        <Route path={'/'} element={<Navigate to={'/components/Profile/Profile'}/>}/>
                         <Route path='/dialogs'
                                element={<Dialogs dialogs={state.dialogsPage.dialogs}
                                                  messages={state.dialogsPage.messages}

@@ -3,6 +3,7 @@ import s from './Message.module.css';
 import {MessagePropsType} from "../../../Redux/State";
 
 const Message = ({message}: MessagePropsType) => {
+
     return (<div className={s.speechWrapper}>
             <div className={s.bubble}>
                 <div className={s.txt}>
