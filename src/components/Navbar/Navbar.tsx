@@ -12,6 +12,8 @@ const Navbar = ({navbar}: NavType) => {
     let navbarElement = navbar.map(n => <NavLink key={n.id} to={"/dialogs/" + n.id} className={s.friend}>
                                             <img src={n.avatar} alt={'avatar'}/>{n.name}</NavLink>);
 
+
+
     return <nav className={s.nav}>
         <div className={`${s.item} ${s.activeLink}`}>
             <NavLink to={'/profile'} className={s.activeLink}>Profile</NavLink>

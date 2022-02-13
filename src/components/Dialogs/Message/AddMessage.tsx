@@ -1,5 +1,5 @@
 import React, {createRef} from "react";
-import {AchionsType} from "../../../Redux/State";
+import {AchionsType, addMessageAction} from "../../../Redux/State";
 
 type AddMessagePropsType = {
     dispatch: (action: AchionsType) => void
@@ -12,7 +12,7 @@ const AddMessage = ({dispatch}:AddMessagePropsType) => {
     let addMessages = () => {
         if (newMessageElement.current) {
            let message =  newMessageElement.current.value
-            dispatch({type: "ADD-MESSAGE", message: message})
+            dispatch(addMessageAction(message))
 
         }
     }
