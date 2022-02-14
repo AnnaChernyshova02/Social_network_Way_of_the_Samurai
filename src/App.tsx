@@ -8,10 +8,11 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
-import {StoreType} from "./Redux/State";
+import {AchionsType, DialogsPropsType, MyPostsPropsType, NavbarType} from "./Redux/State";
+import {EmptyObject, Store} from "redux";
 
 export type PropsType = {
-    store: StoreType
+    store: Store<EmptyObject & { profilePage: MyPostsPropsType; dialogsPage: DialogsPropsType; navbar: NavbarType[]; }, AchionsType>
 }
 
 const App = ({store}: PropsType) => {

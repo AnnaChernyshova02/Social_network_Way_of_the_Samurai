@@ -15,7 +15,15 @@ export const newPostTextAction = (text: string) => {
     } as const
 }
 
-const ProfileReducer = (state: MyPostsPropsType, action: AchionsType) => {
+let initialState: MyPostsPropsType = {
+    posts: [
+        {id: v1(), message: "Hi, how are you?", likeCounts: 15},
+        {id: v1(), message: "It's my first post", likeCounts: 20}
+    ],
+    newTextPosts: 'Hello'
+}
+
+const profileReducer = (state = initialState, action: AchionsType) => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostPropsType = {
@@ -33,4 +41,4 @@ const ProfileReducer = (state: MyPostsPropsType, action: AchionsType) => {
             return state;
     }
 };
-export default ProfileReducer;
+export default profileReducer;
