@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {AchionsType, DialogsPropsType, MyPostsPropsType} from "./State";
+import {AchionsType, DialogsPropsType, MyPostsPropsType} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
 

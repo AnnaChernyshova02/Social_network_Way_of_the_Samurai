@@ -2,19 +2,15 @@ import React from "react";
 import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
-import AddMessage from "./Message/AddMessage";
-import {AchionsType, DialogItemPropsType, MessagePropsType} from "../../Redux/State";
+import {PropsType} from "../../App";
+import AddMessageContainer from "./Message/AddMessageContainer";
 
-type DialogsNewPropsType = {
-    dialogs: Array<DialogItemPropsType>
-    messages: Array<MessagePropsType>
-    dispatch: (action: AchionsType) => void
-}
+const Dialogs = ({store}: PropsType) => {
 
-const Dialogs = ({dialogs, messages, dispatch}: DialogsNewPropsType) => {
+    let state = store.getState();
 
-    let dialogsElement = dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>);
-    let messageElement = messages.map(m => <Message message={m.message} id={m.id}/>);
+    let dialogsElement = state.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>);
+    let messageElement = state.dialogsPage.messages.map(m => <Message message={m.message} id={m.id}/>);
 
     return (
         <div className={s.dialogs}>
@@ -23,7 +19,7 @@ const Dialogs = ({dialogs, messages, dispatch}: DialogsNewPropsType) => {
             </div>
             <div>
                 {messageElement}
-                <AddMessage dispatch={dispatch}/>
+                <AddMessageContainer store={store}/>
             </div>
         </div>
     )

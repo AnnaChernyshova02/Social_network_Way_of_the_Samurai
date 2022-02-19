@@ -8,7 +8,7 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
-import {AchionsType, DialogsPropsType, MyPostsPropsType, NavbarType} from "./Redux/State";
+import {AchionsType, DialogsPropsType, MyPostsPropsType, NavbarType} from "./Redux/store";
 import {EmptyObject, Store} from "redux";
 
 export type PropsType = {
@@ -28,15 +28,9 @@ const App = ({store}: PropsType) => {
                     <Routes>
                         <Route path={'/'} element={<Navigate to={'/components/Profile/Profile'}/>}/>
                         <Route path='/dialogs'
-                               element={<Dialogs dialogs={state.dialogsPage.dialogs}
-                                                 messages={state.dialogsPage.messages}
-                                                 dispatch={store.dispatch.bind(store)}
-                               />}/>
+                               element={<Dialogs store={store}/>}/>
                         <Route path='/profile'
-                               element={<Profile dispatch={store.dispatch.bind(store)}
-                                                 posts={state.profilePage.posts}
-                                                 newTextPosts={state.profilePage.newTextPosts}
-                               />}/>
+                               element={<Profile store={store}/>}/>
                         <Route path='/news'
                                element={<News/>}/>
                         <Route path='/music'

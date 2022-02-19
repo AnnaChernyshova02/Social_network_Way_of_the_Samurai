@@ -1,29 +1,21 @@
-import React, {createRef} from "react";
-import {AchionsType} from "../../../Redux/State";
+import React, {RefObject} from "react";
 import s from './Message.module.css'
-import {addMessageAction} from "../../../Redux/dialogs-reducer";
 
 type AddMessagePropsType = {
-    dispatch: (action: AchionsType) => void
+    newMessageElement: RefObject<HTMLInputElement>
+    onClick: ()=> void
 }
 
-const AddMessage = ({dispatch}:AddMessagePropsType) => {
+const AddMessage = ({newMessageElement,onClick}:AddMessagePropsType) => {
 
-    let newMessageElement = createRef<HTMLInputElement>();
-
-    let addMessages = () => {
-        if (newMessageElement.current) {
-           let message =  newMessageElement.current.value
-            dispatch(addMessageAction(message))
-
-        }
+    let addMessages = (newMessageElement: string) => {
+        addMessages(newMessageElement)
     }
 
-
-    return <div >
+    return <div>
         <input className={s.inputt} placeholder={'Enter your message'} ref={newMessageElement}/>
         <div>
-            <button className={s.button} onClick={addMessages}>Add post</button>
+            <button className={s.button} onClick={onClick}>Add post</button>
         </div>
     </div>
 }

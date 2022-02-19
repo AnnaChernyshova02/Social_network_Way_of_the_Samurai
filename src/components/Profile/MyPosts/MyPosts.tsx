@@ -1,11 +1,17 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {NewPostType} from "../Profile";
-import {addPostAction, newPostTextAction} from "../../../Redux/profile-reducer";
+import {PostPropsType} from "../../../Redux/store";
+
+type MyPostsType = {
+    updateNewPostText: (text: string) => void
+    posts: Array<PostPropsType>
+    newTextPosts: string
+    addPost: (newTextPosts: string)=> void
+}
 
 
-function MyPosts({posts, newTextPosts, dispatch}: NewPostType) {
+function MyPosts({posts, newTextPosts, updateNewPostText, addPost}: MyPostsType) {
 
     let postsElement = posts.map(p => <Post key={p.id}
                                             id={p.id}
@@ -13,14 +19,14 @@ function MyPosts({posts, newTextPosts, dispatch}: NewPostType) {
                                             likeCounts={p.likeCounts}/>)
 
     let addPosts = () => {
-        //addPost(newTextPosts);
-        dispatch(addPostAction())
+        addPost(newTextPosts);
+        //dispatch(addPostAction())
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
-        //newPostText(e.currentTarget.value)
-        dispatch(newPostTextAction(text))
+        updateNewPostText(text)
+
     }
 
     return (

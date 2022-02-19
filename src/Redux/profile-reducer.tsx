@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {AchionsType, MyPostsPropsType, PostPropsType} from "./State";
+import {AchionsType, MyPostsPropsType, PostPropsType} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const NEW_POST_TEXT = 'NEW-POST-TEXT';

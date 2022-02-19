@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {AchionsType, DialogsPropsType, NavbarType} from "./State";
+import {AchionsType, DialogsPropsType, NavbarType} from "./store";
 
 let initialState: NavbarType[] =
     [
