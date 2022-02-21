@@ -1,12 +1,15 @@
 import React from 'react';
 import {v1} from "uuid";
-import {AchionsType, DialogsPropsType, MyPostsPropsType} from "./store";
+import {AchionsType, DialogsPropsType, MessagePropsType} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
+const NEW_MESSAGE = "NEW-MESSAGE";
 
-export const addMessageAction = (message: string) => {
+export const addMessageAction = () => ({type: ADD_MESSAGE} as const)
+
+export const newMessageAction = (message: string) => {
     return {
-        type: "ADD-MESSAGE",
+        type: "NEW-MESSAGE",
         message: message
     } as const
 }
@@ -43,20 +46,31 @@ let initialState: DialogsPropsType = {
         {id: v1(), message: 'hi'},
         {id: v1(), message: 'Hello'},
         {id: v1(), message: 'Yo'},
-    ]
+    ],
+    newMessage: ''
 }
 
 const dialogsReducer = (state= initialState, action: AchionsType) => {
 
+    let copyState = {
+        ...state,
+        dialogs: [...state.dialogs],
+        messages: [...state.messages]
+    }
+
     switch (action.type) {
         case ADD_MESSAGE:
-            let newMessage = {
+            let newMessage: MessagePropsType = {
                 id: v1(),
-                message: action.message,
+                message: state.newMessage,
             }
-            state.messages.push(newMessage)
-            return state;
-        default:
+            copyState.messages.push(newMessage);
+            copyState.newMessage = '';
+            return copyState;
+        case NEW_MESSAGE:
+            copyState.newMessage = action.message;
+            return copyState;
+                    default:
             return state;
     }
 };

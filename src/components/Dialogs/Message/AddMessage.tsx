@@ -1,21 +1,32 @@
-import React, {RefObject} from "react";
+import React, {ChangeEvent} from "react";
 import s from './Message.module.css'
+import {DialogsPropsType} from "../../../Redux/store";
 
 type AddMessagePropsType = {
-    newMessageElement: RefObject<HTMLInputElement>
-    onClick: ()=> void
+    dialogsPage: DialogsPropsType
+    addMessage: ()=> void
+    updateNewMessageText: (message:string)=> void
 }
 
-const AddMessage = ({newMessageElement,onClick}:AddMessagePropsType) => {
+const AddMessage = ({addMessage, updateNewMessageText, dialogsPage}: AddMessagePropsType) => {
 
-    let addMessages = (newMessageElement: string) => {
-        addMessages(newMessageElement)
+
+    let addMessages = () => {
+        addMessage()
+    }
+
+    let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        let message = e.currentTarget.value
+        updateNewMessageText(message)
     }
 
     return <div>
-        <input className={s.inputt} placeholder={'Enter your message'} ref={newMessageElement}/>
+        <textarea className={s.inputt}
+                  placeholder={'Enter your message'}
+                  onChange={onMessageChange}
+                  value={dialogsPage.newMessage}/>
         <div>
-            <button className={s.button} onClick={onClick}>Add post</button>
+            <button className={s.button} onClick={addMessages}>Send</button>
         </div>
     </div>
 }

@@ -1,33 +1,33 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
-import {PostPropsType} from "../../../Redux/store";
+import {MyPostsPropsType} from "../../../Redux/store";
 
 type MyPostsType = {
     updateNewPostText: (text: string) => void
-    posts: Array<PostPropsType>
-    newTextPosts: string
-    addPost: (newTextPosts: string)=> void
+    addPost: ()=> void
+    profilePage: MyPostsPropsType
 }
 
+function MyPosts({updateNewPostText, addPost, profilePage}: MyPostsType) {
 
-function MyPosts({posts, newTextPosts, updateNewPostText, addPost}: MyPostsType) {
-
-    let postsElement = posts.map(p => <Post key={p.id}
+    let postsElement = profilePage.posts.map(p => <Post key={p.id}
                                             id={p.id}
                                             message={p.message}
                                             likeCounts={p.likeCounts}/>)
 
     let addPosts = () => {
-        addPost(newTextPosts);
-        //dispatch(addPostAction())
+        addPost();
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let text = e.currentTarget.value
         updateNewPostText(text)
-
     }
+
+/*    const onKeyUpAddPost = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        e.key === "Enter" && addPosts()
+    }*/
 
     return (
         <div className={s.postsBlock}>
@@ -36,7 +36,8 @@ function MyPosts({posts, newTextPosts, updateNewPostText, addPost}: MyPostsType)
                 <div>
                     <textarea
                         onChange={onPostChange}
-                        value={newTextPosts}/>
+                        value={profilePage.newTextPosts}
+                    /*onKeyUp={onKeyUpAddPost}*//>
                 </div>
                 <div>
                     <button

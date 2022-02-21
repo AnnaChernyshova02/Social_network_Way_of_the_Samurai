@@ -1,29 +1,41 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import {addPostAction, newPostTextAction} from "../../../Redux/profile-reducer";
-import {PropsType} from "../../../App";
 import MyPosts from "./MyPosts";
+import {connect} from "react-redux";
+import {AchionsType, MyPostsPropsType, RootStateType} from "../../../Redux/store";
 
-
-type MyPostsContainerType = PropsType & {
-
+type MapStatePropsType = {
+    profilePage: MyPostsPropsType
 }
 
-function MyPostsContainer({store}: MyPostsContainerType) {
-
-    let state = store.getState()
-
-    let addPost = () => {
-        store.dispatch(addPostAction())
-    }
-
-    let onPostChange = (text: string) => {
-        store.dispatch(newPostTextAction(text))
-    }
- return <MyPosts updateNewPostText={onPostChange}
-                 posts={state.profilePage.posts}
-                 newTextPosts={state.profilePage.newTextPosts}
-                 addPost={addPost}/>
+type mapDispatchPropsType = {
+    addPost: () => void,
+    updateNewPostText: (text: string) => void
 }
+
+
+const mapStateToProps = (state: RootStateType): MapStatePropsType => {
+    return {
+        profilePage: state.profilePage
+    }
+}
+
+const mapDispatchToProps = (dispatch: (action: AchionsType) => void): mapDispatchPropsType => {
+
+    return {
+        addPost: () => {
+            dispatch(addPostAction())
+        },
+
+        updateNewPostText: (text: string) => {
+            dispatch(newPostTextAction(text))
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer;
+
+
 

@@ -24,6 +24,12 @@ let initialState: MyPostsPropsType = {
 }
 
 const profileReducer = (state = initialState, action: AchionsType) => {
+
+    let copyState = {
+        ...state,
+        posts: [...state.posts]
+    }
+
     switch (action.type) {
         case ADD_POST:
             const newPost: PostPropsType = {
@@ -31,12 +37,12 @@ const profileReducer = (state = initialState, action: AchionsType) => {
                 message: state.newTextPosts,
                 likeCounts: 0
             }
-            state.posts.push(newPost);
-            state.newTextPosts = '';
-            return state;
+            copyState.posts.push(newPost);
+            copyState.newTextPosts = '';
+            return copyState;
         case NEW_POST_TEXT:
-            state.newTextPosts = action.newText;
-            return state;
+            copyState.newTextPosts = action.newText;
+            return copyState;
         default:
             return state;
     }

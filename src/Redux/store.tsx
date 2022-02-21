@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import ProfileReducer, {addPostAction, newPostTextAction} from "./profile-reducer";
-import DialogsReducer, {addMessageAction} from "./dialogs-reducer";
+import DialogsReducer, {addMessageAction, newMessageAction} from "./dialogs-reducer";
 import NavbarReducer from "./navbar-reducer";
 
 export type MessagePropsType = {
@@ -15,7 +15,9 @@ export type DialogItemPropsType = {
 export type DialogsPropsType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
+    newMessage: string
 }
+
 export type MyPostsPropsType = {
     posts: Array<PostPropsType>
     newTextPosts: string
@@ -30,6 +32,7 @@ export type NavbarType = {
     name: string,
     avatar: string,
 }
+
 export type RootStateType = {
     dialogsPage: DialogsPropsType,
     profilePage: MyPostsPropsType,
@@ -39,7 +42,8 @@ export type RootStateType = {
 export type AchionsType =
     ReturnType<typeof addPostAction> |
     ReturnType<typeof newPostTextAction> |
-    ReturnType<typeof addMessageAction>
+    ReturnType<typeof addMessageAction> |
+    ReturnType<typeof newMessageAction>
 
 export type StoreType = {
     _state: RootStateType,
@@ -90,7 +94,8 @@ export const store: StoreType = {
                 {id: v1(), message: 'hi'},
                 {id: v1(), message: 'Hello'},
                 {id: v1(), message: 'Yo'},
-            ]
+            ],
+            newMessage: ''
         },
         navbar: [
             {

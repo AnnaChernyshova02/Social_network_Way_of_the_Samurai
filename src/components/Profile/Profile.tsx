@@ -1,13 +1,12 @@
 import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import {PropsType} from "../../App";
 
-function Profile({store}: PropsType) {
+function Profile() {
 
     return <div>
         <ProfileInfo/>
-        <MyPostsContainer store={store}/>
+        <MyPostsContainer/>
     </div>
 }
 

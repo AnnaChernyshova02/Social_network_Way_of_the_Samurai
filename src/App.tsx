@@ -10,14 +10,15 @@ import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import {AchionsType, DialogsPropsType, MyPostsPropsType, NavbarType} from "./Redux/store";
 import {EmptyObject, Store} from "redux";
+import {store} from "./Redux/redux-store";
 
 export type PropsType = {
     store: Store<EmptyObject & { profilePage: MyPostsPropsType; dialogsPage: DialogsPropsType; navbar: NavbarType[]; }, AchionsType>
 }
 
-const App = ({store}: PropsType) => {
+const App = () => {
 
-    let state = store.getState();
+    let state = store.getState()
 
     return (
             <div className='app-wrapper'>
@@ -28,9 +29,9 @@ const App = ({store}: PropsType) => {
                     <Routes>
                         <Route path={'/'} element={<Navigate to={'/components/Profile/Profile'}/>}/>
                         <Route path='/dialogs'
-                               element={<Dialogs store={store}/>}/>
+                               element={<Dialogs/>}/>
                         <Route path='/profile'
-                               element={<Profile store={store}/>}/>
+                               element={<Profile />}/>
                         <Route path='/news'
                                element={<News/>}/>
                         <Route path='/music'
