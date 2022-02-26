@@ -1,6 +1,6 @@
 import React from 'react';
 import {v1} from "uuid";
-import {AchionsType, MyPostsPropsType, PostPropsType} from "./store";
+import {AchionsType, MyPostsPropsType} from "./store";
 
 const ADD_POST = 'ADD-POST';
 const NEW_POST_TEXT = 'NEW-POST-TEXT';
@@ -24,25 +24,24 @@ let initialState: MyPostsPropsType = {
 }
 
 const profileReducer = (state = initialState, action: AchionsType) => {
-
-    let copyState = {
-        ...state,
-        posts: [...state.posts]
-    }
-
     switch (action.type) {
         case ADD_POST:
-            const newPost: PostPropsType = {
-                id: v1(),
-                message: state.newTextPosts,
-                likeCounts: 0
+            return {
+                ...state,
+                posts: [...state.posts,
+                    {
+                        id: v1(),
+                        message: state.newTextPosts,
+                        likeCounts: 0
+                    }
+                ],
+                newTextPosts: ''
             }
-            copyState.posts.push(newPost);
-            copyState.newTextPosts = '';
-            return copyState;
         case NEW_POST_TEXT:
-            copyState.newTextPosts = action.newText;
-            return copyState;
+            return {
+                ...state,
+                newTextPosts: action.newText
+            }
         default:
             return state;
     }

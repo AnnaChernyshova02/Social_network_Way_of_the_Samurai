@@ -27,11 +27,11 @@ const App = () => {
 
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path={'/'} element={<Navigate to={'/components/Profile/Profile'}/>}/>
-                        <Route path='/dialogs'
-                               element={<Dialogs/>}/>
+                        <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                         <Route path='/profile'
                                element={<Profile />}/>
+                        <Route path='/dialogs'
+                               element={<Dialogs/>}/>
                         <Route path='/news'
                                element={<News/>}/>
                         <Route path='/music'

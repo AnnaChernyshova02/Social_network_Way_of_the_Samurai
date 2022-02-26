@@ -10,12 +10,17 @@ const Dialogs = () => {
     let state = store.getState();
 
     let dialogsElement = state.dialogsPage.dialogs.map(d =>
-        <DialogItem name={d.name}
+        <DialogItem key={d.id}
                     id={d.id}
+                    name={d.name}
                     avatar={d.avatar}/>);
+
     let messageElement = state.dialogsPage.messages.map(m =>
-        <Message message={m.message}
-                 id={m.id}/>);
+        <Message
+            key={m.id}
+            id={m.id}
+            message={m.message}
+        />);
 
     return (
         <div className={s.dialogs}>

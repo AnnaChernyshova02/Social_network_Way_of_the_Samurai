@@ -50,27 +50,25 @@ let initialState: DialogsPropsType = {
     newMessage: ''
 }
 
-const dialogsReducer = (state= initialState, action: AchionsType) => {
-
-    let copyState = {
-        ...state,
-        dialogs: [...state.dialogs],
-        messages: [...state.messages]
-    }
-
+const dialogsReducer = (state = initialState, action: AchionsType) => {
     switch (action.type) {
         case ADD_MESSAGE:
-            let newMessage: MessagePropsType = {
-                id: v1(),
-                message: state.newMessage,
+            return {
+                ...state,
+                messages: [...state.messages,
+                    {
+                        id: v1(),
+                        message: state.newMessage,
+                    }
+                ],
+                newMessage: ''
             }
-            copyState.messages.push(newMessage);
-            copyState.newMessage = '';
-            return copyState;
         case NEW_MESSAGE:
-            copyState.newMessage = action.message;
-            return copyState;
-                    default:
+            return {
+                ...state,
+                newMessage: action.message
+            }
+        default:
             return state;
     }
 };
