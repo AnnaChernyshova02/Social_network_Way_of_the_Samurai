@@ -1,20 +1,31 @@
 import React from 'react';
 import {v1} from "uuid";
-import {AchionsType, DialogsPropsType, MessagePropsType} from "./store";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
 const NEW_MESSAGE = "NEW-MESSAGE";
 
-export const addMessageAction = () => ({type: ADD_MESSAGE} as const)
-
-export const newMessageAction = (message: string) => {
-    return {
-        type: "NEW-MESSAGE",
-        message: message
-    } as const
+export type DialogItemPropsType = {
+    id: string,
+    name: string,
+    avatar: string,
 }
 
-let initialState: DialogsPropsType = {
+export type MessagePropsType = {
+    message: string,
+    id: string,
+}
+
+export type initialStateType = {
+    dialogs: Array<DialogItemPropsType>
+    messages: Array<MessagePropsType>
+    newMessage: string
+}
+
+type AchionsType = ReturnType<typeof addMessageAction> |
+    ReturnType<typeof newMessageAction>
+
+
+let initialState: initialStateType = {
     dialogs: [
         {
             id: v1(),
@@ -50,7 +61,7 @@ let initialState: DialogsPropsType = {
     newMessage: ''
 }
 
-const dialogsReducer = (state = initialState, action: AchionsType) => {
+const dialogsReducer = (state: initialStateType = initialState, action: AchionsType): initialStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             return {
@@ -72,4 +83,14 @@ const dialogsReducer = (state = initialState, action: AchionsType) => {
             return state;
     }
 };
+
+export const addMessageAction = () => ({type: ADD_MESSAGE} as const)
+
+export const newMessageAction = (message: string) => {
+    return {
+        type: "NEW-MESSAGE",
+        message: message
+    } as const
+}
+
 export default dialogsReducer;

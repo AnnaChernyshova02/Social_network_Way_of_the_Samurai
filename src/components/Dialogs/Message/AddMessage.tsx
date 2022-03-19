@@ -1,15 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from './Message.module.css'
-import {DialogsPropsType} from "../../../Redux/store";
+import {DialogsType} from "./AddMessageContainer";
 
-type AddMessagePropsType = {
-    dialogsPage: DialogsPropsType
-    addMessage: ()=> void
-    updateNewMessageText: (message:string)=> void
-}
-
-const AddMessage = ({addMessage, updateNewMessageText, dialogsPage}: AddMessagePropsType) => {
-
+const AddMessage = ({addMessage, updateNewMessageText, dialogsPage}: DialogsType) => {
 
     let addMessages = () => {
         addMessage()

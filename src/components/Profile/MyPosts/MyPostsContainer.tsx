@@ -1,11 +1,12 @@
 import React from "react";
-import {addPostAction, newPostTextAction} from "../../../Redux/profile-reducer";
+import {addPostAction, initialStateType, newPostTextAction} from "../../../Redux/profile-reducer";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
-import {AchionsType, MyPostsPropsType, RootStateType} from "../../../Redux/store";
+import {Dispatch} from "redux";
+import {AppStateType} from "../../../Redux/redux-store";
 
 type MapStatePropsType = {
-    profilePage: MyPostsPropsType
+    profilePage: initialStateType
 }
 
 type mapDispatchPropsType = {
@@ -13,14 +14,16 @@ type mapDispatchPropsType = {
     updateNewPostText: (text: string) => void
 }
 
+export type MyPostsType = MapStatePropsType & mapDispatchPropsType
 
-const mapStateToProps = (state: RootStateType): MapStatePropsType => {
+
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         profilePage: state.profilePage
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: AchionsType) => void): mapDispatchPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
 
     return {
         addPost: () => {

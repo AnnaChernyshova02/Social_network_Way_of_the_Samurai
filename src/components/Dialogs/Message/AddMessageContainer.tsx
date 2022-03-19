@@ -1,17 +1,12 @@
 import React from "react";
 import AddMessage from "./AddMessage";
 import {connect} from "react-redux";
-import {AchionsType, DialogsPropsType, RootStateType} from "../../../Redux/store";
-import {addMessageAction, newMessageAction} from "../../../Redux/dialogs-reducer";
+import {addMessageAction, initialStateType, newMessageAction} from "../../../Redux/dialogs-reducer";
+import {AppStateType} from "../../../Redux/redux-store";
+import {Dispatch} from "redux";
 
 type mapStatePropsType = {
-    dialogsPage: DialogsPropsType
-}
-
-const mapStateToProps = (state: RootStateType): mapStatePropsType => {
-    return {
-        dialogsPage: state.dialogsPage
-    }
+    dialogsPage: initialStateType
 }
 
 type mapDispatchPropsType = {
@@ -19,7 +14,15 @@ type mapDispatchPropsType = {
     updateNewMessageText: (message: string ) => void
 }
 
-const mapDispatchToProps = (dispatch: (action: AchionsType) => void):mapDispatchPropsType => {
+export type DialogsType =  mapStatePropsType & mapDispatchPropsType
+
+const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch):mapDispatchPropsType => {
     return {
         addMessage: () => {
             dispatch(addMessageAction())
