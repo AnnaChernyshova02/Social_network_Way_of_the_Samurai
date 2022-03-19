@@ -7,17 +7,21 @@ import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membe
 
 function Users({follow, unfollow, usersPage, setUsers}: UsersPropsType) {
 
-    if(usersPage.users.length === 0) {
+    const getUsers = () => {
 
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
-            .then(response => {
-                setUsers (response.data.items)
-            })
+        if (usersPage.users.length === 0) {
 
+            axios
+                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => {
+                    setUsers(response.data.items)
+                })
+
+        }
     }
 
     return <div className={s.styles}>
+        <button onClick={getUsers}>Get Users</button>
         {usersPage.users.map(m => <div key={m.id}>
             <div>
                 <img className={s.photo} alt={'photos'} src={m.photos.small != null
