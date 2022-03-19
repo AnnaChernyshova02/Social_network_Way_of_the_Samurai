@@ -2,51 +2,27 @@ import React from "react";
 import s from './Users.module.css'
 import {v1} from "uuid";
 import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membership-black-area.png"
 
 function Users({follow, unfollow, usersPage, setUsers}: UsersPropsType) {
 
     if(usersPage.users.length === 0) {
-        setUsers ([
-            {
-                id: v1(),
-                photoUrl: 'https://www.ejin.ru/wp-content/uploads/2017/12/original-24.jpg',
-                followed: false,
-                fullName: 'Ann',
-                status: 'Bosss',
-                location: {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-            },
-            {
-                id: v1(),
-                photoUrl: 'https://www.ejin.ru/wp-content/uploads/2017/12/original-24.jpg',
-                followed: true,
-                fullName: 'Dima',
-                status: 'Bosss',
-                location: {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-            },
-            {
-                id: v1(),
-                photoUrl: 'https://www.ejin.ru/wp-content/uploads/2017/12/original-24.jpg',
-                followed: false,
-                fullName: 'Max',
-                status: 'Bosss',
-                location: {
-                    city: 'Minsk',
-                    country: 'Belarus'
-                }
-            },
-        ])
+
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .then(response => {
+                setUsers (response.data.items)
+            })
+
     }
 
     return <div className={s.styles}>
         {usersPage.users.map(m => <div key={m.id}>
             <div>
-                <img className={s.photo} alt={'photos'} src={m.photoUrl}/>
+                <img className={s.photo} alt={'photos'} src={m.photos.small != null
+                    ? m.photos.small
+                    : userPhoto}/>
             </div>
             <div>
                 {m.followed
@@ -59,11 +35,11 @@ function Users({follow, unfollow, usersPage, setUsers}: UsersPropsType) {
             </div>
             <div>
                 <span className={s.names}>
-                    {m.fullName + ' ' + m.status}
+                    {m.name + ' ' + m.status}
                 </span>
                 <span>
-                    <div>{m.location.country}</div>
-                    <div>{m.location.city}</div>
+                    <div>{"m.location.country"}</div>
+                    <div>{"m.location.city"}</div>
                 </span>
             </div>
         </div>)}
