@@ -6,9 +6,7 @@ import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membe
 
 export class Users extends Component<UsersPropsType> {
 
-    constructor(props: UsersPropsType) {
-        super(props);
-
+    componentDidMount() {
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users')
             .then(response => {
