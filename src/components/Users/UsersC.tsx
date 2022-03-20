@@ -8,14 +8,43 @@ export class Users extends Component<UsersPropsType> {
 
     componentDidMount() {
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
             })
     }
 
     render() {
+
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pages = []
+
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i)
+            if(i==20) break
+        }
+
         return <div className={s.styles}>
+            <div>
+                {pages.map(m => {
+                    return <span className={this.props.currentPage === m ? s.countPage : ''}
+                                 onClick={() => {
+                                     this.onPageChanged(m)
+                                 }}> {m} </span>
+                })}
+            </div>
+
             {this.props.usersPage.users.map(m => <div key={m.id}>
                 <div>
                     <img className={s.photo} alt={'photos'} src={m.photos.small != null
