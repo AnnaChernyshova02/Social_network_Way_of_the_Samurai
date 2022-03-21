@@ -30,7 +30,7 @@ const App = () => {
                     <Route path='/settings'
                            element={<Settings/>}/>
                     <Route path='/users'
-                           element={<UserContainer/>}/>
+                           element={<UserContainer />}/>
                 </Routes>
             </div>
         </div>

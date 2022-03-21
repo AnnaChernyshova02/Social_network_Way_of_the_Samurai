@@ -1,27 +1,47 @@
 import React from "react";
 import s from './Users.module.css'
-import {v1} from "uuid";
-import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
 import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membership-black-area.png"
+import {initialStateType} from "../../Redux/users-reducer";
 
-function Users({follow, unfollow, usersPage, setUsers}: UsersPropsType) {
+type UserType = {
+    onPageChanged: (pageNumber: number) => void
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+    usersPage: initialStateType
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+}
 
-    const getUsers = () => {
+const Users = ({
+                   follow,
+                   unfollow,
+                   usersPage,
+                   onPageChanged,
+                   pageSize,
+                   totalUsersCount,
+                   currentPage
+               }: UserType) => {
 
-        if (usersPage.users.length === 0) {
+    let pageCount = Math.ceil(totalUsersCount / pageSize)
 
-            axios
-                .get('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    setUsers(response.data.items)
-                })
+    let pages = []
 
-        }
+    for (let i = 1; i <= pageCount; i++) {
+        pages.push(i)
+        if (i === 20) break
     }
 
     return <div className={s.styles}>
-        <button onClick={getUsers}>Get Users</button>
+        <div>
+            {pages.map(m => {
+                return <span className={currentPage === m ? s.countPage : ''}
+                             onClick={() => {
+                                 onPageChanged(m)
+                             }}> {m} </span>
+            })}
+        </div>
+
         {usersPage.users.map(m => <div key={m.id}>
             <div>
                 <img className={s.photo} alt={'photos'} src={m.photos.small != null
