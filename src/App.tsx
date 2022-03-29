@@ -9,6 +9,7 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import {UserContainer} from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = () => {
 
@@ -20,7 +21,7 @@ const App = () => {
             <div className='app-wrapper-content'>
                 <Routes>
                     <Route path='/profile'
-                           element={<Profile/>}/>
+                           element={<ProfileContainer/>}/>
                     <Route path='/dialogs'
                            element={<Dialogs/>}/>
                     <Route path='/news'

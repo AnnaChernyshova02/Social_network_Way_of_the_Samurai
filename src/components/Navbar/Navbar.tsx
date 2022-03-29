@@ -8,8 +8,10 @@ const Navbar = () => {
     let state = store.getState()
 
     let navbarElement = state.navbar.navbar.map(n => <NavLink key={n.id} to={"/dialogs/" + n.id} className={s.friend}>
-                                            <img src={n.avatar} alt={'avatar'}/>{n.name}</NavLink>);
-
+        <img src={n.avatar} alt={'avatar'}/>
+            {n.name}
+        </NavLink>
+    );
 
 
     return <nav className={s.nav}>
@@ -30,12 +32,12 @@ const Navbar = () => {
             <NavLink to={'/settings'}>Settings</NavLink>
         </div>
         <div>
-        <NavLink to={'/users'}>Users</NavLink>
+            <NavLink to={'/users'}>Users</NavLink>
         </div>
 
         <div className={s.friends}>
             My Friends
-         {navbarElement}
+            {navbarElement}
         </div>
 
     </nav>

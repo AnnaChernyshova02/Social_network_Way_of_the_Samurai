@@ -3,7 +3,18 @@
     color: lightgoldenrodyellow;
 }
 
-.picturesBlock img{
-    height: 450px;
+.picturesBlock{
+    height: 850px;
     width: 1000px;
+}
+
+.imgProfile {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+}
+
+.mainDrawing {
+    width: 1000px;
+    border-radius: 0 50px 50px 50px;
 }

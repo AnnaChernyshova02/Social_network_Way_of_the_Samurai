@@ -2,6 +2,7 @@ import React from "react";
 import s from './Users.module.css'
 import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membership-black-area.png"
 import {initialStateType} from "../../Redux/users-reducer";
+import {NavLink} from "react-router-dom";
 
 type UserType = {
     onPageChanged: (pageNumber: number) => void
@@ -44,9 +45,11 @@ const Users = ({
 
         {usersPage.users.map(m => <div key={m.id}>
             <div>
-                <img className={s.photo} alt={'photos'} src={m.photos.small != null
-                    ? m.photos.small
-                    : userPhoto}/>
+                <NavLink to={'/profile/'}>
+                    <img className={s.photo} alt={'photos'} src={m.photos.small != null
+                        ? m.photos.small
+                        : userPhoto}/>
+                </NavLink>
             </div>
             <div>
                 {m.followed
