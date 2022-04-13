@@ -13,6 +13,7 @@ import {AppStateType} from "../../Redux/redux-store";
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {useParams} from "react-router-dom";
 
 export class UsersContainer extends Component<UsersPropsType> {
 

@@ -18,7 +18,7 @@ export type PostPropsType = {
 }
 
 export type ActionsType = ReturnType<typeof addPostAction> | ReturnType<typeof newPostTextAction>
-| ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserProfile>
 
 let initialState: initialStateType = {
     posts: [
@@ -50,7 +50,7 @@ const profileReducer = (state: initialStateType = initialState, action: ActionsT
             }
         case SET_USER_PROFILE:
             return {
-                ...state, profile : action.profile
+                ...state, profile: action.profile
             }
         default:
             return state;

@@ -5,7 +5,7 @@ import Preloader from "../../common/Preloader/Preloader";
 
 const ProfileInfo = ({profile}: ProfilePagePropsType) => {
 
-    if (!profile){
+    if (!profile) {
         return <Preloader/>
     }
 
@@ -17,7 +17,7 @@ const ProfileInfo = ({profile}: ProfilePagePropsType) => {
         </div>
         <div className={s.descriptionBlock}>
             <div>
-            <img src={profile.photos?.small} className={s.imgProfile}/>
+                <img src={profile.photos?.small} className={s.imgProfile}/>
             </div>
 
             <div>

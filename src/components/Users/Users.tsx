@@ -45,7 +45,7 @@ const Users = ({
 
         {usersPage.users.map(m => <div key={m.id}>
             <div>
-                <NavLink to={'/profile/'}>
+                <NavLink to={`/profile/${m.id}`}>
                     <img className={s.photo} alt={'photos'} src={m.photos.small != null
                         ? m.photos.small
                         : userPhoto}/>
