@@ -14,14 +14,17 @@ export const ProfileContainer = () => {
     let {userId} = useParams()
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    if(!userId){
+        userId = '2'
+    }
 
+    useEffect(() => {
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(response => {
                 dispatch(setUserProfile(response.data))
             })
-    })
+    }, [userId])
     return <Profile profile={state.profilePage.profile}/>
 }
 

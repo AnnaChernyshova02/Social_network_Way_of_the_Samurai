@@ -30,7 +30,7 @@ const Users = ({
 
     for (let i = 1; i <= pageCount; i++) {
         pages.push(i)
-        if (i === 20) break
+        if (i === 100) break
     }
 
     return <div className={s.styles}>

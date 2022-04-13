@@ -2,24 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import {AppStateType, store} from "./Redux/redux-store";
 import {Provider} from "react-redux";
 
-
-
-let rerenderEntireTree = (state: AppStateType) => {
+let rerenderEntireTree = (props: AppStateType) => {
     ReactDOM.render(
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
-                <App />
+                <App/>
             </Provider>
-        </BrowserRouter>, document.getElementById('root'));
+        </HashRouter>, document.getElementById('root'));
 }
 
 rerenderEntireTree(store.getState());
 
 store.subscribe(() => {
-    let state = store.getState()
-    rerenderEntireTree(state)
+    rerenderEntireTree(store.getState())
 });
