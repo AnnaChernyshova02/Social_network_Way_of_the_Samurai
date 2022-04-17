@@ -11,7 +11,7 @@ export type initialStateType = {
     navbar: NavbarType[]
 }
 
-export type AchionsType = {};
+export type ActionsType = {};
 
 let initialState: initialStateType = {
         navbar: [
@@ -32,7 +32,7 @@ let initialState: initialStateType = {
             }]
     }
 
-const navbarReducer = (state: initialStateType = initialState, action: AchionsType): initialStateType => {
+const navbarReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     return state;
 };
 export default navbarReducer;

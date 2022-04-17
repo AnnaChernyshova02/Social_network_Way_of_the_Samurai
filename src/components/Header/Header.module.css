@@ -1,7 +1,13 @@
 .header {
     grid-area: h;
     background: linear-gradient(135deg, #e55d87 0%, rgba(34, 101, 163, .5) 100%);
+    display: flex;
+    justify-content: space-between;
 }
 .header img {
     width: 170px;
+}
+
+.loginBlock a {
+    color: whitesmoke;
 }

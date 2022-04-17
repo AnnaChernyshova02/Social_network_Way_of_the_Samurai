@@ -38,7 +38,7 @@ export type initialStateType = {
     isFetching: boolean
 }
 
-type AchionsType = ReturnType<typeof follow> |
+type ActionsType = ReturnType<typeof follow> |
     ReturnType<typeof unfollow> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |
@@ -46,7 +46,7 @@ type AchionsType = ReturnType<typeof follow> |
     ReturnType<typeof toggleIsFetching>
 
 
-export const usersReducer = (state: initialStateType = initialState, action: AchionsType): initialStateType => {
+export const usersReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case "FOLLOW":
             return {
