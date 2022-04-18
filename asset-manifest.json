@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Social_network_Way_of_the_Samurai/static/css/main.519d1980.css",
-    "main.js": "/Social_network_Way_of_the_Samurai/static/js/main.54590a2c.js",
+    "main.js": "/Social_network_Way_of_the_Samurai/static/js/main.89ec9a26.js",
     "static/media/png-clipart-computer-icons-user-membership-black-area.png": "/Social_network_Way_of_the_Samurai/static/media/png-clipart-computer-icons-user-membership-black-area.7afdf9b1ee877cf46e79.png",
     "static/media/Circle-Loading.svg": "/Social_network_Way_of_the_Samurai/static/media/Circle-Loading.385f97b7b8bc25cf2660e867dbd44b85.svg",
     "index.html": "/Social_network_Way_of_the_Samurai/index.html",
     "main.519d1980.css.map": "/Social_network_Way_of_the_Samurai/static/css/main.519d1980.css.map",
-    "main.54590a2c.js.map": "/Social_network_Way_of_the_Samurai/static/js/main.54590a2c.js.map"
+    "main.89ec9a26.js.map": "/Social_network_Way_of_the_Samurai/static/js/main.89ec9a26.js.map"
   },
   "entrypoints": [
     "static/css/main.519d1980.css",
-    "static/js/main.54590a2c.js"
+    "static/js/main.89ec9a26.js"
   ]
 }
