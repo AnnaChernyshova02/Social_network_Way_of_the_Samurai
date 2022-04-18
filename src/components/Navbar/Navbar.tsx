@@ -1,9 +1,7 @@
 import React from "react";
 import s from './Navbar.module.css'
-import {NavLink, Outlet} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {store} from "../../Redux/redux-store";
-
-
 
 const Navbar = () => {
 

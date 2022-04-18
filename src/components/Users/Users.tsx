@@ -3,6 +3,7 @@ import s from './Users.module.css'
 import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membership-black-area.png"
 import {initialStateType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 type UserType = {
     onPageChanged: (pageNumber: number) => void
@@ -54,10 +55,24 @@ const Users = ({
             <div>
                 {m.followed
                     ? <button onClick={() => {
-                        unfollow(m.id)
+
+                        usersAPI.deleteFollow(m.id)
+                            .then((res) => {
+                                if (res.resultCode === 0) {
+                                    unfollow(m.id)
+                                }
+                            })
+
                     }}>Unfollow</button>
                     : <button onClick={() => {
-                        follow(m.id)
+
+                        usersAPI.postFollow(m.id)
+                            .then((res) => {
+                                if (res.resultCode === 0) {
+                                    follow(m.id)
+                                }
+                            })
+
                     }}>Follow</button>}
             </div>
             <div>
