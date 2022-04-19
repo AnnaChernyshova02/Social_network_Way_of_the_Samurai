@@ -29,7 +29,7 @@ const Dialogs = () => {
             </div>
             <div>
                 {messageElement}
-                <AddMessageContainer/>
+                <AddMessageContainer />
             </div>
         </div>
     )

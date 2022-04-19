@@ -13,6 +13,8 @@ type UserType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    followingInProgress: number[]
+    toggleIsFollowingProgress: (id: number, isFetching: boolean) => void
 }
 
 const Users = ({
@@ -22,7 +24,9 @@ const Users = ({
                    onPageChanged,
                    pageSize,
                    totalUsersCount,
-                   currentPage
+                   currentPage,
+                   followingInProgress,
+                   toggleIsFollowingProgress
                }: UserType) => {
 
     let pageCount = Math.ceil(totalUsersCount / pageSize)
@@ -54,23 +58,25 @@ const Users = ({
             </div>
             <div>
                 {m.followed
-                    ? <button onClick={() => {
-
+                    ? <button disabled={followingInProgress.some(id => id === m.id)} onClick={() => {
+                        toggleIsFollowingProgress(m.id,true)
                         usersAPI.deleteFollow(m.id)
                             .then((res) => {
                                 if (res.resultCode === 0) {
                                     unfollow(m.id)
                                 }
+                                toggleIsFollowingProgress(m.id,false)
                             })
 
                     }}>Unfollow</button>
-                    : <button onClick={() => {
-
+                    : <button disabled={followingInProgress.some(id => id === m.id)} onClick={() => {
+                        toggleIsFollowingProgress(m.id,true)
                         usersAPI.postFollow(m.id)
                             .then((res) => {
                                 if (res.resultCode === 0) {
                                     follow(m.id)
                                 }
+                                toggleIsFollowingProgress(m.id,false)
                             })
 
                     }}>Follow</button>}

@@ -36,6 +36,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
+/*
 export default connect(mapStateToProps, {
     setUserProfile
-})(ProfileContainer)
+})(ProfileContainer)*/
