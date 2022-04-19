@@ -1,40 +1,26 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {
-    follow,
+    follow, following, getUsers,
     initialStateType,
     setCurrentPage,
     setTotalUsersCount,
     setUsers, toggleIsFetching, toggleIsFollowingProgress,
-    unfollow,
+    unfollow, unfollowing,
     UserType
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 
 export class UsersContainer extends Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsFetching(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items)
-            })
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -50,6 +36,8 @@ export class UsersContainer extends Component<UsersPropsType> {
                 onPageChanged={this.onPageChanged}
                 followingInProgress={this.props.followingInProgress}
                 toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
+                following={this.props.following}
+                unfollowing={this.props.unfollowing}
             />
         </>
     }
@@ -73,9 +61,9 @@ export const UserContainer = connect(mapStateToProps, {
     setCurrentPage,
     setTotalUsersCount,
     toggleIsFetching,
-    toggleIsFollowingProgress
+    toggleIsFollowingProgress,
+    getUsers, following, unfollowing
 })(UsersContainer)
-
 
 type mapStatePropsType = {
     usersPage: initialStateType
@@ -94,6 +82,9 @@ type mapDispatchPropsType = {
     setTotalUsersCount: (count: number) => void
     toggleIsFetching: (isFetching: boolean) => void
     toggleIsFollowingProgress: (id: number, isFetching: boolean) => void
+    getUsers: (currentPage: number, pageSize: number) => void
+    following: (id: number) => void
+    unfollowing: (id: number) => void
 }
 
 export type UsersPropsType = mapDispatchPropsType & mapStatePropsType

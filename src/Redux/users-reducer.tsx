@@ -1,4 +1,6 @@
 import React from 'react';
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -64,7 +66,46 @@ export const setUsers = (users: UserType[]) => ({type: SET_USERS, users} as cons
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
 export const setTotalUsersCount = (count: number) => ({type: SET_TOTAL_USERS_COUNT, count} as const)
 export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching} as const)
-export const toggleIsFollowingProgress = (id: number, isFetching: boolean) => ({type: FOLLOWING_IN_PROGRESS, id, isFetching} as const)
+export const toggleIsFollowingProgress = (id: number, isFetching: boolean) => ({
+    type: FOLLOWING_IN_PROGRESS,
+    id,
+    isFetching
+} as const)
+
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFetching(true))
+    dispatch(setCurrentPage(currentPage))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items));
+            dispatch(setTotalUsersCount(data.totalCount))
+        })
+}
+
+export const following = (id: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowingProgress(id, true))
+    usersAPI.deleteFollow(id)
+        .then((res) => {
+            if (res.resultCode === 0) {
+                dispatch(unfollow(id))
+            }
+            dispatch(toggleIsFollowingProgress(id, false))
+        })
+}
+
+export const unfollowing = (id: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowingProgress(id, true))
+    usersAPI.postFollow(id)
+        .then((res) => {
+            if (res.resultCode === 0) {
+                dispatch(follow(id))
+            }
+            dispatch(toggleIsFollowingProgress(id, false))
+        })
+}
+
 
 export type UserType = {
     id: number,

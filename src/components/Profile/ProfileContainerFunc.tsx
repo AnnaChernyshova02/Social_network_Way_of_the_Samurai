@@ -45,7 +45,6 @@ export function withRouter(Component: any) {
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
-
     componentDidMount() {
         console.log(this.props)
         // @ts-ignore
