@@ -76,9 +76,12 @@ export const setUserProfile = (profile: any) => {
 
 export const getUserProfile = (userId: string): ThunkType => async (dispatch) => {
     try {
+        if (!userId) {
+            userId = '12'
+        }
         const response = await usersAPI.getProfile(userId)
-                dispatch(setUserProfile(response.data))
-    } catch (e:any) {
+        dispatch(setUserProfile(response.data))
+    } catch (e: any) {
         console.log(e)
     }
 

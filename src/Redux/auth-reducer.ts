@@ -1,21 +1,21 @@
 import {authAPI} from "../api/api";
 import {ThunkType} from "./redux-store";
 
-let initialState: initialStateType = {
+let initialState: InitialStateType = {
     id: 2,
     email: 'blabla@bla.bla',
     login: 'samurai',
     isAuth: false
 }
 
-export type initialStateType = {
+export type InitialStateType = {
     id: number,
     email: string,
     login: string
     isAuth: boolean
 }
 
-export const authReducer = (state: initialStateType = initialState, action: AuthActionsType): initialStateType => {
+export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
         case 'SET_USER_DATA':
             return {

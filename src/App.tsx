@@ -9,8 +9,8 @@ import {UserContainer} from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainerFunc";
 import {Route, Routes} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
-
-
+import {Login} from "./components/Login/Login";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = () => {
 
@@ -26,7 +26,7 @@ const App = () => {
                     <Route path='/profile/:userId'
                            element={<ProfileContainer/>}/>
                     <Route path='/dialogs/*'
-                           element={<Dialogs/>}/>
+                           element={<DialogsContainer />}/>
                     <Route path='/news'
                            element={<News/>}/>
                     <Route path='/music'
@@ -35,8 +35,8 @@ const App = () => {
                            element={<Settings/>}/>
                     <Route path='/users'
                            element={<UserContainer />}/>
-                    <Route path='login'
-                           element={<ProfileContainer />}/>
+                    <Route path='/login'
+                           element={<Login />}/>
                 </Routes>
             </div>
         </div>
