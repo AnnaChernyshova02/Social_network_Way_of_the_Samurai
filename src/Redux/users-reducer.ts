@@ -1,4 +1,3 @@
-import React from 'react';
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 
@@ -19,7 +18,7 @@ let initialState: initialStateType = {
     followingInProgress: []
 }
 
-export const usersReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
+export const usersReducer = (state: initialStateType = initialState, action: UsersActionsType): initialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -131,7 +130,7 @@ export type initialStateType = {
     followingInProgress: number[]
 }
 
-type ActionsType = ReturnType<typeof follow> |
+export type UsersActionsType = ReturnType<typeof follow> |
     ReturnType<typeof unfollow> |
     ReturnType<typeof setUsers> |
     ReturnType<typeof setCurrentPage> |

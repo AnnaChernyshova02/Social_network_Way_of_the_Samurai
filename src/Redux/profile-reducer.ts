@@ -1,6 +1,7 @@
-import React from 'react';
 import {v1} from "uuid";
 import {ProfileType} from "../components/Profile/Profile";
+import {usersAPI} from "../api/api";
+import {ThunkType} from "./redux-store";
 
 const ADD_POST = 'ADD-POST';
 const NEW_POST_TEXT = 'NEW-POST-TEXT';
@@ -17,7 +18,7 @@ export type PostPropsType = {
     likeCounts: number
 }
 
-export type ActionsType = ReturnType<typeof addPostAction> | ReturnType<typeof newPostTextAction>
+export type ProfileActionsType = ReturnType<typeof addPostAction> | ReturnType<typeof newPostTextAction>
     | ReturnType<typeof setUserProfile>
 
 let initialState: initialStateType = {
@@ -29,7 +30,7 @@ let initialState: initialStateType = {
     profile: null
 }
 
-const profileReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
+const profileReducer = (state: initialStateType = initialState, action: ProfileActionsType): initialStateType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -57,7 +58,6 @@ const profileReducer = (state: initialStateType = initialState, action: ActionsT
     }
 };
 
-
 export const addPostAction = () => ({type: ADD_POST} as const)
 
 export const newPostTextAction = (text: string) => {
@@ -74,5 +74,14 @@ export const setUserProfile = (profile: any) => {
     } as const
 }
 
+export const getUserProfile = (userId: string): ThunkType => async (dispatch) => {
+    try {
+        const response = await usersAPI.getProfile(userId)
+                dispatch(setUserProfile(response.data))
+    } catch (e:any) {
+        console.log(e)
+    }
+
+}
 
 export default profileReducer;

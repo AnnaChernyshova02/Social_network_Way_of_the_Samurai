@@ -1,4 +1,3 @@
-import React from 'react';
 import {v1} from "uuid";
 
 export type NavbarType = {
@@ -10,8 +9,6 @@ export type NavbarType = {
 export type initialStateType = {
     navbar: NavbarType[]
 }
-
-export type ActionsType = {};
 
 let initialState: initialStateType = {
         navbar: [
@@ -32,7 +29,7 @@ let initialState: initialStateType = {
             }]
     }
 
-const navbarReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
+const navbarReducer = (state: initialStateType = initialState, action: any): initialStateType => {
     return state;
 };
 export default navbarReducer;

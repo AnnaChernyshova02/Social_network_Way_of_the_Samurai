@@ -6,9 +6,10 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import {UserContainer} from "./components/Users/UsersContainer";
-import {ProfileContainer} from "./components/Profile/ProfileContainerFunc2";
+import ProfileContainer from "./components/Profile/ProfileContainerFunc";
 import {Route, Routes} from "react-router-dom";
-import {HeaderContainer} from "./components/Header/HeaderContainerFunc";
+import HeaderContainer from "./components/Header/HeaderContainer";
+
 
 
 const App = () => {
