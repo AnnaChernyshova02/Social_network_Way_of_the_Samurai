@@ -1,11 +1,10 @@
 import React from "react";
 import './App.css';
-import Dialogs from "./components/Dialogs/Dialogs";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
-import {UserContainer} from "./components/Users/UsersContainer";
+import UserContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainerFunc";
 import {Route, Routes} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";

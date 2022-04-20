@@ -11,6 +11,7 @@ import {
     useParams,
 } from "react-router-dom";
 import {withAuthRedirect} from "../../hok/AuthRedirect";
+import {compose} from "redux";
 
 
 type mapStatePropsType = {
@@ -56,14 +57,16 @@ class ProfileContainer extends React.Component<any, ProfilePropsType> {
     }
 
     render() {
-        //if(!this.props.auth) return <Navigate to={"/login"}/>
-
         return <Profile profile={this.props.profile}/>
     }
 }
 
+export default compose(
+    connect(mapStateToProps, {setUserProfile, getUserProfile}),
+    withAuthRedirect,
+    withRouter
+)(ProfileContainer)
 
-export default connect(mapStateToProps, {setUserProfile, getUserProfile})
-(withAuthRedirect(withRouter(ProfileContainer)));
+
 
 
