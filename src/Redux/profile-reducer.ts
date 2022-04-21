@@ -81,7 +81,7 @@ export const getUserProfile = (userId: string): ThunkType => async (dispatch) =>
         }
         const response = await usersAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))
-    } catch (e: any) {
+    } catch (e) {
         console.log(e)
     }
 

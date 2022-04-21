@@ -12,7 +12,7 @@ export const ProfileContainer = () => {
     const dispatch = useDispatch()
 
     useEffect(()  => {
-            dispatch(getUserProfile(userId ?? '12')as any)
+            dispatch(getUserProfile(userId ?? '12'))
     }, [userId])
 
     return <Profile profile={state.profilePage.profile}/>

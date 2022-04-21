@@ -24,7 +24,7 @@ export type AppActionsType = AuthActionsType
     | UsersActionsType
     | DialogsActionsType
 
-export type ThunkType = ThunkAction<any, AppStateType, unknown, AppActionsType>
+export type ThunkType = ThunkAction<void, AppStateType, unknown, AppActionsType>
 
 //@ts-ignore
 window.store = store
