@@ -2,6 +2,7 @@ import React from "react";
 import s from './ProfileInfo.module.css'
 import {ProfilePagePropsType} from "../Profile";
 import Preloader from "../../common/Preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 const ProfileInfo = ({profile}: ProfilePagePropsType) => {
 
@@ -19,7 +20,7 @@ const ProfileInfo = ({profile}: ProfilePagePropsType) => {
             <div>
                 <img src={profile.photos?.small} className={s.imgProfile}/>
             </div>
-
+            <span><ProfileStatus status={"Hello my friends"}/></span>
             <div>
                 About me : {profile.aboutMe}
             </div>

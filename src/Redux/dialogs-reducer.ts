@@ -1,4 +1,3 @@
-import React from 'react';
 import {v1} from "uuid";
 
 const ADD_MESSAGE = "ADD-MESSAGE";
@@ -15,7 +14,7 @@ export type MessagePropsType = {
     id: string,
 }
 
-export type initialStateType = {
+export type DialogsStateType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
     newMessage: string
@@ -25,7 +24,7 @@ export type DialogsActionsType = ReturnType<typeof addMessageAction> |
     ReturnType<typeof newMessageAction>
 
 
-let initialState: initialStateType = {
+let initialState: DialogsStateType = {
     dialogs: [
         {
             id: v1(),
@@ -61,7 +60,7 @@ let initialState: initialStateType = {
     newMessage: ''
 }
 
-const dialogsReducer = (state: initialStateType = initialState, action: DialogsActionsType): initialStateType => {
+const dialogsReducer = (state: DialogsStateType = initialState, action: DialogsActionsType): DialogsStateType => {
     switch (action.type) {
         case ADD_MESSAGE:
             return {
@@ -88,7 +87,7 @@ export const addMessageAction = () => ({type: ADD_MESSAGE} as const)
 
 export const newMessageAction = (message: string) => {
     return {
-        type: "NEW-MESSAGE",
+        type: NEW_MESSAGE,
         message: message
     } as const
 }

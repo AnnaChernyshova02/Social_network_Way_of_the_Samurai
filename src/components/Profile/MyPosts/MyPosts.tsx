@@ -1,9 +1,13 @@
-import React, {ChangeEvent, KeyboardEvent} from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {MyPostsType} from "./MyPostsContainer";
+import {useAppSelector} from "../../../Redux/redux-store";
+import {ProfileStateType} from "../../../Redux/profile-reducer";
 
-function MyPosts({updateNewPostText, addPost, profilePage}: MyPostsType) {
+function MyPosts({updateNewPostText, addPost}: MyPostsType) {
+
+    const profilePage = useAppSelector<ProfileStateType>(state => state.profilePage)
 
     let postsElement = profilePage.posts.map(p => <Post key={p.id}
                                             id={p.id}

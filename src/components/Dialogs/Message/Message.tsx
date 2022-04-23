@@ -2,7 +2,7 @@ import React from "react";
 import s from './Message.module.css';
 import {MessagePropsType} from "../../../Redux/dialogs-reducer";
 
-const Message = ({id, message}: MessagePropsType) => {
+const Message = ({message}: MessagePropsType) => {
 
     return (<div className={s.speechWrapper}>
             <div className={s.bubble}>

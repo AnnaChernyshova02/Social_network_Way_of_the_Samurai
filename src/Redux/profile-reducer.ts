@@ -7,7 +7,7 @@ const ADD_POST = 'ADD-POST';
 const NEW_POST_TEXT = 'NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
-export type initialStateType = {
+export type ProfileStateType = {
     posts: Array<PostPropsType>
     newTextPosts: string
     profile: ProfileType
@@ -21,7 +21,7 @@ export type PostPropsType = {
 export type ProfileActionsType = ReturnType<typeof addPostAction> | ReturnType<typeof newPostTextAction>
     | ReturnType<typeof setUserProfile>
 
-let initialState: initialStateType = {
+let initialState: ProfileStateType = {
     posts: [
         {id: v1(), message: "Hi, how are you?", likeCounts: 15},
         {id: v1(), message: "It's my first post", likeCounts: 20}
@@ -30,7 +30,7 @@ let initialState: initialStateType = {
     profile: null
 }
 
-const profileReducer = (state: initialStateType = initialState, action: ProfileActionsType): initialStateType => {
+const profileReducer = (state: ProfileStateType = initialState, action: ProfileActionsType): ProfileStateType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -62,14 +62,14 @@ export const addPostAction = () => ({type: ADD_POST} as const)
 
 export const newPostTextAction = (text: string) => {
     return {
-        type: 'NEW-POST-TEXT',
+        type: NEW_POST_TEXT,
         newText: text
     } as const
 }
 
 export const setUserProfile = (profile: any) => {
     return {
-        type: 'SET_USER_PROFILE',
+        type: SET_USER_PROFILE,
         profile
     } as const
 }

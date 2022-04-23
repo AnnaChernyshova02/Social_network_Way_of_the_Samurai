@@ -3,20 +3,21 @@ import s from './Dialogs.module.css';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import AddMessageContainer from "./Message/AddMessageContainer";
-import {store} from "../../Redux/redux-store";
+import {useAppSelector} from "../../Redux/redux-store";
 import {withAuthRedirect} from "../../hok/AuthRedirect";
+import {DialogsStateType} from "../../Redux/dialogs-reducer";
 
 const Dialogs = () => {
 
-    let state = store.getState();
+    const dialogsPage = useAppSelector<DialogsStateType>(state => state.dialogsPage)
 
-    let dialogsElement = state.dialogsPage.dialogs.map(d =>
+    let dialogsElement = dialogsPage.dialogs.map(d =>
         <DialogItem key={d.id}
                     id={d.id}
                     name={d.name}
                     avatar={d.avatar}/>);
 
-    let messageElement = state.dialogsPage.messages.map(m =>
+    let messageElement = dialogsPage.messages.map(m =>
         <Message
             key={m.id}
             id={m.id}

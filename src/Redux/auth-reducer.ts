@@ -2,21 +2,21 @@ import {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {authAPI} from "../api/api";
 import {AppActionsType, AppStateType, ThunkType} from "./redux-store";
 
-let initialState: InitialStateType = {
+let initialState: AuthStateType = {
     id: 2,
     email: 'blabla@bla.bla',
     login: 'samurai',
     isAuth: false
 }
 
-export type InitialStateType = {
+export type AuthStateType = {
     id: number,
     email: string,
-    login: string
+    login: string,
     isAuth: boolean
 }
 
-export const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
+export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
     switch (action.type) {
         case 'SET_USER_DATA':
             return {

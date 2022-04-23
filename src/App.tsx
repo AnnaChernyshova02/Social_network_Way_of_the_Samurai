@@ -7,7 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import UserContainer from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainerFunc2";
 import {Route, Routes} from "react-router-dom";
-import {HeaderContainer} from "./components/Header/HeaderContainerFunc";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
