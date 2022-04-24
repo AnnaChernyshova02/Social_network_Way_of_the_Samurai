@@ -15,19 +15,19 @@ class HeaderContainer extends Component<HeaderPropsType> {
     }
 }
 
-type mapStatePropsType = {
+type MapStatePropsType = {
     login: string
     isAuth: boolean
 }
 
-type mapDispatchPropsType = {
+type MapDispatchPropsType = {
     setAuthUserData: (id: number, login: string,  email: string) => void
     getAuthUserData: () => void
 }
 
-type HeaderPropsType = mapDispatchPropsType & mapStatePropsType
+type HeaderPropsType = MapDispatchPropsType & MapStatePropsType
 
-const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         login: state.auth.login,
         isAuth: state.auth.isAuth

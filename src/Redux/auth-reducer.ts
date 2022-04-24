@@ -1,6 +1,6 @@
-import {ThunkAction, ThunkDispatch} from "redux-thunk";
+import {ThunkDispatch} from "redux-thunk";
 import {authAPI} from "../api/api";
-import {AppActionsType, AppStateType, ThunkType} from "./redux-store";
+import {AppActionsType, AppStateType} from "./redux-store";
 
 let initialState: AuthStateType = {
     id: 2,

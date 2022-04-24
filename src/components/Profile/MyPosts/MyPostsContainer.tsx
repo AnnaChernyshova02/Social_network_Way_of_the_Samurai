@@ -9,12 +9,12 @@ type MapStatePropsType = {
     profilePage: ProfileStateType
 }
 
-type mapDispatchPropsType = {
+type MapDispatchPropsType = {
     addPost: () => void,
     updateNewPostText: (text: string) => void
 }
 
-export type MyPostsType = MapStatePropsType & mapDispatchPropsType
+export type MyPostsType = MapStatePropsType & MapDispatchPropsType
 
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -23,7 +23,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 
     return {
         addPost: () => {

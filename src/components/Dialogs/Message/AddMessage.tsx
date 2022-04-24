@@ -4,8 +4,6 @@ import {DialogsType} from "./AddMessageContainer";
 
 const AddMessage = ({addMessage, updateNewMessageText, dialogsPage}: DialogsType) => {
 
-
-
     let addMessages = () => {
         addMessage()
     }

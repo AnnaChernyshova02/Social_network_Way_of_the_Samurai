@@ -5,13 +5,13 @@ import {addMessageAction, DialogsStateType, newMessageAction} from "../../../Red
 import {AppStateType} from "../../../Redux/redux-store";
 import {Dispatch} from "redux";
 
-const mapStateToProps = (state: AppStateType): mapStatePropsType => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         dialogsPage: state.dialogsPage
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch):mapDispatchPropsType => {
+const mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType => {
     return {
         addMessage: () => {
             dispatch(addMessageAction())
@@ -23,16 +23,16 @@ const mapDispatchToProps = (dispatch: Dispatch):mapDispatchPropsType => {
 
 const AddMessageContainer = connect(mapStateToProps, mapDispatchToProps)(AddMessage)
 
-type mapStatePropsType = {
+type MapStatePropsType = {
     dialogsPage: DialogsStateType
 }
 
-type mapDispatchPropsType = {
+type MapDispatchPropsType = {
     addMessage: ()=> void
     updateNewMessageText: (message: string ) => void
 }
 
-export type DialogsType =  mapStatePropsType & mapDispatchPropsType
+export type DialogsType =  MapDispatchPropsType & MapStatePropsType
 
 export default AddMessageContainer;
 
