@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import Profile, {ProfileType} from "./Profile";
-import {getUserProfile} from "../../Redux/profile-reducer";
+import {getStatus, getUserProfile} from "../../Redux/profile-reducer";
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../Redux/redux-store";
 
@@ -12,7 +12,8 @@ export const ProfileContainer = () => {
     const dispatch = useAppDispatch()
 
     useEffect(()  => {
-        dispatch(getUserProfile(userId ?? '12'))
+        dispatch(getUserProfile(userId ?? '22596'))
+        dispatch(getStatus(userId ?? '22596'))
     }, [userId])
 
     return <Profile profile={profile}/>

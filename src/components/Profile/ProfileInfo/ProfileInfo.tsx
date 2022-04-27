@@ -3,8 +3,10 @@ import s from './ProfileInfo.module.css'
 import {ProfilePagePropsType} from "../Profile";
 import Preloader from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
+import {useAppSelector} from "../../../Redux/redux-store";
 
 const ProfileInfo = ({profile}: ProfilePagePropsType) => {
+
 
     if (!profile) {
         return <Preloader/>
@@ -20,7 +22,7 @@ const ProfileInfo = ({profile}: ProfilePagePropsType) => {
             <div>
                 <img src={profile.photos?.small} className={s.imgProfile}/>
             </div>
-            <span><ProfileStatus status={"Hello my friends"}/></span>
+            <span><ProfileStatus /></span>
             <div>
                 About me : {profile.aboutMe}
             </div>

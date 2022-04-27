@@ -26,7 +26,7 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: string) => void
+    setUserProfile: (profile: ProfileType) => void
 }
 
 export type ProfilePropsType = MapDispatchPropsType & MapStatePropsType
