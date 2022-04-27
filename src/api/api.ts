@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 const instance = axios.create({
-    withCredentials: true,
+    withCredentials: false,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
         "API-KEY": "acc8259c-1446-4874-901e-e45c04ac3561"
@@ -46,7 +46,33 @@ export const profileAPI = {
 }
 
 export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId: number}>>>('auth/login', data )
+    },
     me() {
-        return instance.get('auth/me')
+        return instance.get<ResponseType<MeResponceType>>('auth/me')
+    },
+    logout(){
+        return instance.delete<ResponseType>('auth/login')
     }
+}
+
+export type MeResponceType = {
+    id: number,
+    email: string,
+    login: string
+}
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: string
+}
+
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    data: D
 }

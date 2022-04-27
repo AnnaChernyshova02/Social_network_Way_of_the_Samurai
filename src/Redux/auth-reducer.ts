@@ -49,5 +49,4 @@ export const getAuthUserData = () => async (dispatch: ThunkDispatch<AppStateType
     }
 }
 
-
 export type AuthActionsType = ReturnType<typeof setAuthUserData>
