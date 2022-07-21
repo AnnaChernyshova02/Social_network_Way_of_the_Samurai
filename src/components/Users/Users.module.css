@@ -1,12 +1,12 @@
 .styles {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .names {
@@ -14,6 +14,6 @@
 }
 
 .countPage {
-    font-weight: bold;
-    color: black;
+  font-weight: bold;
+  color: black;
 }

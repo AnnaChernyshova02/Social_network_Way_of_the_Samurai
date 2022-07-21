@@ -8,35 +8,35 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component<ProfilePropsType> {
 
-    componentDidMount() {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-            .then(response => {
-                this.props.setUserProfile(response.data)
-            })
-    }
+  componentDidMount() {
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+      .then(response => {
+        this.props.setUserProfile(response.data)
+      })
+  }
 
-    render() {
-        return <Profile profile={this.props.profile} />
-    }
+  render() {
+    return <Profile profile={this.props.profile}/>
+  }
 }
 
 type MapStatePropsType = {
-    profile: ProfileType
+  profile: ProfileType
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+  setUserProfile: (profile: ProfileType) => void
 }
 
 export type ProfilePropsType = MapDispatchPropsType & MapStatePropsType
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        profile: state.profilePage.profile
-    }
+  return {
+    profile: state.profilePage.profile
+  }
 }
 
 export default compose<React.ComponentType>(connect(mapStateToProps, {
-    setUserProfile
+  setUserProfile
 })(ProfileContainer))

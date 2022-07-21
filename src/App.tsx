@@ -13,33 +13,33 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = () => {
 
-    return (
-        <div className='app-wrapper'>
-            <HeaderContainer />
-            <Navbar/>
+  return (
+    <div className='app-wrapper'>
+      <HeaderContainer/>
+      <Navbar/>
 
-            <div className='app-wrapper-content'>
-                <Routes>
-                    <Route path='/profile'
-                           element={<ProfileContainer/>}/>
-                    <Route path='/profile/:userId'
-                           element={<ProfileContainer/>}/>
-                    <Route path='/dialogs/*'
-                           element={<DialogsContainer />}/>
-                    <Route path='/news'
-                           element={<News/>}/>
-                    <Route path='/music'
-                           element={<Music/>}/>
-                    <Route path='/settings'
-                           element={<Settings/>}/>
-                    <Route path='/users'
-                           element={<UserContainer />}/>
-                    <Route path='/login'
-                           element={<Login />}/>
-                </Routes>
-            </div>
-        </div>
-    );
+      <div className='app-wrapper-content'>
+        <Routes>
+          <Route path='/profile'
+                 element={<ProfileContainer/>}/>
+          <Route path='/profile/:userId'
+                 element={<ProfileContainer/>}/>
+          <Route path='/dialogs/*'
+                 element={<DialogsContainer/>}/>
+          <Route path='/news'
+                 element={<News/>}/>
+          <Route path='/music'
+                 element={<Music/>}/>
+          <Route path='/settings'
+                 element={<Settings/>}/>
+          <Route path='/users'
+                 element={<UserContainer/>}/>
+          <Route path='/login'
+                 element={<Login/>}/>
+        </Routes>
+      </div>
+    </div>
+  );
 }
 
 export default App;

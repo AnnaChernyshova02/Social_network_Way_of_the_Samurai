@@ -4,7 +4,8 @@ import {MessagePropsType} from "../../../Redux/dialogs-reducer";
 
 const Message = ({message}: MessagePropsType) => {
 
-    return (<div className={s.speechWrapper}>
+    return (
+        <div className={s.speechWrapper}>
             <div className={s.bubble}>
                 <div className={s.txt}>
                     <p className={s.name} />

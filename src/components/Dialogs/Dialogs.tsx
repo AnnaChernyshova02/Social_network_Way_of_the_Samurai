@@ -24,11 +24,9 @@ const Dialogs = () => {
             message={m.message}
         />);
 
-    // if(!state.auth.isAuth) return <Navigate to={"/login"}/>
     useEffect(()=>{
         withAuthRedirect(Dialogs)
     },[])
-
 
     return (
         <div className={s.dialogs}>

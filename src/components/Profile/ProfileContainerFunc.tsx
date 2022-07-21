@@ -8,39 +8,39 @@ import {compose} from "redux";
 import {withRouter} from "../../hok/withRouter";
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
-    return {
-        profile: state.profilePage.profile,
-    }
+  return {
+    profile: state.profilePage.profile,
+  }
 }
 
 class ProfileContainer extends React.Component<any, ProfilePropsType> {
 
-    componentDidMount() {
-        console.log(this.props)
-        let userId = this.props.router.params.userId
-        this.props.getUserProfile(userId)
-    }
+  componentDidMount() {
+    console.log(this.props)
+    let userId = this.props.router.params.userId
+    this.props.getUserProfile(userId)
+  }
 
-    render() {
-        return <Profile profile={this.props.profile}/>
-    }
+  render() {
+    return <Profile profile={this.props.profile}/>
+  }
 }
 
 type MapStatePropsType = {
-    profile: ProfileType
+  profile: ProfileType
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: string) => void
-    getUserProfile: (id: string) => void
+  setUserProfile: (profile: string) => void
+  getUserProfile: (id: string) => void
 }
 
 export type ProfilePropsType = MapDispatchPropsType & MapStatePropsType
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setUserProfile, getUserProfile}),
-    withAuthRedirect,
-    withRouter
+  connect(mapStateToProps, {setUserProfile, getUserProfile}),
+  withAuthRedirect,
+  withRouter
 )(ProfileContainer)
 
 

@@ -6,77 +6,79 @@ import {NavLink} from "react-router-dom";
 
 
 type UserType = {
-    onPageChanged: (pageNumber: number) => void
-    follow: (userID: number) => void
-    unfollow: (userID: number) => void
-    usersPage: initialStateType
-    pageSize: number
-    totalUsersCount: number
-    currentPage: number
-    followingInProgress: number[]
-    toggleIsFollowingProgress: (id: number, isFetching: boolean) => void
-    following: (id: number) => void
-    unfollowing: (id: number) => void
+  onPageChanged: (pageNumber: number) => void
+  follow: (userID: number) => void
+  unfollow: (userID: number) => void
+  usersPage: initialStateType
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  followingInProgress: number[]
+  toggleIsFollowingProgress: (id: number, isFetching: boolean) => void
+  following: (id: number) => void
+  unfollowing: (id: number) => void
 }
 
 const Users = ({
-                   usersPage,
-                   onPageChanged,
-                   pageSize,
-                   totalUsersCount,
-                   currentPage,
-                   followingInProgress,
-                   following,
-                   unfollowing
+                 usersPage,
+                 onPageChanged,
+                 pageSize,
+                 totalUsersCount,
+                 currentPage,
+                 followingInProgress,
+                 following,
+                 unfollowing
                }: UserType) => {
 
-    let pageCount = Math.ceil(totalUsersCount / pageSize)
+  let pageCount = Math.ceil(totalUsersCount / pageSize)
 
-    let pages = []
+  let pages = []
 
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i)
-        if (i === 100) break
-    }
+  for (let i = 1; i <= pageCount; i++) {
+    pages.push(i)
+    if (i === 100) break
+  }
 
-    return <div className={s.styles}>
-        <div>
-            {pages.map(m => {
-                return <span className={currentPage === m ? s.countPage : ''}
-                             onClick={() => {
-                                 onPageChanged(m)
-                             }}> {m} </span>
-            })}
-        </div>
+  return <div className={s.styles}>
+    <div>
+      {pages.map(m => {
+        return <span className={currentPage === m ? s.countPage : ''}
+                     onClick={() => {
+                       onPageChanged(m)
+                     }}> {m} </span>
+      })}
+    </div>
 
-        {usersPage.users.map(m => <div key={m.id}>
-            <div>
-                <NavLink to={`/profile/${m.id}`}>
-                    <img className={s.photo} alt={'photos'} src={m.photos.small != null
-                        ? m.photos.small
-                        : userPhoto}/>
-                </NavLink>
-            </div>
-            <div>
-                {m.followed
-                    ? <button disabled={followingInProgress.some(id => id === m.id)}
-                              onClick={() => {following(m.id)
+    {usersPage.users.map(m => <div key={m.id}>
+      <div>
+        <NavLink to={`/profile/${m.id}`}>
+          <img className={s.photo} alt={'photos'} src={m.photos.small != null
+            ? m.photos.small
+            : userPhoto}/>
+        </NavLink>
+      </div>
+      <div>
+        {m.followed
+          ? <button disabled={followingInProgress.some(id => id === m.id)}
+                    onClick={() => {
+                      following(m.id)
                     }}>Unfollow</button>
-                    : <button disabled={followingInProgress.some(id => id === m.id)}
-                              onClick={() => {unfollowing(m.id)
+          : <button disabled={followingInProgress.some(id => id === m.id)}
+                    onClick={() => {
+                      unfollowing(m.id)
                     }}>Follow</button>}
-            </div>
-            <div>
+      </div>
+      <div>
                 <span className={s.names}>
                     {m.name + ' ' + m.status}
                 </span>
-                <span>
+        <span>
                     <div>{"m.location.country"}</div>
                     <div>{"m.location.city"}</div>
                 </span>
-            </div>
-        </div>)}
-    </div>;
+      </div>
+    </div>)}
+  </div>;
 }
 
 export default Users;
