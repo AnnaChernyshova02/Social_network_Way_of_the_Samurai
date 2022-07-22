@@ -4,6 +4,7 @@ import s from './Login.module.css'
 import {useAppDispatch, useAppSelector} from "../../Redux/redux-store";
 import {Button, Checkbox, FormControlLabel, FormGroup, TextField} from "@mui/material";
 import { Navigate } from 'react-router-dom';
+import { login } from '../../Redux/auth-reducer';
 
 type FormikErrorType = {
     email?: string
@@ -38,7 +39,7 @@ export const Login = () => {
             return errors;
         },
         onSubmit: values => {
-            //dispatch(loginTC(values))
+            dispatch(login(values))
             formik.resetForm();
         },
     })

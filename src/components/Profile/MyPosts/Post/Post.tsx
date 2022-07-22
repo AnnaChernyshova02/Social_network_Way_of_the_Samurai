@@ -2,7 +2,6 @@ import React from "react";
 import s from './Post.module.css'
 import {PostPropsType} from "../../../../Redux/profile-reducer";
 
-
 function Post({message, likeCounts}: PostPropsType) {
 
     return <div className={s.item}>

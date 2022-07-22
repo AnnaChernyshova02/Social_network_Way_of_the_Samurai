@@ -1,54 +1,68 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {MyPostsType} from "./MyPostsContainer";
-import {useAppSelector} from "../../../Redux/redux-store";
+import {useAppDispatch, useAppSelector} from "../../../Redux/redux-store";
 import {ProfileStateType} from "../../../Redux/profile-reducer";
+import {useFormik} from "formik";
+import {Button, FormGroup, TextField} from "@mui/material";
 
-function MyPosts({updateNewPostText, addPost}: MyPostsType) {
+type FormikErrorType = {
+  title?: string
+}
 
-    const profilePage = useAppSelector<ProfileStateType>(state => state.profilePage)
+function MyPosts({addPost}: MyPostsType) {
 
-    let postsElement = profilePage.posts.map(p => <Post key={p.id}
-                                            id={p.id}
-                                            message={p.message}
-                                            likeCounts={p.likeCounts}/>)
+  const profilePage = useAppSelector<ProfileStateType>(state => state.profilePage)
+  const dispatch = useAppDispatch()
 
-    let addPosts = () => {
-        addPost();
-    }
+  const formik = useFormik({
+    initialValues: {
+      title: '',
+    },
+    validate: (values) => {
+      const errors: FormikErrorType = {};
+      if (values.title.length > 300) {
+        errors.title = 'Maximum value 300 characters';
+      } else if (values.title.length === 0) {
+        errors.title = 'Minimum value 1 character';
+      }
+      return errors;
+    },
+    onSubmit: values => {
+      addPost(values.title)
+      formik.resetForm();
+    },
+  })
 
-    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        updateNewPostText(text)
-    }
+  let postsElement = profilePage.posts.map(p =>
+     (<Post key={p.id}
+            id={p.id}
+            message={p.message}
+            likeCounts={p.likeCounts}/>))
 
-/*    const onKeyUpAddPost = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-        e.key === "Enter" && addPosts()
-    }*/
-
-    return (
-        <div className={s.postsBlock}>
-            <h3>My posts</h3>
-            <div>
-                <div>
-                    <textarea
-                        onChange={onPostChange}
-                        value={profilePage.newTextPosts}
-                    /*onKeyUp={onKeyUpAddPost}*//>
-                </div>
-                <div>
-                    <button
-                        onClick={addPosts}>
-                        Add post
-                    </button>
-                </div>
-            </div>
-            <div className={s.posts}>
-                {postsElement}
-            </div>
-        </div>
-    )
+  return (
+     <div className={s.postsBlock}>
+       <h3>My posts</h3>
+       <form onSubmit={formik.handleSubmit}>
+         <FormGroup>
+           <TextField sx={{width: '30ch', marginBottom: '5px'}}
+                      size="small"
+                      label="Enter your post"
+                      {...formik.getFieldProps('title')}/>
+           <Button sx={{width: '100px', height: '40px'}}
+                   type={'submit'}
+                   variant={'contained'}
+                   color={'secondary'}>
+             publish
+           </Button>
+         </FormGroup>
+       </form>
+       <div className={s.posts}>
+         {postsElement}
+       </div>
+     </div>
+  )
 }
 
 export default MyPosts;

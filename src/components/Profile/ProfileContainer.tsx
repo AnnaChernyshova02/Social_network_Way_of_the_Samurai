@@ -1,7 +1,7 @@
 import React from "react";
 import Profile, {ProfileType} from "./Profile";
 import axios from "axios";
-import {setUserProfile} from "../../Redux/profile-reducer";
+import {getStatus, getUpdateStatus, setUserProfile} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {compose} from "redux";
@@ -23,20 +23,23 @@ class ProfileContainer extends React.Component<ProfilePropsType> {
 
 type MapStatePropsType = {
   profile: ProfileType
+  status: string
 }
 
 type MapDispatchPropsType = {
   setUserProfile: (profile: ProfileType) => void
+
 }
 
 export type ProfilePropsType = MapDispatchPropsType & MapStatePropsType
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
-    profile: state.profilePage.profile
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
   }
 }
 
 export default compose<React.ComponentType>(connect(mapStateToProps, {
-  setUserProfile
+  setUserProfile, getStatus, getUpdateStatus
 })(ProfileContainer))

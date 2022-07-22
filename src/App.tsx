@@ -6,18 +6,24 @@ import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import UserContainer from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainerFunc2";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {useAppSelector} from "./Redux/redux-store";
 
 const App = () => {
+
+  const isAuth = useAppSelector<boolean>(state => state.auth.isAuth)
+
+  if (!isAuth){
+      <Navigate to={'/login'}/>
+  }
 
   return (
     <div className='app-wrapper'>
       <HeaderContainer/>
       <Navbar/>
-
       <div className='app-wrapper-content'>
         <Routes>
           <Route path='/profile'

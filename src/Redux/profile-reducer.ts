@@ -4,7 +4,6 @@ import {profileAPI} from "../api/api";
 import {ThunkType} from "./redux-store";
 
 const ADD_POST = 'ADD-POST';
-const NEW_POST_TEXT = 'NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -13,7 +12,6 @@ let initialState: ProfileStateType = {
     {id: v1(), message: "Hi, how are you?", likeCounts: 15},
     {id: v1(), message: "It's my first post", likeCounts: 20}
   ],
-  newTextPosts: 'Hello',
   profile: null,
   status: ""
 }
@@ -26,16 +24,10 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
         posts: [...state.posts,
           {
             id: v1(),
-            message: state.newTextPosts,
+            message: action.message,
             likeCounts: 0
           }
-        ],
-        newTextPosts: ''
-      }
-    case NEW_POST_TEXT:
-      return {
-        ...state,
-        newTextPosts: action.newText
+        ]
       }
     case SET_STATUS:
       return {
@@ -52,14 +44,7 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
   }
 };
 
-export const addPostAction = () => ({type: ADD_POST} as const)
-
-export const newPostTextAction = (text: string) => {
-  return {
-    type: NEW_POST_TEXT,
-    newText: text
-  } as const
-}
+export const addPostAction = (message: string) => ({type: ADD_POST, message} as const)
 
 export const setUserProfile = (profile: ProfileType) => {
   return {
@@ -106,7 +91,6 @@ export const getUpdateStatus = (status: string): ThunkType => async (dispatch) =
 
 export type ProfileStateType = {
   posts: Array<PostPropsType>
-  newTextPosts: string
   profile: ProfileType
   status: string
 }
@@ -117,7 +101,6 @@ export type PostPropsType = {
 }
 
 export type ProfileActionsType = ReturnType<typeof addPostAction>
-  | ReturnType<typeof newPostTextAction>
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setStatus>
 

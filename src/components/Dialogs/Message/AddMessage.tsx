@@ -1,48 +1,53 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Message.module.css'
 import {DialogsType} from "./AddMessageContainer";
 import {useFormik} from "formik";
-import {Button, TextField} from "@mui/material";
+import {Button, FormGroup, TextField} from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 
-const AddMessage = ({addMessage, updateNewMessageText, dialogsPage}: DialogsType) => {
+type FormikErrorType = {
+  newMessage?: string
+}
 
+const AddMessage = ({addMessage}: DialogsType) => {
 
-    const formik = useFormik({
-        initialValues: {
-            newMessage: ""
-        },
-        onSubmit: values => {
-            //dispatch(loginTC(values))
-            formik.resetForm();
-        },
-    })
+  const formik = useFormik({
+    initialValues: {
+      newMessage: ""
+    }, validate: (values) => {
+      const errors: FormikErrorType = {};
+      if (values.newMessage.length > 600) {
+        errors.newMessage = 'Maximum value 600 characters';
+      } else if (values.newMessage.length === 0) {
+        errors.newMessage = 'Minimum value 1 character';
+      }
+      return errors;
+    },
+    onSubmit: values => {
+      addMessage(values.newMessage)
+      formik.resetForm();
+    },
+  })
 
-
-    let addMessages = () => {
-        addMessage()
-    }
-
-    let onMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let message = e.currentTarget.value
-        updateNewMessageText(message)
-    }
-
-    return <div>
-        <form onSubmit={formik.handleSubmit}>
-            <TextField variant="outlined"
-                       label={'Enter your message'}
-                       onChange={onMessageChange}
-                       value={dialogsPage.newMessage}/>
-            <div>
-                <Button size="medium"
-                        variant="contained"
-                        color="secondary"
-                        sx={{marginTop: 2}}
-                        className={s.button}
-                        onClick={addMessages}>Send</Button>
-            </div>
-        </form>
-    </div>
+  return <div>
+    <form onSubmit={formik.handleSubmit}>
+      <FormGroup>
+        <TextField sx={{width: '30ch', marginBottom: '5px'}}
+                   size="small"
+                   variant="outlined"
+                   label={'Enter your message'}
+                   {...formik.getFieldProps('newMessage')}/>
+        <Button
+           sx={{width: '100px', height: '40px'}}
+           type={'submit'}
+           size="medium"
+           variant="contained"
+           color="secondary"
+           endIcon={<SendIcon />}
+           className={s.button}>Send</Button>
+      </FormGroup>
+    </form>
+  </div>
 }
 
 export default AddMessage;

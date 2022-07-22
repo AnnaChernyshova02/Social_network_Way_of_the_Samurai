@@ -28,7 +28,9 @@ export const ProfileStatus = () => {
   return <div>
     {!editMode &&
       <div>
-        <span onDoubleClick={activateEditMode} style={{color: "black", fontSize: "30px"}}>{status}</span>
+        <span onDoubleClick={activateEditMode}
+              style={{color: "black", fontSize: "30px"}}>{status}
+        </span>
       </div>}
     {editMode &&
       <div>
