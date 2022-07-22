@@ -22,10 +22,10 @@ function MyPosts({addPost}: MyPostsType) {
     },
     validate: (values) => {
       const errors: FormikErrorType = {};
-      if (values.title.length > 300) {
+      if (!values.title) {
+        errors.title = 'Field is required';
+      } else if (values.title.length > 300) {
         errors.title = 'Maximum value 300 characters';
-      } else if (values.title.length === 0) {
-        errors.title = 'Minimum value 1 character';
       }
       return errors;
     },
@@ -50,6 +50,7 @@ function MyPosts({addPost}: MyPostsType) {
                       size="small"
                       label="Enter your post"
                       {...formik.getFieldProps('title')}/>
+           {formik.touched.title ? <div style={{color: 'red'}} >{formik.errors.title}</div> : null}
            <Button sx={{width: '100px', height: '40px'}}
                    type={'submit'}
                    variant={'contained'}

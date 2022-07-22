@@ -16,10 +16,10 @@ const AddMessage = ({addMessage}: DialogsType) => {
       newMessage: ""
     }, validate: (values) => {
       const errors: FormikErrorType = {};
-      if (values.newMessage.length > 600) {
+      if (!values.newMessage) {
+        errors.newMessage = 'Field is required';
+      } else if (values.newMessage.length > 600) {
         errors.newMessage = 'Maximum value 600 characters';
-      } else if (values.newMessage.length === 0) {
-        errors.newMessage = 'Minimum value 1 character';
       }
       return errors;
     },
@@ -37,13 +37,14 @@ const AddMessage = ({addMessage}: DialogsType) => {
                    variant="outlined"
                    label={'Enter your message'}
                    {...formik.getFieldProps('newMessage')}/>
+        {formik.touched.newMessage ? <div style={{color: 'red'}} >{formik.errors.newMessage}</div> : null}
         <Button
            sx={{width: '100px', height: '40px'}}
            type={'submit'}
            size="medium"
            variant="contained"
            color="secondary"
-           endIcon={<SendIcon />}
+           endIcon={<SendIcon/>}
            className={s.button}>Send</Button>
       </FormGroup>
     </form>
