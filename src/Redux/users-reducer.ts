@@ -11,7 +11,7 @@ const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS'
 
 let initialState: initialStateType = {
   users: [],
-  pageSize: 10,
+  pageSize: 12,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: true,

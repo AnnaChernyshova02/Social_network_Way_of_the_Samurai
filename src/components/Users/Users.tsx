@@ -1,8 +1,12 @@
 import React from "react";
-import s from './Users.module.css'
+import s from './Users.module.scss'
 import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membership-black-area.png"
 import {initialStateType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import {Button, CardContent} from "@mui/material";
+import {Box} from "@mui/system";
 
 
 type UserType = {
@@ -24,7 +28,6 @@ const Users = ({
                  onPageChanged,
                  pageSize,
                  totalUsersCount,
-                 currentPage,
                  followingInProgress,
                  following,
                  unfollowing
@@ -32,52 +35,61 @@ const Users = ({
 
   let pageCount = Math.ceil(totalUsersCount / pageSize)
 
-  let pages = []
-
-  for (let i = 1; i <= pageCount; i++) {
-    pages.push(i)
-    if (i === 100) break
+  const changePage = (event: React.ChangeEvent<unknown>, value: number) => {
+    onPageChanged(value)
   }
 
   return <div className={s.styles}>
     <div>
-      {pages.map(m => {
-        return <span className={currentPage === m ? s.countPage : ''}
-                     onClick={() => {
-                       onPageChanged(m)
-                     }}> {m} </span>
-      })}
+      <Stack spacing={2} sx={{
+        marginLeft: '25%',
+        marginTop: '15px',
+        marginBottom: '15px'
+      }}>
+        <Pagination count={pageCount}
+                    onChange={changePage}
+                    showFirstButton
+                    showLastButton
+                    color="secondary"/>
+      </Stack>
     </div>
-
-    {usersPage.users.map(m => <div key={m.id}>
-      <div>
-        <NavLink to={`/profile/${m.id}`}>
-          <img className={s.photo} alt={'photos'} src={m.photos.small != null
-            ? m.photos.small
-            : userPhoto}/>
-        </NavLink>
-      </div>
-      <div>
-        {m.followed
-          ? <button disabled={followingInProgress.some(id => id === m.id)}
-                    onClick={() => {
-                      following(m.id)
-                    }}>Unfollow</button>
-          : <button disabled={followingInProgress.some(id => id === m.id)}
-                    onClick={() => {
-                      unfollowing(m.id)
-                    }}>Follow</button>}
-      </div>
-      <div>
-                <span className={s.names}>
-                    {m.name + ' ' + m.status}
-                </span>
-        <span>
-                    <div>{"m.location.country"}</div>
-                    <div>{"m.location.city"}</div>
-                </span>
-      </div>
-    </div>)}
+    <Box sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-evenly',
+      mx: '2px'
+    }}>
+      {usersPage.users.map(m => <div key={m.id} className={s.userBlock}>
+           <CardContent>
+             <div>
+               <NavLink to={`/profile/${m.id}`}>
+                 <img className={s.photo} alt={'photos'} src={m.photos.small != null
+                    ? m.photos.small
+                    : userPhoto}/>
+               </NavLink>
+             </div>
+             <div>
+               {m.followed
+                  ? <Button size="medium"
+                            disabled={followingInProgress.some(id => id === m.id)}
+                            onClick={() => {
+                              following(m.id)
+                            }}>Unfollow</Button>
+                  : <Button size="medium"
+                            disabled={followingInProgress.some(id => id === m.id)}
+                            onClick={() => {
+                              unfollowing(m.id)
+                            }}>Follow</Button>}
+             </div>
+             <div>
+               <div>{m.name}</div>
+               <div>{m.status}</div>
+               <div>{"m.location.country"}</div>
+               <div>{"m.location.city"}</div>
+             </div>
+           </CardContent>
+         </div>
+      )}</Box>
   </div>;
 }
 

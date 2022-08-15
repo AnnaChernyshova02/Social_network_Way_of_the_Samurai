@@ -1,47 +1,59 @@
 import React from "react";
 import s from './Navbar.module.css'
-import {NavLink} from "react-router-dom";
-import {store} from "../../Redux/redux-store";
+import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../Redux/redux-store";
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+
+const navBarLink = ['/profile', '/dialogs', '/users', '/news', '/music', '/settings']
 
 const Navbar = () => {
 
-    let state = store.getState()
+  const navigate = useNavigate()
+  const navbar = useAppSelector(state => state.navbar.navbar)
 
-    let navbarElement = state.navbar.navbar.map(n => <NavLink key={n.id} to={"/dialogs/" + n.id} className={s.friend}>
-            <img src={n.avatar} alt={'avatar'}/>
-            {n.name}
-        </NavLink>
-    );
+  let navbarElement = navbar.map(n =>
+    <ListItem disablePadding divider>
+         <ListItemButton>
+           <ListItemAvatar>
+             <Avatar
+                alt={'avatar'}
+                src={n.avatar}
+             />
+           </ListItemAvatar>
+           <ListItemText primary={n.name} />
+         </ListItemButton>
+       </ListItem>
 
-    const activeLink = ({isActive} : {isActive: boolean}) => isActive ? s.activeLink : s.item
+  );
 
-    return <nav className={s.nav}>
-        <div >
-            <div>
-                <NavLink to={'/profile'} className={activeLink}>Profile</NavLink>
-            </div>
-            <div>
-                <NavLink to={'/dialogs'} className={activeLink}>Messages</NavLink>
-            </div>
-{/*            <div>
-                <NavLink to={'/news'} className={activeLink}>News</NavLink>
-            </div>
-            <div>
-                <NavLink to={'/music'} className={activeLink}>Music</NavLink>
-            </div>
-            <div>
-                <NavLink to={'/settings'} className={activeLink}>Settings</NavLink>
-            </div>*/}
-            <div>
-                <NavLink to={'/users'} className={activeLink}>Users</NavLink>
-            </div>
-        </div>
-        <div className={s.friends}>
-            My Friends
-            {navbarElement}
-        </div>
+  const navLink = navBarLink.map(navlink => <>
+    <ListItem disablePadding divider>
+      <ListItemButton>
+        <ListItemText primary={navlink.slice(1)} onClick={() => navigate(navlink)}/>
+      </ListItemButton>
+    </ListItem></>);
 
-    </nav>
+  const style = {
+    width: '100%',
+    maxWidth: 360,
+  };
+
+  return (
+     <nav className={s.nav}>
+       <List sx={style} aria-label="mailbox folders">
+         {navLink}
+         <div className={s.friends}>
+           My Friends
+         </div>
+         {navbarElement}
+       </List>
+     </nav>)
+
 }
 
 export default Navbar;

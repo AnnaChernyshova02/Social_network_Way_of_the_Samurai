@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
@@ -6,45 +6,54 @@ import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import UserContainer from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainerFunc2";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import {useAppSelector} from "./Redux/redux-store";
+import {useAppDispatch, useAppSelector} from "./Redux/redux-store";
+import {CircularProgress} from "@mui/material";
+import {initializeApp} from "./Redux/app-reducer";
 
 const App = () => {
 
-  const isAuth = useAppSelector<boolean>(state => state.auth.isAuth)
+  const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+  const dispatch = useAppDispatch()
 
-  if (!isAuth){
-      <Navigate to={'/login'}/>
-  }
+  useEffect(() => {
+    dispatch(initializeApp())
+  }, [])
 
-  return (
-    <div className='app-wrapper'>
-      <HeaderContainer/>
-      <Navbar/>
-      <div className='app-wrapper-content'>
-        <Routes>
-          <Route path='/profile'
-                 element={<ProfileContainer/>}/>
-          <Route path='/profile/:userId'
-                 element={<ProfileContainer/>}/>
-          <Route path='/dialogs/*'
-                 element={<DialogsContainer/>}/>
-          <Route path='/news'
-                 element={<News/>}/>
-          <Route path='/music'
-                 element={<Music/>}/>
-          <Route path='/settings'
-                 element={<Settings/>}/>
-          <Route path='/users'
-                 element={<UserContainer/>}/>
-          <Route path='/login'
-                 element={<Login/>}/>
-        </Routes>
-      </div>
+  if (!isInitialized) {
+    return <div
+       style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+      <CircularProgress/>
     </div>
+  }
+  return (
+     <div className='app-wrapper'>
+       <HeaderContainer/>
+       <Navbar/>
+       <div className='app-wrapper-content'>
+         <Routes>
+           <Route path='/profile'
+                  element={<ProfileContainer/>}/>
+           <Route path='/profile/:userId'
+                  element={<ProfileContainer/>}/>
+           <Route path='/dialogs/*'
+                  element={<DialogsContainer/>}/>
+           <Route path='/news'
+                  element={<News/>}/>
+           <Route path='/music'
+                  element={<Music/>}/>
+           <Route path='/settings'
+                  element={<Settings/>}/>
+           <Route path='/users'
+                  element={<UserContainer/>}/>
+           <Route path='/login'
+                  element={<Login/>}/>
+         </Routes>
+       </div>
+     </div>
   );
 }
 

@@ -66,5 +66,15 @@ export const login = (data: LoginParamsType) => async ( dispatch: ThunkDispatch<
     console.log(e)
   }
 }
+export const logOut = () => async ( dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
+  try {
+    const response = await authAPI.logout()
+    if (response.data.resultCode === 0) {
+      dispatch(setLogin(false))
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 export type AuthActionsType = ReturnType<typeof setAuthUserData> | ReturnType<typeof setLogin>
