@@ -36,7 +36,7 @@ export const ProfileStatus = () => {
     {editMode &&
       <div>
         <input onChange={onStatusChange}
-               autoFocus={true}
+               autoFocus
                onBlur={deactivateEditMode}
                value={state}
                style={{fontSize: "25px"}}/>

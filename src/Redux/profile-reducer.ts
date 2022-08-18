@@ -2,6 +2,8 @@ import {v1} from "uuid";
 import {ProfileType} from "../components/Profile/Profile";
 import {profileAPI} from "../api/api";
 import {ThunkType} from "./redux-store";
+import {setAppStatus} from "./app-reducer";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -61,31 +63,49 @@ export const setStatus = (status: string) => {
 }
 
 export const getUserProfile = (userId: string): ThunkType => async (dispatch) => {
+  dispatch(setAppStatus('loading'))
   try {
     const response = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(response.data))
-  } catch (e) {
-    console.log(e)
+    dispatch(setAppStatus('succeeded'))
+  } catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+    dispatch(setAppStatus('failed'))
+  }
+  finally {
+    dispatch(setAppStatus('idle'))
   }
 }
 
 export const getStatus = (userId: string): ThunkType => async (dispatch) => {
+  dispatch(setAppStatus('loading'))
   try {
     const response = await profileAPI.getStatus(userId)
     dispatch(setStatus(response.data))
-  } catch (e) {
-    console.log(e)
+    dispatch(setAppStatus('succeeded'))
+  } catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+    dispatch(setAppStatus('failed'))
+  }
+  finally {
+    dispatch(setAppStatus('idle'))
   }
 }
 
 export const getUpdateStatus = (status: string): ThunkType => async (dispatch) => {
+  dispatch(setAppStatus('loading'))
   try {
     const response = await profileAPI.updateStatus(status)
     if (response.data.resultCode === 0) {
       dispatch(setStatus(status))
+      dispatch(setAppStatus('succeeded'))
     }
-  } catch (e) {
-    console.log(e)
+  } catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+    dispatch(setAppStatus('failed'))
+  }
+  finally {
+    dispatch(setAppStatus('idle'))
   }
 }
 

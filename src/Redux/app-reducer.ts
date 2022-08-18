@@ -35,8 +35,10 @@ export const initializeApp = () => async (dispatch: ThunkDispatch<AppStateType, 
     }
   } catch (error: any) {
     handleServerNetworkError(error, dispatch);
+    dispatch(setAppStatus('failed'))
   } finally {
     dispatch(setIsInitialized(true))
+    dispatch(setAppStatus('idle'))
   }
 }
 

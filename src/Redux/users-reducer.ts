@@ -1,7 +1,8 @@
-import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {setAppStatus} from "./app-reducer";
 import {handleServerNetworkError} from "../utils/error-utils";
+import {ThunkDispatch} from "redux-thunk";
+import {AppActionsType, AppStateType} from "./redux-store";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -53,8 +54,8 @@ export const usersReducer = (state: initialStateType = initialState, action: Use
       return {
         ...state,
         followingInProgress: action.isFetching
-          ? [...state.followingInProgress, action.id]
-          : [...state.followingInProgress.filter(id => id != action.id)]
+           ? [...state.followingInProgress, action.id]
+           : [...state.followingInProgress.filter(id => id != action.id)]
       }
     default:
       return state;
@@ -74,18 +75,17 @@ export const toggleIsFollowingProgress = (id: number, isFetching: boolean) => ({
 } as const)
 
 
-export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
+export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
   dispatch(toggleIsFetching(true))
   dispatch(setCurrentPage(currentPage))
   dispatch(setAppStatus('loading'))
   try {
     const response = await usersAPI.getUsers(currentPage, pageSize)
-      dispatch(toggleIsFetching(false))
-      dispatch(setUsers(response.items));
-      dispatch(setTotalUsersCount(response.totalCount))
-      dispatch(setAppStatus('succeeded'))
-    }
-  catch (error: any) {
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(response.items));
+    dispatch(setTotalUsersCount(response.totalCount))
+    dispatch(setAppStatus('succeeded'))
+  } catch (error: any) {
     handleServerNetworkError(error, dispatch)
     dispatch(setAppStatus('failed'))
   } finally {
@@ -93,26 +93,39 @@ export const getUsers = (currentPage: number, pageSize: number) => async (dispat
   }
 }
 
-export const following = (id: number) => (dispatch: Dispatch) => {
+export const following = (id: number) => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
   dispatch(toggleIsFollowingProgress(id, true))
-  usersAPI.deleteFollow(id)
-    .then((res) => {
-      if (res.resultCode === 0) {
-        dispatch(unfollow(id))
-      }
-      dispatch(toggleIsFollowingProgress(id, false))
-    })
+  dispatch(setAppStatus('loading'))
+  try {
+    const res = await usersAPI.deleteFollow(id)
+    if (res.resultCode === 0) {
+      dispatch(unfollow(id))
+    }
+    dispatch(toggleIsFollowingProgress(id, false))
+  } catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+    dispatch(setAppStatus('failed'))
+  } finally {
+    dispatch(setAppStatus('idle'))
+  }
 }
 
-export const unfollowing = (id: number) => (dispatch: Dispatch) => {
+
+export const unfollowing = (id: number) => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
   dispatch(toggleIsFollowingProgress(id, true))
-  usersAPI.postFollow(id)
-    .then((res) => {
-      if (res.resultCode === 0) {
-        dispatch(follow(id))
-      }
-      dispatch(toggleIsFollowingProgress(id, false))
-    })
+  dispatch(setAppStatus('loading'))
+  try {
+    const res = await usersAPI.postFollow(id)
+    if (res.resultCode === 0) {
+      dispatch(follow(id))
+    }
+    dispatch(toggleIsFollowingProgress(id, false))
+  } catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+    dispatch(setAppStatus('failed'))
+  } finally {
+    dispatch(setAppStatus('idle'))
+  }
 }
 
 
@@ -141,9 +154,9 @@ export type initialStateType = {
 }
 
 export type UsersActionsType = ReturnType<typeof follow> |
-  ReturnType<typeof unfollow> |
-  ReturnType<typeof setUsers> |
-  ReturnType<typeof setCurrentPage> |
-  ReturnType<typeof setTotalUsersCount> |
-  ReturnType<typeof toggleIsFetching> |
-  ReturnType<typeof toggleIsFollowingProgress>
+   ReturnType<typeof unfollow> |
+   ReturnType<typeof setUsers> |
+   ReturnType<typeof setCurrentPage> |
+   ReturnType<typeof setTotalUsersCount> |
+   ReturnType<typeof toggleIsFetching> |
+   ReturnType<typeof toggleIsFollowingProgress>
