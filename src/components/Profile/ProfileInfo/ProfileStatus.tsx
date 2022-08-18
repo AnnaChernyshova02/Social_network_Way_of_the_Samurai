@@ -9,7 +9,7 @@ export const ProfileStatus = () => {
   const dispatch = useAppDispatch()
 
   const [editMode, setEditMode] = useState(false)
-  const [state, setState] = useState(status)
+  const [profileStatus, setProfileStatus] = useState(status)
 
   const activateEditMode = () => {
     setEditMode(true)
@@ -17,13 +17,13 @@ export const ProfileStatus = () => {
 
   const deactivateEditMode = () => {
     setEditMode(false)
-    if (state !== status) {
-      dispatch(getUpdateStatus(state))
+    if (profileStatus !== status) {
+      dispatch(getUpdateStatus(profileStatus))
     }
   }
 
   const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setState(e.currentTarget.value)
+    setProfileStatus(e.currentTarget.value)
   }
 
   return <div>
@@ -38,7 +38,7 @@ export const ProfileStatus = () => {
         <input onChange={onStatusChange}
                autoFocus
                onBlur={deactivateEditMode}
-               value={state}
+               value={profileStatus}
                style={{fontSize: "25px"}}/>
       </div>}
   </div>
