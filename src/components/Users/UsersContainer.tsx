@@ -14,6 +14,12 @@ import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hok/AuthRedirect";
+import {
+  currentPageSelector,
+  followingInProgressSelector,
+  isFetchingSelector, pageSizeSelector,
+  totalUsersCountSelector, usersSelector
+} from "../../Selectors/usersSelector";
 
 export class UsersContainer extends Component<UsersPropsType> {
 
@@ -47,12 +53,12 @@ export class UsersContainer extends Component<UsersPropsType> {
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
   return {
-    usersPage: state.users,
-    pageSize: state.users.pageSize,
-    totalUsersCount: state.users.totalUsersCount,
-    currentPage: state.users.currentPage,
-    isFetching: state.users.isFetching,
-    followingInProgress: state.users.followingInProgress
+    usersPage: usersSelector(state),
+    pageSize: pageSizeSelector(state),
+    totalUsersCount: totalUsersCountSelector(state),
+    currentPage: currentPageSelector(state),
+    isFetching: isFetchingSelector(state),
+    followingInProgress: followingInProgressSelector(state)
   }
 }
 

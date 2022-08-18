@@ -6,7 +6,7 @@ import {UsersActionsType, usersReducer} from "./users-reducer";
 import {AuthActionsType, authReducer} from "./auth-reducer";
 import thunk, {ThunkAction} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {appReducer} from "./app-reducer";
+import {ActionsType, appReducer} from "./app-reducer";
 
 let rootReducer = combineReducers(
    {
@@ -32,6 +32,8 @@ export type AppActionsType = AuthActionsType
    | ProfileActionsType
    | UsersActionsType
    | DialogsActionsType
+   | ActionsType
+export type AppRootStateType = ReturnType<typeof store.getState>
 
 export type ThunkType = ThunkAction<void, AppStateType, unknown, AppActionsType>
 

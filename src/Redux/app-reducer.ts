@@ -1,7 +1,8 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
-import {setLogin} from "./auth-reducer";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {setAuthUserData, setLogin} from "./auth-reducer";
+import {handleServerNetworkError} from "../utils/error-utils";
+import {ThunkDispatch} from "redux-thunk";
+import {AppActionsType, AppStateType} from "./redux-store";
 
 const initialState: InitialStateType = {
   status: 'idle',
@@ -22,22 +23,21 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
   }
 }
 
-export const initializeApp = () => (dispatch: Dispatch) => {
-  authAPI.me().then(res => {
-    dispatch(setAppStatus('loading'))
-    if (res.data.resultCode === 0) {
+export const initializeApp = () => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
+  dispatch(setAppStatus('loading'))
+  try {
+    const response = await authAPI.me()
+    if (response.data.resultCode === 0) {
+      let {id, login, email} = response.data.data
+      dispatch(setAuthUserData(id, login, email))
       dispatch(setLogin(true));
       dispatch(setAppStatus('succeeded'))
-    } else {
-      handleServerAppError(res.data, dispatch);
     }
-  })
-     .catch((error) => {
-       handleServerNetworkError(error, dispatch);
-     })
-     .finally(()=>{
-       dispatch(setIsInitialized(true))
-     })
+  } catch (error: any) {
+    handleServerNetworkError(error, dispatch);
+  } finally {
+    dispatch(setIsInitialized(true))
+  }
 }
 
 
@@ -56,7 +56,7 @@ export type SetAppErrorActionType = ReturnType<typeof setAppError>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatus>
 export type setIsInitializeActionType = ReturnType<typeof setIsInitialized>
 
-type ActionsType =
+export type ActionsType =
    | SetAppErrorActionType
    | SetAppStatusActionType
    | setIsInitializeActionType

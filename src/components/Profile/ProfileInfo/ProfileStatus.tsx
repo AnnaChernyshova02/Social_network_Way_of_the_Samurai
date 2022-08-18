@@ -1,10 +1,11 @@
 import React, {ChangeEvent, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../Redux/redux-store";
 import {getUpdateStatus} from "../../../Redux/profile-reducer";
+import {profileStatusSelector} from "../../../Selectors/profileSelector";
 
 export const ProfileStatus = () => {
 
-  let status = useAppSelector<string>(state => state.profilePage.status)
+  let status = useAppSelector(profileStatusSelector)
   const dispatch = useAppDispatch()
 
   const [editMode, setEditMode] = useState(false)

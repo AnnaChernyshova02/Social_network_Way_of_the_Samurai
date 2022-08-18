@@ -4,15 +4,16 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {Navigate} from "react-router-dom";
 import {useAppSelector} from "../../Redux/redux-store";
 import s from "./ProfileInfo/ProfileInfo.module.css";
+import {isAuthSelector} from "../../Selectors/appSelector";
 
-function Profile(props: ProfilePagePropsType) {
+function Profile() {
 
-  const isAuth = useAppSelector<boolean>(state => state.auth.isAuth)
+  const isAuth = useAppSelector(isAuthSelector)
 
   if (!isAuth) return <Navigate to={"/login"}/>;
 
   return <div className={s.picturesBlock}>
-    <ProfileInfo profile={props.profile}/>
+    <ProfileInfo />
     <MyPostsContainer/>
   </div>
 }

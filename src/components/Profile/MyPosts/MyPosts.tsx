@@ -3,9 +3,9 @@ import s from './MyPosts.module.css';
 import Post from "./Post/Post";
 import {MyPostsType} from "./MyPostsContainer";
 import {useAppDispatch, useAppSelector} from "../../../Redux/redux-store";
-import {ProfileStateType} from "../../../Redux/profile-reducer";
 import {useFormik} from "formik";
 import {Button, FormGroup, TextField} from "@mui/material";
+import {profilePageSelector} from "../../../Selectors/profileSelector";
 
 type FormikErrorType = {
   title?: string
@@ -13,7 +13,7 @@ type FormikErrorType = {
 
 function MyPosts({addPost}: MyPostsType) {
 
-  const profilePage = useAppSelector<ProfileStateType>(state => state.profilePage)
+  const profilePage = useAppSelector(profilePageSelector)
   const dispatch = useAppDispatch()
 
   const formik = useFormik({

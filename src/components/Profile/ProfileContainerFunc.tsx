@@ -24,7 +24,7 @@ export class ProfileContainer extends React.Component<any, ProfilePropsType> {
   }
 
   render() {
-    return <Profile profile={this.props.profile} />
+    return <Profile  />
   }
 }
 

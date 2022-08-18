@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "../../Redux/redux-store";
 import Header from "./Header";
-import {AuthStateType, getAuthUserData} from "../../Redux/auth-reducer";
+import {AuthStateType} from "../../Redux/auth-reducer";
+import {initializeApp} from "../../Redux/app-reducer";
 
 export const HeaderContainer = () => {
 
@@ -9,7 +10,7 @@ export const HeaderContainer = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getAuthUserData())
+        dispatch(initializeApp())
     }, [])
 
     return <Header isAuth={auth.isAuth} login={auth.login} />

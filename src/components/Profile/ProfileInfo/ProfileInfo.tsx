@@ -3,8 +3,12 @@ import s from './ProfileInfo.module.css'
 import {ProfilePagePropsType} from "../Profile";
 import Preloader from "../../common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
+import {useAppSelector} from "../../../Redux/redux-store";
+import {profileSelector} from "../../../Selectors/profileSelector";
 
-const ProfileInfo = ({profile}: ProfilePagePropsType) => {
+const ProfileInfo = () => {
+
+  const profile = useAppSelector(profileSelector)
 
   if (!profile) {
     return <Preloader/>

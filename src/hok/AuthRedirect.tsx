@@ -2,10 +2,11 @@ import React, {ComponentType} from 'react';
 import {Navigate} from "react-router-dom";
 import {AppStateType} from "../Redux/redux-store";
 import {connect} from "react-redux";
+import {isAuthSelector} from "../Selectors/appSelector";
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: isAuthSelector(state)
   }
 }
 

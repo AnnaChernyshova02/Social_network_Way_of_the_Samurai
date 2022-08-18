@@ -8,21 +8,6 @@ import Pagination from "@mui/material/Pagination";
 import {Button, CardContent} from "@mui/material";
 import {Box} from "@mui/system";
 
-
-type UserType = {
-  onPageChanged: (pageNumber: number) => void
-  follow: (userID: number) => void
-  unfollow: (userID: number) => void
-  usersPage: initialStateType
-  pageSize: number
-  totalUsersCount: number
-  currentPage: number
-  followingInProgress: number[]
-  toggleIsFollowingProgress: (id: number, isFetching: boolean) => void
-  following: (id: number) => void
-  unfollowing: (id: number) => void
-}
-
 const Users = ({
                  usersPage,
                  onPageChanged,
@@ -91,6 +76,20 @@ const Users = ({
          </div>
       )}</Box>
   </div>;
+}
+
+type UserType = {
+  onPageChanged: (pageNumber: number) => void
+  follow: (userID: number) => void
+  unfollow: (userID: number) => void
+  usersPage: initialStateType
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  followingInProgress: number[]
+  toggleIsFollowingProgress: (id: number, isFetching: boolean) => void
+  following: (id: number) => void
+  unfollowing: (id: number) => void
 }
 
 export default Users;

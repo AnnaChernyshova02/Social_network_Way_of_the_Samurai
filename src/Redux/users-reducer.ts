@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
+import {setAppStatus} from "./app-reducer";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -72,15 +74,23 @@ export const toggleIsFollowingProgress = (id: number, isFetching: boolean) => ({
 } as const)
 
 
-export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const getUsers = (currentPage: number, pageSize: number) => async (dispatch: Dispatch) => {
   dispatch(toggleIsFetching(true))
   dispatch(setCurrentPage(currentPage))
-  usersAPI.getUsers(currentPage, pageSize)
-    .then(data => {
+  dispatch(setAppStatus('loading'))
+  try {
+    const response = await usersAPI.getUsers(currentPage, pageSize)
       dispatch(toggleIsFetching(false))
-      dispatch(setUsers(data.items));
-      dispatch(setTotalUsersCount(data.totalCount))
-    })
+      dispatch(setUsers(response.items));
+      dispatch(setTotalUsersCount(response.totalCount))
+      dispatch(setAppStatus('succeeded'))
+    }
+  catch (error: any) {
+    handleServerNetworkError(error, dispatch)
+    dispatch(setAppStatus('failed'))
+  } finally {
+    dispatch(setAppStatus('idle'))
+  }
 }
 
 export const following = (id: number) => (dispatch: Dispatch) => {

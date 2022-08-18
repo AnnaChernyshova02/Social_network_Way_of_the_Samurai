@@ -4,10 +4,11 @@ import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {Dispatch} from "redux";
 import {AppStateType} from "../../../Redux/redux-store";
+import {profilePageSelector} from "../../../Selectors/profileSelector";
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profilePage: state.profilePage
+        profilePage: profilePageSelector(state)
     }
 }
 

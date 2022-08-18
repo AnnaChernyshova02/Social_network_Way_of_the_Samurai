@@ -11,12 +11,15 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import {useAppDispatch, useAppSelector} from "./Redux/redux-store";
-import {CircularProgress} from "@mui/material";
+import {Box, CircularProgress, LinearProgress} from "@mui/material";
 import {initializeApp} from "./Redux/app-reducer";
+import {isAuthSelector, isInitializedSelector, statusSelector} from "./Selectors/appSelector";
 
 const App = () => {
 
-  const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+  const isInitialized = useAppSelector(isInitializedSelector)
+  const status= useAppSelector(statusSelector)
+  const isAuth = useAppSelector(isAuthSelector)
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -26,33 +29,38 @@ const App = () => {
   if (!isInitialized) {
     return <div
        style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-      <CircularProgress/>
+      <CircularProgress />
     </div>
   }
   return (
-     <div className='app-wrapper'>
-       <HeaderContainer/>
-       <Navbar/>
-       <div className='app-wrapper-content'>
+     <div className='backgr'>
+     <div className={isAuth ? 'app-wrapper' : 'notLogin'}>
+       {isAuth && <><HeaderContainer/>
+         <Navbar/></>}
+       {status === 'loading' && <Box sx={{ width: '100%' }}>
+         <LinearProgress />
+       </Box>}
+         <div className='app-wrapper-content'>
          <Routes>
-           <Route path='/profile'
-                  element={<ProfileContainer/>}/>
-           <Route path='/profile/:userId'
-                  element={<ProfileContainer/>}/>
-           <Route path='/dialogs/*'
-                  element={<DialogsContainer/>}/>
-           <Route path='/news'
-                  element={<News/>}/>
-           <Route path='/music'
-                  element={<Music/>}/>
-           <Route path='/settings'
-                  element={<Settings/>}/>
-           <Route path='/users'
-                  element={<UserContainer/>}/>
-           <Route path='/login'
-                  element={<Login/>}/>
+         <Route path='/profile'
+         element={<ProfileContainer/>}/>
+         <Route path='/profile/:userId'
+         element={<ProfileContainer/>}/>
+         <Route path='/dialogs/*'
+         element={<DialogsContainer/>}/>
+         <Route path='/news'
+         element={<News/>}/>
+         <Route path='/music'
+         element={<Music/>}/>
+         <Route path='/settings'
+         element={<Settings/>}/>
+         <Route path='/users'
+         element={<UserContainer/>}/>
+         <Route path='/login'
+         element={<Login/>}/>
          </Routes>
        </div>
+     </div>
      </div>
   );
 }
