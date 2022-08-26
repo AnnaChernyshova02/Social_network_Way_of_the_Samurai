@@ -6,7 +6,7 @@ import Settings from "./components/Settings/Settings";
 import Navbar from "./components/Navbar/Navbar";
 import UserContainer from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainerFunc2";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -18,9 +18,10 @@ import {isAuthSelector, isInitializedSelector, statusSelector} from "./Selectors
 const App = () => {
 
   const isInitialized = useAppSelector(isInitializedSelector)
-  const status= useAppSelector(statusSelector)
+  const status = useAppSelector(statusSelector)
   const isAuth = useAppSelector(isAuthSelector)
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   useEffect(() => {
     dispatch(initializeApp())
@@ -29,38 +30,41 @@ const App = () => {
   if (!isInitialized) {
     return <div
        style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-      <CircularProgress />
+      <CircularProgress/>
     </div>
   }
+
+
   return (
      <div className='backgr'>
-     <div className={isAuth ? 'app-wrapper' : 'notLogin'}>
-       {isAuth && <><HeaderContainer/>
-         <Navbar/></>}
-       {status === 'loading' && <Box sx={{ width: '100%' }}>
-         <LinearProgress />
-       </Box>}
+       <div className={isAuth ? 'app-wrapper' : 'notLogin'}>
+         {isAuth && <><HeaderContainer/>
+           <Navbar/></>}
+         {status === 'loading' && <Box sx={{width: '100%'}}>
+           <LinearProgress/>
+         </Box>}
          <div className='app-wrapper-content'>
-         <Routes>
-         <Route path='/profile'
-         element={<ProfileContainer/>}/>
-         <Route path='/profile/:userId'
-         element={<ProfileContainer/>}/>
-         <Route path='/dialogs/*'
-         element={<DialogsContainer/>}/>
-         <Route path='/news'
-         element={<News/>}/>
-         <Route path='/music'
-         element={<Music/>}/>
-         <Route path='/settings'
-         element={<Settings/>}/>
-         <Route path='/users'
-         element={<UserContainer/>}/>
-         <Route path='/login'
-         element={<Login/>}/>
-         </Routes>
+           <Routes>
+             <Route index element={() => navigate('/login')}/> {/* index => path='/' */}
+             <Route path='/profile'
+                    element={<ProfileContainer/>}/>
+             <Route path='/profile/:userId'
+                    element={<ProfileContainer/>}/>
+             <Route path='/dialogs/*'
+                    element={<DialogsContainer/>}/>
+             <Route path='/news'
+                    element={<News/>}/>
+             <Route path='/music'
+                    element={<Music/>}/>
+             <Route path='/settings'
+                    element={<Settings/>}/>
+             <Route path='/users'
+                    element={<UserContainer/>}/>
+             <Route path='/login'
+                    element={<Login/>}/>
+           </Routes>
+         </div>
        </div>
-     </div>
      </div>
   );
 }

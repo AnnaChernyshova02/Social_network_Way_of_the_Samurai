@@ -11,7 +11,6 @@ import {
 } from "../../Redux/users-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hok/AuthRedirect";
 import {
@@ -20,6 +19,7 @@ import {
   isFetchingSelector, pageSizeSelector,
   totalUsersCountSelector, usersSelector
 } from "../../Selectors/usersSelector";
+import {Box, LinearProgress} from "@mui/material";
 
 export class UsersContainer extends Component<UsersPropsType> {
 
@@ -33,7 +33,9 @@ export class UsersContainer extends Component<UsersPropsType> {
 
   render() {
     return <>
-      {this.props.isFetching ? <Preloader/> : null}
+      {this.props.isFetching ? <Box sx={{width: '100%'}}>
+        <LinearProgress/>
+      </Box> : null}
       <Users
         follow={this.props.follow}
         unfollow={this.props.unfollow}

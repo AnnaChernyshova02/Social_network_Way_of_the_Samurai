@@ -10,10 +10,13 @@ function Profile() {
 
   const isAuth = useAppSelector(isAuthSelector)
 
-  if (!isAuth) return <Navigate to={"/login"}/>;
+  if (!isAuth) {
+    return <Navigate to={'/login'}/>
+  }
+  ;
 
   return <div className={s.picturesBlock}>
-    <ProfileInfo />
+    <ProfileInfo/>
     <MyPostsContainer/>
   </div>
 }

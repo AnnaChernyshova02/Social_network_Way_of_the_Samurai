@@ -51,8 +51,9 @@ export const Login = () => {
         return <Navigate to={'/profile'}/>
     }
 
+
     return (
-        <div className='backgr'>
+        <div>
             <form onSubmit={formik.handleSubmit} className={s.form}>
                 <Box sx={{
                     padding: '50px',

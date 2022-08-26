@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Users.module.scss'
-import userPhoto from "../../assets/images/png-clipart-computer-icons-user-membership-black-area.png"
+import userPhoto from "../../assets/images/user.svg"
 import {initialStateType} from "../../Redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import Stack from "@mui/material/Stack";

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../Redux/redux-store";
 import {getUpdateStatus} from "../../../Redux/profile-reducer";
 import {profileStatusSelector} from "../../../Selectors/profileSelector";
@@ -10,6 +10,10 @@ export const ProfileStatus = () => {
 
   const [editMode, setEditMode] = useState(false)
   const [profileStatus, setProfileStatus] = useState(status)
+
+  useEffect(() => {
+    setProfileStatus(status)
+  }, [status]);
 
   const activateEditMode = () => {
     setEditMode(true)
@@ -28,18 +32,18 @@ export const ProfileStatus = () => {
 
   return <div>
     {!editMode &&
-      <div>
+       <div>
         <span onDoubleClick={activateEditMode}
               style={{color: "black", fontSize: "30px"}}>{status}
         </span>
-      </div>}
+       </div>}
     {editMode &&
-      <div>
-        <input onChange={onStatusChange}
-               autoFocus
-               onBlur={deactivateEditMode}
-               value={profileStatus}
-               style={{fontSize: "25px"}}/>
-      </div>}
+       <div>
+         <input onChange={onStatusChange}
+                autoFocus
+                onBlur={deactivateEditMode}
+                value={profileStatus}
+                style={{fontSize: "25px"}}/>
+       </div>}
   </div>
 }

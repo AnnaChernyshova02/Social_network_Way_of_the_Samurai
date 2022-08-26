@@ -12,7 +12,7 @@
 }
 
 .backgr {
-  background:url('https://d3ui957tjb5bqd.cloudfront.net/images/screenshots/products/0/8/8905/red-rocks-park-o.jpg') -25px -50px;
+  background:url('https://img2.akspic.ru/crops/0/6/6/1/21660/21660-gory-dikaya_mestnost-atmosfera-rassvet-fjord-2560x1440.jpg') fixed;
   top:0;
   width:100%;
   z-index:0;
@@ -26,5 +26,5 @@
 }
 
 .notLogin {
-  background: rgba(255, 255, 255, 0.75);
+  background:url('https://img2.akspic.ru/crops/0/6/6/1/21660/21660-gory-dikaya_mestnost-atmosfera-rassvet-fjord-2560x1440.jpg') fixed;
 }

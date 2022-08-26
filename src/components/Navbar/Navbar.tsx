@@ -16,27 +16,26 @@ const Navbar = () => {
   const navigate = useNavigate()
   const navbar = useAppSelector(state => state.navbar.navbar)
 
-  let navbarElement = navbar.map(n =>
-    <ListItem disablePadding divider>
-         <ListItemButton>
-           <ListItemAvatar>
-             <Avatar
-                alt={'avatar'}
-                src={n.avatar}
-             />
-           </ListItemAvatar>
-           <ListItemText primary={n.name} />
-         </ListItemButton>
-       </ListItem>
-
+  let navbarElement = navbar.map((n, index) =>
+     <ListItem key={index} disablePadding divider>
+       <ListItemButton>
+         <ListItemAvatar>
+           <Avatar
+              alt={'avatar'}
+              src={n.avatar}
+           />
+         </ListItemAvatar>
+         <ListItemText primary={n.name}/>
+       </ListItemButton>
+     </ListItem>
   );
 
-  const navLink = navBarLink.map(navlink => <>
-    <ListItem disablePadding divider>
-      <ListItemButton>
-        <ListItemText primary={navlink.slice(1)} onClick={() => navigate(navlink)}/>
-      </ListItemButton>
-    </ListItem></>);
+  const navLink = navBarLink.map(navlink =>
+       <ListItem key={navlink} disablePadding divider>
+         <ListItemButton>
+           <ListItemText primary={navlink.slice(1)} onClick={() => navigate(navlink)}/>
+         </ListItemButton>
+       </ListItem>);
 
   const style = {
     width: '100%',

@@ -8,6 +8,7 @@ import {handleServerNetworkError} from "../utils/error-utils";
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let initialState: ProfileStateType = {
   posts: [
@@ -41,12 +42,18 @@ const profileReducer = (state: ProfileStateType = initialState, action: ProfileA
         ...state,
         profile: action.profile
       }
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter(post => post.id != action.id)
+      }
     default:
       return state;
   }
 };
 
-export const addPostAction = (message: string) => ({type: ADD_POST, message} as const)
+export const addPost = (message: string) => ({type: ADD_POST, message} as const)
+export const deletePost = (id: string) => ({type: DELETE_POST, id} as const)
 
 export const setUserProfile = (profile: ProfileType) => {
   return {
@@ -71,8 +78,7 @@ export const getUserProfile = (userId: string): ThunkType => async (dispatch) =>
   } catch (error: any) {
     handleServerNetworkError(error, dispatch)
     dispatch(setAppStatus('failed'))
-  }
-  finally {
+  } finally {
     dispatch(setAppStatus('idle'))
   }
 }
@@ -86,8 +92,7 @@ export const getStatus = (userId: string): ThunkType => async (dispatch) => {
   } catch (error: any) {
     handleServerNetworkError(error, dispatch)
     dispatch(setAppStatus('failed'))
-  }
-  finally {
+  } finally {
     dispatch(setAppStatus('idle'))
   }
 }
@@ -103,8 +108,7 @@ export const getUpdateStatus = (status: string): ThunkType => async (dispatch) =
   } catch (error: any) {
     handleServerNetworkError(error, dispatch)
     dispatch(setAppStatus('failed'))
-  }
-  finally {
+  } finally {
     dispatch(setAppStatus('idle'))
   }
 }
@@ -120,8 +124,9 @@ export type PostPropsType = {
   likeCounts: number
 }
 
-export type ProfileActionsType = ReturnType<typeof addPostAction>
-  | ReturnType<typeof setUserProfile>
-  | ReturnType<typeof setStatus>
+export type ProfileActionsType = ReturnType<typeof addPost>
+   | ReturnType<typeof setUserProfile>
+   | ReturnType<typeof setStatus>
+   | ReturnType<typeof deletePost>
 
 export default profileReducer;
