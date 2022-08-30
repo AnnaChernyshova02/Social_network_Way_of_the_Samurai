@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import dialogsReducer, {addMessageAction, DialogsStateType} from "./dialogs-reducer";
+import dialogsReducer, {addMessageAction, DialogsStateType} from "../dialogs-reducer";
 
 let state: DialogsStateType = {
   dialogs: [

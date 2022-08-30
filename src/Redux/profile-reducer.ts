@@ -5,10 +5,10 @@ import {ThunkType} from "./redux-store";
 import {setAppStatus} from "./app-reducer";
 import {handleServerNetworkError} from "../utils/error-utils";
 
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const DELETE_POST = 'DELETE_POST';
+const ADD_POST = 'profile/ADD-POST';
+const SET_USER_PROFILE = 'profile/SET_USER_PROFILE';
+const SET_STATUS = 'profile/SET_STATUS';
+const DELETE_POST = 'profile/DELETE_POST';
 
 let initialState: ProfileStateType = {
   posts: [

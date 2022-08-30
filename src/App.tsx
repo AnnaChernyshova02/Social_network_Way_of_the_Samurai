@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import './App.css';
+import './App.scss';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -14,6 +14,7 @@ import {useAppDispatch, useAppSelector} from "./Redux/redux-store";
 import {Box, CircularProgress, LinearProgress} from "@mui/material";
 import {initializeApp} from "./Redux/app-reducer";
 import {isAuthSelector, isInitializedSelector, statusSelector} from "./Selectors/appSelector";
+import {Error404} from "./components/404_Error/Error_404";
 
 const App = () => {
 
@@ -62,6 +63,8 @@ const App = () => {
                     element={<UserContainer/>}/>
              <Route path='/login'
                     element={<Login/>}/>
+             <Route path='/*'
+                    element={<Error404/>}/>
            </Routes>
          </div>
        </div>

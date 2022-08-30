@@ -1,4 +1,4 @@
-import {authReducer, AuthStateType, setAuthUserData, setLogin} from "./auth-reducer";
+import {authReducer, AuthStateType, setAuthUserData, setLogin} from "../auth-reducer";
 
 let state: AuthStateType = {
   id: 2,

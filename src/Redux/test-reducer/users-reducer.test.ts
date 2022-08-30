@@ -6,7 +6,7 @@ import {
   toggleIsFetching, toggleIsFollowingProgress,
   unfollow,
   usersReducer
-} from "./users-reducer";
+} from "../users-reducer";
 
 let state: initialStateType = {
   users: [

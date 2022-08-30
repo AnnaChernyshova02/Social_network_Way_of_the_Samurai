@@ -20,13 +20,13 @@ export type AuthStateType = {
 
 export const authReducer = (state: AuthStateType = initialState, action: AuthActionsType): AuthStateType => {
   switch (action.type) {
-    case 'SET_USER_DATA':
+    case 'auth/SET_USER_DATA':
       return {
         ...state,
         ...action.data,
         isAuth: true
       }
-     case "SET_LOGIN":
+     case "auth/SET_LOGIN":
         return {
            ...state,
            isAuth: action.value
@@ -37,12 +37,12 @@ export const authReducer = (state: AuthStateType = initialState, action: AuthAct
 };
 
 export const setAuthUserData = (id: number, login: string, email: string) => ({
-  type: 'SET_USER_DATA',
+  type: 'auth/SET_USER_DATA',
   data: {id, login, email}
 } as const)
 
 export const setLogin = (value: boolean) => ({
-  type: 'SET_LOGIN',
+  type: 'auth/SET_LOGIN',
   value
 } as const)
 

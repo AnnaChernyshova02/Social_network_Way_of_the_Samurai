@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 
-const ADD_MESSAGE = "ADD-MESSAGE";
+const ADD_MESSAGE = "dialogs/ADD-MESSAGE";
+
 let initialState: DialogsStateType = {
   dialogs: [
     {

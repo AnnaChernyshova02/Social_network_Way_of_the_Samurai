@@ -4,13 +4,13 @@ import {handleServerNetworkError} from "../utils/error-utils";
 import {ThunkDispatch} from "redux-thunk";
 import {AppActionsType, AppStateType} from "./redux-store";
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
-const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS'
+const FOLLOW = 'users/FOLLOW';
+const UNFOLLOW = 'users/UNFOLLOW';
+const SET_USERS = 'users/SET_USERS';
+const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
+const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT';
+const TOGGLE_IS_FETCHING = 'users/TOGGLE_IS_FETCHING';
+const FOLLOWING_IN_PROGRESS = 'users/FOLLOWING_IN_PROGRESS'
 
 let initialState: initialStateType = {
   users: [],
@@ -97,9 +97,9 @@ export const following = (id: number) => async (dispatch: ThunkDispatch<AppState
   dispatch(toggleIsFollowingProgress(id, true))
   dispatch(setAppStatus('loading'))
   try {
-    const res = await usersAPI.deleteFollow(id)
+    const res = await usersAPI.postFollow(id)
     if (res.resultCode === 0) {
-      dispatch(unfollow(id))
+      dispatch(follow(id))
     }
     dispatch(toggleIsFollowingProgress(id, false))
   } catch (error: any) {
@@ -115,9 +115,9 @@ export const unfollowing = (id: number) => async (dispatch: ThunkDispatch<AppSta
   dispatch(toggleIsFollowingProgress(id, true))
   dispatch(setAppStatus('loading'))
   try {
-    const res = await usersAPI.postFollow(id)
+    const res = await usersAPI.deleteFollow(id)
     if (res.resultCode === 0) {
-      dispatch(follow(id))
+      dispatch(unfollow(id))
     }
     dispatch(toggleIsFollowingProgress(id, false))
   } catch (error: any) {
