@@ -24,7 +24,8 @@ import {Box, LinearProgress} from "@mui/material";
 export class UsersContainer extends Component<UsersPropsType> {
 
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    const {currentPage, pageSize} = this.props
+    this.props.getUsers(currentPage, pageSize)
   }
 
   onPageChanged = (pageNumber: number) => {
