@@ -93,41 +93,35 @@ export const getUsers = (currentPage: number, pageSize: number) => async (dispat
   }
 }
 
-export const following = (id: number) => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
-  dispatch(toggleIsFollowingProgress(id, true))
+const followUnfollowFlow = async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>, userId: number, apiMethod: Promise<any>, actionCreator: UsersActionsType) => {
+  dispatch(toggleIsFollowingProgress(userId, true))
   dispatch(setAppStatus('loading'))
   try {
-    const res = await usersAPI.postFollow(id)
+    const res = await apiMethod
     if (res.resultCode === 0) {
-      dispatch(follow(id))
+      dispatch(actionCreator)
     }
-    dispatch(toggleIsFollowingProgress(id, false))
+    dispatch(toggleIsFollowingProgress(userId, false))
   } catch (error: any) {
     handleServerNetworkError(error, dispatch)
     dispatch(setAppStatus('failed'))
   } finally {
     dispatch(setAppStatus('idle'))
   }
+}
+
+export const following = (id: number) => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
+  let apiMethod = await usersAPI.postFollow(id)
+  let actionCreator = follow(id)
+  return followUnfollowFlow(dispatch, id, apiMethod, actionCreator)
 }
 
 
 export const unfollowing = (id: number) => async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
-  dispatch(toggleIsFollowingProgress(id, true))
-  dispatch(setAppStatus('loading'))
-  try {
-    const res = await usersAPI.deleteFollow(id)
-    if (res.resultCode === 0) {
-      dispatch(unfollow(id))
-    }
-    dispatch(toggleIsFollowingProgress(id, false))
-  } catch (error: any) {
-    handleServerNetworkError(error, dispatch)
-    dispatch(setAppStatus('failed'))
-  } finally {
-    dispatch(setAppStatus('idle'))
-  }
+  let apiMethod = await usersAPI.deleteFollow(id)
+  let actionCreator = unfollow(id)
+  return followUnfollowFlow(dispatch, id, apiMethod, actionCreator)
 }
-
 
 export type UserType = {
   id: number,

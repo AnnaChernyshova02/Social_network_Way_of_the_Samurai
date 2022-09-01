@@ -37,17 +37,8 @@ export class UsersContainer extends Component<UsersPropsType> {
         <LinearProgress/>
       </Box> : null}
       <Users
-        follow={this.props.follow}
-        unfollow={this.props.unfollow}
         usersPage={this.props.usersPage}
-        pageSize={this.props.pageSize}
-        totalUsersCount={this.props.totalUsersCount}
-        currentPage={this.props.currentPage}
         onPageChanged={this.onPageChanged}
-        followingInProgress={this.props.followingInProgress}
-        toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
-        following={this.props.following}
-        unfollowing={this.props.unfollowing}
       />
     </>
   }
