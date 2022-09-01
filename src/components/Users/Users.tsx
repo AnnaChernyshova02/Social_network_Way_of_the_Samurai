@@ -8,6 +8,7 @@ import {User} from "./User";
 const Users = ({
                  usersPage,
                  onPageChanged,
+                 following, unfollowing
                }: UsersType) => {
 
   return <div className={s.styles}>
@@ -18,7 +19,7 @@ const Users = ({
       justifyContent: 'space-evenly',
       mx: '2px'
     }}>
-        {usersPage.users.map(user => <User key={user.id} user={user}/>)}
+        {usersPage.users.map(user => <User key={user.id} user={user} following={following} unfollowing={unfollowing}/>)}
     </Box>
   </div>;
 }
@@ -26,6 +27,8 @@ const Users = ({
 type UsersType = {
   onPageChanged: (pageNumber: number) => void
   usersPage: initialStateType
+  following: (id: number) => void
+  unfollowing: (id: number) => void
 }
 
 export default Users;

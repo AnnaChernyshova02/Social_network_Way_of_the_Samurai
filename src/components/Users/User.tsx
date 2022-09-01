@@ -5,9 +5,9 @@ import {NavLink} from "react-router-dom";
 import {Button, CardContent} from "@mui/material";
 import {useAppSelector} from "../../Redux/redux-store";
 import {followingInProgressSelector} from "../../Selectors/usersSelector";
-import {following, unfollowing, UserType} from "../../Redux/users-reducer";
+import {UserType} from "../../Redux/users-reducer";
 
-export const User = ({user}: OneUserType) => {
+export const User = ({user, following, unfollowing}: OneUserType) => {
 
   const followingInProgress = useAppSelector(followingInProgressSelector)
 
@@ -43,4 +43,6 @@ export const User = ({user}: OneUserType) => {
 
 type OneUserType = {
   user: UserType
+  following: (id: number) => void
+  unfollowing: (id: number) => void
 }

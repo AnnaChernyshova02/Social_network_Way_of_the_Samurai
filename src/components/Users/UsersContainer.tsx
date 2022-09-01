@@ -39,6 +39,8 @@ export class UsersContainer extends Component<UsersPropsType> {
       <Users
         usersPage={this.props.usersPage}
         onPageChanged={this.onPageChanged}
+        following={this.props.following}
+        unfollowing={this.props.unfollowing}
       />
     </>
   }
