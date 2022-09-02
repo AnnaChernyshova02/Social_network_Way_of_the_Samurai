@@ -11,3 +11,7 @@ export const isAuthSelector = (state: AppRootStateType): boolean => {
 export const isInitializedSelector = (state: AppRootStateType): boolean => {
   return state.app.isInitialized;
 };
+
+export const userIDSelector = (state: AppRootStateType): number => {
+  return state.auth.id;
+};

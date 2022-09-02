@@ -1,14 +1,16 @@
 import { v1 } from "uuid";
 import { ProfileType } from "../components/Profile/Profile";
 import { profileAPI } from "../api/api";
-import { ThunkType } from "./redux-store";
+import { AppActionsType, AppStateType, ThunkType } from "./redux-store";
 import { setAppStatus } from "./app-reducer";
 import { handleServerNetworkError } from "../utils/error-utils";
+import { ThunkDispatch } from "redux-thunk";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
 const SET_STATUS = "profile/SET_STATUS";
 const DELETE_POST = "profile/DELETE_POST";
+const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
 
 let initialState: ProfileStateType = {
   posts: [
@@ -51,6 +53,11 @@ const profileReducer = (
         ...state,
         posts: state.posts.filter((post) => post.id != action.id),
       };
+    case SAVE_PHOTO_SUCCESS:
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.file },
+      };
     default:
       return state;
   }
@@ -60,23 +67,24 @@ export const addPost = (message: string) =>
   ({ type: ADD_POST, message } as const);
 export const deletePost = (id: string) => ({ type: DELETE_POST, id } as const);
 
-export const setUserProfile = (profile: ProfileType) => {
-  return {
-    type: SET_USER_PROFILE,
-    profile,
-  } as const;
-};
+export const setUserProfile = (profile: ProfileType) =>
+  ({ type: SET_USER_PROFILE, profile } as const);
 
-export const setStatus = (status: string) => {
-  return {
+export const setStatus = (status: string) =>
+  ({
     type: SET_STATUS,
     status,
-  } as const;
-};
+  } as const);
+
+export const savePhotoSuccess = (file: any) =>
+  ({
+    type: SAVE_PHOTO_SUCCESS,
+    file,
+  } as const);
 
 export const getUserProfile =
   (userId: string): ThunkType =>
-  async (dispatch) => {
+  async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
     dispatch(setAppStatus("loading"));
     try {
       const response = await profileAPI.getProfile(userId);
@@ -92,7 +100,7 @@ export const getUserProfile =
 
 export const getStatus =
   (userId: string): ThunkType =>
-  async (dispatch) => {
+  async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
     dispatch(setAppStatus("loading"));
     try {
       const response = await profileAPI.getStatus(userId);
@@ -108,12 +116,30 @@ export const getStatus =
 
 export const getUpdateStatus =
   (status: string): ThunkType =>
-  async (dispatch) => {
+  async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
     dispatch(setAppStatus("loading"));
     try {
       const response = await profileAPI.updateStatus(status);
       if (response.data.resultCode === 0) {
         dispatch(setStatus(status));
+        dispatch(setAppStatus("succeeded"));
+      }
+    } catch (error: any) {
+      handleServerNetworkError(error, dispatch);
+      dispatch(setAppStatus("failed"));
+    } finally {
+      dispatch(setAppStatus("idle"));
+    }
+  };
+
+export const savePhoto =
+  (file: string): ThunkType =>
+  async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
+    dispatch(setAppStatus("loading"));
+    try {
+      const response = await profileAPI.savePhoto(file);
+      if (response.data.resultCode === 0) {
+        dispatch(savePhotoSuccess(response.data.data.photos));
         dispatch(setAppStatus("succeeded"));
       }
     } catch (error: any) {
@@ -139,6 +165,7 @@ export type ProfileActionsType =
   | ReturnType<typeof addPost>
   | ReturnType<typeof setUserProfile>
   | ReturnType<typeof setStatus>
-  | ReturnType<typeof deletePost>;
+  | ReturnType<typeof deletePost>
+  | ReturnType<typeof savePhotoSuccess>;
 
 export default profileReducer;

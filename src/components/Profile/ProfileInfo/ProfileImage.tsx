@@ -9,9 +9,9 @@ import { savePhoto } from "../../../Redux/profile-reducer";
 import { userIDSelector } from "../../../Selectors/appSelector";
 import { PhotoCamera } from "@mui/icons-material";
 import Stack from "@mui/material/Stack";
-import { ProfileImage } from "./ProfileImage";
+import PartyModeIcon from "@mui/icons-material/PartyMode";
 
-const ProfileInfo = () => {
+export const ProfileImage = () => {
   const profile = useAppSelector(profileSelector);
   const userID = useAppSelector(userIDSelector);
   const dispatch = useAppDispatch();
@@ -29,32 +29,22 @@ const ProfileInfo = () => {
   };
 
   return (
-    <div className={s.descriptionBlock}>
-      <div>
-        <img
-          src={profile.photos?.small ?? userPhoto}
-          className={s.imgProfile}
-        />
-        <ProfileImage />
-      </div>
-
-      <span>
-        <ProfileStatus />
-      </span>
-      <div>About me : {profile.aboutMe}</div>
-      <div>My Full Name - {profile.fullName}</div>
-
-      <ul>
-        <span>My Contacts : </span>
-        <li>facebook: {profile.contacts?.facebook}</li>
-        <li>github: {profile.contacts?.github}</li>
-        <li>vk: {profile.contacts?.vk}</li>
-        <li>twitter: {profile.contacts?.twitter}</li>
-        <li>instagram: {profile.contacts?.instagram}</li>
-        <li>youtube: {profile.contacts?.youtube}</li>
-      </ul>
+    <div className={s.changePhoto}>
+      {userID === profile?.userId && (
+        <div>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="label"
+              onChange={loadingPhoto}
+            >
+              <input hidden accept="image/*" type="file" />
+              <PartyModeIcon fontSize="large" />
+            </IconButton>
+          </Stack>
+        </div>
+      )}
     </div>
   );
 };
-
-export default ProfileInfo;
