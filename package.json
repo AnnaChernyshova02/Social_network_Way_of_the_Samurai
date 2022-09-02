@@ -67,6 +67,7 @@
   "devDependencies": {
     "@types/redux-thunk": "^2.1.0",
     "gh-pages": "^3.2.3",
+    "prettier": "^2.7.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.6.2"
   }

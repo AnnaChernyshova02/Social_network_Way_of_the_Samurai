@@ -1,6 +1,10 @@
 .nav {
   grid-area: n;
-  background: linear-gradient(120deg, rgba(229, 93, 135, 0.8) 0%, rgba(79, 19, 68, 0.5));
+  background: linear-gradient(
+    120deg,
+    rgba(229, 93, 135, 0.8) 0%,
+    rgba(79, 19, 68, 0.5)
+  );
   padding: 20px;
   color: black;
   text-transform: capitalize; /*заглавная первая буква*/

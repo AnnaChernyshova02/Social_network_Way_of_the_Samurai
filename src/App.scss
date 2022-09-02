@@ -3,30 +3,35 @@
   display: grid;
   width: 1200px;
   grid-template-areas:
-  'h h'
-  'n c';
+    "h h"
+    "n c";
   grid-template-rows: 90px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
-
 }
 
 .backgr {
-  background:url('https://img2.akspic.ru/crops/0/6/6/1/21660/21660-gory-dikaya_mestnost-atmosfera-rassvet-fjord-2560x1440.jpg') fixed;
-  top:0;
-  width:100%;
-  z-index:0;
-  height:100%;
+  background: url("https://img2.akspic.ru/crops/0/6/6/1/21660/21660-gory-dikaya_mestnost-atmosfera-rassvet-fjord-2560x1440.jpg")
+    fixed;
+  top: 0;
+  width: 100%;
+  z-index: 0;
+  height: 100%;
   background-size: calc(100% + 50px);
 }
 
 .app-wrapper-content {
   grid-area: c;
-  background: linear-gradient(45deg, rgba(103, 0, 31, .8), rgba(34, 101, 163, .5));
+  background: linear-gradient(
+    45deg,
+    rgba(103, 0, 31, 0.8),
+    rgba(34, 101, 163, 0.5)
+  );
 }
 
 .notLogin {
-  background:url('https://img2.akspic.ru/crops/0/6/6/1/21660/21660-gory-dikaya_mestnost-atmosfera-rassvet-fjord-2560x1440.jpg') fixed;
+  background: url("https://img2.akspic.ru/crops/0/6/6/1/21660/21660-gory-dikaya_mestnost-atmosfera-rassvet-fjord-2560x1440.jpg")
+    fixed;
 }
 
 * {
@@ -69,13 +74,13 @@ body {
 }
 
 .notfound .notfound-404 h1 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50% , -50%);
-  -ms-transform: translate(-50% , -50%);
-  transform: translate(-50% , -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   font-size: 224px;
   font-weight: 900;
   margin-top: 0px;
@@ -87,9 +92,8 @@ body {
   letter-spacing: -20px;
 }
 
-
 .notfound .notfound-404 h2 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   position: absolute;
   left: 0;
   right: 0;
@@ -104,7 +108,7 @@ body {
 }
 
 .notfound a {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   display: inline-block;
   text-transform: uppercase;
   color: #ff005a;
