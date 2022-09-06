@@ -35,7 +35,7 @@ export const ProfileStatus = () => {
         <div>
           <span
             onDoubleClick={activateEditMode}
-            style={{ color: "black", fontSize: "30px" }}
+            style={{ color: "black", fontSize: "20px" }}
           >
             {status}
           </span>
@@ -48,7 +48,7 @@ export const ProfileStatus = () => {
             autoFocus
             onBlur={deactivateEditMode}
             value={profileStatus}
-            style={{ fontSize: "25px" }}
+            style={{ fontSize: "20px" }}
           />
         </div>
       )}
