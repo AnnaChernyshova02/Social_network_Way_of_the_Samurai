@@ -15,3 +15,9 @@ export const profileSelector = (state: AppRootStateType): ProfileType => {
 export const profileStatusSelector = (state: AppRootStateType): string => {
   return state.profilePage.status;
 };
+
+export const profileImageSelector = (
+  state: AppRootStateType
+): string | undefined => {
+  return state.profilePage.profile?.photos?.large;
+};

@@ -1,21 +1,23 @@
-import React, { ChangeEvent } from "react";
-import s from "./ProfileInfo.module.css";
+import React from "react";
+import s from "./ProfileInfo.module.scss";
 import { ProfileStatus } from "./ProfileStatus";
-import { useAppDispatch, useAppSelector } from "../../../Redux/redux-store";
-import { profileSelector } from "../../../Selectors/profileSelector";
+import { useAppSelector } from "../../../Redux/redux-store";
+import {
+  profileImageSelector,
+  profileSelector,
+} from "../../../Selectors/profileSelector";
 import userPhoto from "../../../assets/images/user.svg";
-import { Box, IconButton, LinearProgress } from "@mui/material";
-import { savePhoto } from "../../../Redux/profile-reducer";
+import { Box, LinearProgress } from "@mui/material";
+import { ChangeProfileImage } from "./ChangeProfileImage";
+import { ProfileContacts } from "./ProfileContacts";
+import { ModalUpdateProfile } from "../../Modal/ModalUpdateProfile";
 import { userIDSelector } from "../../../Selectors/appSelector";
-import { PhotoCamera } from "@mui/icons-material";
-import Stack from "@mui/material/Stack";
-import { ProfileImage } from "./ProfileImage";
+import { ProfileDataForm } from "./ProfileDataForm";
 
 const ProfileInfo = () => {
   const profile = useAppSelector(profileSelector);
+  const image = useAppSelector(profileImageSelector);
   const userID = useAppSelector(userIDSelector);
-  const dispatch = useAppDispatch();
-
   if (!profile) {
     return (
       <Box sx={{ width: "100%" }}>
@@ -24,35 +26,24 @@ const ProfileInfo = () => {
     );
   }
 
-  const loadingPhoto = (e: any) => {
-    dispatch(savePhoto(e.target.files[0]));
-  };
-
   return (
     <div className={s.descriptionBlock}>
       <div>
-        <img
-          src={profile.photos?.small ?? userPhoto}
-          className={s.imgProfile}
-        />
-        <ProfileImage />
+        <img src={image ?? userPhoto} className={s.imgProfile} />
+        <ChangeProfileImage />
       </div>
 
       <span>
-        <ProfileStatus />
+        Status: <ProfileStatus />
       </span>
+      <div>Looking for a job: {profile.lookingForAJob ? "Yes" : "No"}</div>
+      {profile.lookingForAJob && (
+        <div>My professional skills: {profile.lookingForAJobDescription}</div>
+      )}
       <div>About me : {profile.aboutMe}</div>
       <div>My Full Name - {profile.fullName}</div>
-
-      <ul>
-        <span>My Contacts : </span>
-        <li>facebook: {profile.contacts?.facebook}</li>
-        <li>github: {profile.contacts?.github}</li>
-        <li>vk: {profile.contacts?.vk}</li>
-        <li>twitter: {profile.contacts?.twitter}</li>
-        <li>instagram: {profile.contacts?.instagram}</li>
-        <li>youtube: {profile.contacts?.youtube}</li>
-      </ul>
+      {userID === profile?.userId && <ModalUpdateProfile />}
+      <ProfileContacts />
     </div>
   );
 };

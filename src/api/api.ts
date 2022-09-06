@@ -1,12 +1,14 @@
 import axios, { AxiosResponse } from "axios";
-import header from "../components/Header/Header";
+import {
+  ProfileDiscriptionType,
+  ProfileType,
+} from "../components/Profile/Profile";
 
-const instance = axios.create({
+export const instance = axios.create({
   withCredentials: true,
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   headers: {
     "API-KEY": "acc8259c-1446-4874-901e-e45c04ac3561",
-    "Content-Type": "multipart/form-data",
   },
 });
 
@@ -44,6 +46,9 @@ export const profileAPI = {
     const formData = new FormData();
     formData.append("image", file);
     return instance.put(`profile/photo`, formData);
+  },
+  saveProfile(profile: ProfileDiscriptionType) {
+    return instance.put("profile", { profile });
   },
 };
 

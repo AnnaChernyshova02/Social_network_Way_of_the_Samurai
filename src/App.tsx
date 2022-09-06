@@ -62,7 +62,7 @@ const App = () => {
         )}
         <div className="app-wrapper-content">
           <Routes>
-            <Route index element={() => navigate("/login")} />{" "}
+            <Route index element={() => navigate("/login")} />
             {/* index => path='/' */}
             <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/profile/:userId" element={<ProfileContainer />} />
