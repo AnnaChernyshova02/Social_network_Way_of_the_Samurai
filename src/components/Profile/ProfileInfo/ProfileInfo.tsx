@@ -10,14 +10,15 @@ import userPhoto from "../../../assets/images/user.svg";
 import { Box, LinearProgress } from "@mui/material";
 import { ChangeProfileImage } from "./ChangeProfileImage";
 import { ProfileContacts } from "./ProfileContacts";
-import { ModalUpdateProfile } from "../../Modal/ModalUpdateProfile";
 import { userIDSelector } from "../../../Selectors/appSelector";
 import { ProfileDataForm } from "./ProfileDataForm";
+import { ModalUpdateProfile } from "../../Modal/ModalUpdateProfile";
 
 const ProfileInfo = () => {
   const profile = useAppSelector(profileSelector);
   const image = useAppSelector(profileImageSelector);
   const userID = useAppSelector(userIDSelector);
+
   if (!profile) {
     return (
       <Box sx={{ width: "100%" }}>
@@ -36,12 +37,11 @@ const ProfileInfo = () => {
       <span>
         Status: <ProfileStatus />
       </span>
-      <div>Looking for a job: {profile.lookingForAJob ? "Yes" : "No"}</div>
-      {profile.lookingForAJob && (
-        <div>My professional skills: {profile.lookingForAJobDescription}</div>
-      )}
-      <div>About me : {profile.aboutMe}</div>
       <div>My Full Name - {profile.fullName}</div>
+      <div>Looking for a job: {profile.lookingForAJob ? "Yes" : "No"}</div>
+      <div>My professional skills: {profile.lookingForAJobDescription}</div>
+      <div>About me : {profile.aboutMe}</div>
+
       {userID === profile?.userId && <ModalUpdateProfile />}
       <ProfileContacts />
     </div>

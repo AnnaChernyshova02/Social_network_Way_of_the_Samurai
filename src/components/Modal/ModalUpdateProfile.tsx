@@ -22,7 +22,7 @@ export const ModalUpdateProfile: FC<ModalAddCardPropsType> = () => {
         size={"medium"}
         onClick={openModal}
       >
-        Change data
+        Edit
       </Button>
       <Modal isModal={isModal}>
         <CancelIcon

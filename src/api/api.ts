@@ -1,8 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import {
-  ProfileDiscriptionType,
-  ProfileType,
-} from "../components/Profile/Profile";
+import { ProfileDescriptionType } from "../components/Profile/Profile";
 
 export const instance = axios.create({
   withCredentials: true,
@@ -47,8 +44,8 @@ export const profileAPI = {
     formData.append("image", file);
     return instance.put(`profile/photo`, formData);
   },
-  saveProfile(profile: ProfileDiscriptionType) {
-    return instance.put("profile", { profile });
+  saveProfile(profile: ProfileDescriptionType) {
+    return instance.put(`profile`, profile);
   },
 };
 

@@ -15,22 +15,23 @@ import { saveProfile } from "../../../Redux/profile-reducer";
 
 type FormikErrorType = {
   fullName?: string;
-  lookingForAJob?: string;
+  lookingForAJob?: boolean;
   lookingForAJobDescription?: string;
   aboutMe?: string;
 };
 
 export const ProfileDataForm = () => {
   const dispatch = useAppDispatch();
+  const profile = useAppSelector(profileSelector);
 
   const style = { width: "30ch", marginBottom: "25px", textColor: "black" };
 
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      lookingForAJob: false,
-      lookingForAJobDescription: "",
-      aboutMe: "",
+      fullName: profile?.fullName,
+      lookingForAJob: profile?.lookingForAJob,
+      lookingForAJobDescription: profile?.lookingForAJobDescription,
+      aboutMe: profile?.aboutMe,
     },
     validate: (values) => {
       const errors: FormikErrorType = {};
@@ -50,8 +51,8 @@ export const ProfileDataForm = () => {
       return errors;
     },
     onSubmit: (values) => {
+      console.log(values);
       dispatch(saveProfile(values));
-      formik.resetForm();
     },
   });
 

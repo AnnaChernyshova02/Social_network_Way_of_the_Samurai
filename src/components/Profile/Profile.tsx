@@ -37,24 +37,25 @@ export type ProfileType = {
   };
 } | null;
 
-export type ProfileDiscriptionType = {
-  aboutMe: string | null;
-  contacts?: ContactsType;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string | null;
-  fullName: string | null;
+export type ProfileDescriptionType = {
+  userId?: number;
+  contacts?: ContactsType | null | undefined;
+  fullName: string | null | undefined;
+  lookingForAJob: boolean | undefined;
+  lookingForAJobDescription: string | null | undefined;
+  aboutMe: string | null | undefined;
 } | null;
 
 export type ContactsType =
   | {
-      facebook: string | null;
-      website: string | null;
-      vk: string | null;
-      twitter: string | null;
-      instagram: string | null;
-      youtube: string | null;
-      github: string | null;
-      mainLink: string | null;
+      facebook: string | null | undefined;
+      website: string | null | undefined;
+      vk: string | null | undefined;
+      twitter: string | null | undefined;
+      instagram: string | null | undefined;
+      youtube: string | null | undefined;
+      github: string | null | undefined;
+      mainLink: string | null | undefined;
     }
   | any;
 

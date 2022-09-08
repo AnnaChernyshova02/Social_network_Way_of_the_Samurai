@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
 import {
-  ProfileDiscriptionType,
+  ProfileDescriptionType,
   ProfileType,
 } from "../components/Profile/Profile";
 import { profileAPI, usersAPI } from "../api/api";
@@ -92,7 +92,7 @@ export const savePhotoSuccess = (file: any) =>
     file,
   } as const);
 
-export const saveProfileSuccess = (profile: ProfileDiscriptionType) =>
+export const saveProfileSuccess = (profile: ProfileDescriptionType) =>
   ({
     type: SAVE_PROFILE_SUCCESS,
     profile,
@@ -167,13 +167,18 @@ export const savePhoto =
   };
 
 export const saveProfile =
-  (profile: ProfileDiscriptionType): ThunkType =>
-  async (dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>) => {
+  (profile: ProfileDescriptionType): ThunkType =>
+  async (
+    dispatch: ThunkDispatch<AppStateType, unknown, AppActionsType>,
+    getState
+  ) => {
     dispatch(setAppStatus("loading"));
+    const userID = getState().auth.id;
     try {
       const response = await profileAPI.saveProfile(profile);
       if (response.data.resultCode === 0) {
         dispatch(saveProfileSuccess(response.data));
+        dispatch(getUserProfile(userID.toString()));
         dispatch(setAppStatus("succeeded"));
       }
     } catch (error: any) {
