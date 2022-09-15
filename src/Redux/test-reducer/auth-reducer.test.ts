@@ -10,10 +10,16 @@ let state: AuthStateType = {
   email: "blabla@bla.bla",
   login: "samurai",
   isAuth: false,
+  captchaUrl: "",
 };
 
 it("email checking", () => {
-  let action = setAuthUserData(121212, "2222222@gggg.com", "2222222@gggg.com");
+  let action = setAuthUserData(
+    121212,
+    "2222222@gggg.com",
+    "2222222@gggg.com",
+    "xxx"
+  );
 
   let newState = authReducer(state, action);
 

@@ -33,8 +33,8 @@ export const initializeApp =
     try {
       const response = await authAPI.me();
       if (response.data.resultCode === 0) {
-        let { id, login, email } = response.data.data;
-        dispatch(setAuthUserData(id, login, email));
+        let { id, login, email, captcha } = response.data.data;
+        dispatch(setAuthUserData(id, login, email, captcha));
         dispatch(setLogin(true));
         dispatch(setAppStatus("succeeded"));
       }

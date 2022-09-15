@@ -64,10 +64,21 @@ export const authAPI = {
   },
 };
 
+export const securityAPI = {
+  getCaptchaUrl() {
+    return instance.get("security/get-captcha-url");
+  },
+};
+
 export type MeResponceType = {
   id: number;
   email: string;
   login: string;
+  captcha?: string | undefined;
+};
+
+export type MeCaptchaType = {
+  url: string;
 };
 
 export type LoginParamsType = {

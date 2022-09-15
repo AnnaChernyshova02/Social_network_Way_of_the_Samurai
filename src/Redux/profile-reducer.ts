@@ -8,14 +8,7 @@ import { AppActionsType, AppStateType, ThunkType } from "./redux-store";
 import { setAppStatus } from "./app-reducer";
 import { handleServerNetworkError } from "../utils/error-utils";
 import { ThunkDispatch } from "redux-thunk";
-
-const ADD_POST = "profile/ADD-POST";
-const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
-const SET_STATUS = "profile/SET_STATUS";
-const DELETE_POST = "profile/DELETE_POST";
-const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
-const SAVE_PROFILE_SUCCESS = "profile/SAVE_PROFILE_SUCCESS";
-const SAVE_EDIT_PROFILE_SUCCESS = "profile/SAVE_EDIT_PROFILE_SUCCESS";
+import { PROFILE } from "./Enum";
 
 let initialState: ProfileStateType = {
   posts: [
@@ -32,7 +25,7 @@ const profileReducer = (
   action: ProfileActionsType
 ): ProfileStateType => {
   switch (action.type) {
-    case ADD_POST:
+    case PROFILE.ADD_POST:
       return {
         ...state,
         posts: [
@@ -44,32 +37,32 @@ const profileReducer = (
           },
         ],
       };
-    case SET_STATUS:
+    case PROFILE.SET_STATUS:
       return {
         ...state,
         status: action.status,
       };
-    case SET_USER_PROFILE:
+    case PROFILE.SET_USER_PROFILE:
       return {
         ...state,
         profile: action.profile,
       };
-    case DELETE_POST:
+    case PROFILE.DELETE_POST:
       return {
         ...state,
         posts: state.posts.filter((post) => post.id != action.id),
       };
-    case SAVE_PHOTO_SUCCESS:
+    case PROFILE.SAVE_PHOTO_SUCCESS:
       return {
         ...state,
         profile: { ...state.profile, photos: action.file },
       };
-    case SAVE_PROFILE_SUCCESS:
+    case PROFILE.SAVE_PROFILE_SUCCESS:
       return {
         ...state,
         profile: action.profile,
       };
-    case SAVE_EDIT_PROFILE_SUCCESS:
+    case PROFILE.SAVE_EDIT_PROFILE_SUCCESS:
       return {
         ...state,
         save: action.save,
@@ -80,33 +73,34 @@ const profileReducer = (
 };
 
 export const addPost = (message: string) =>
-  ({ type: ADD_POST, message } as const);
-export const deletePost = (id: string) => ({ type: DELETE_POST, id } as const);
+  ({ type: PROFILE.ADD_POST, message } as const);
+export const deletePost = (id: string) =>
+  ({ type: PROFILE.DELETE_POST, id } as const);
 
 export const setUserProfile = (profile: ProfileType) =>
-  ({ type: SET_USER_PROFILE, profile } as const);
+  ({ type: PROFILE.SET_USER_PROFILE, profile } as const);
 
 export const setStatus = (status: string) =>
   ({
-    type: SET_STATUS,
+    type: PROFILE.SET_STATUS,
     status,
   } as const);
 
 export const savePhotoSuccess = (file: any) =>
   ({
-    type: SAVE_PHOTO_SUCCESS,
+    type: PROFILE.SAVE_PHOTO_SUCCESS,
     file,
   } as const);
 
 export const saveProfileSuccess = (profile: ProfileDescriptionType) =>
   ({
-    type: SAVE_PROFILE_SUCCESS,
+    type: PROFILE.SAVE_PROFILE_SUCCESS,
     profile,
   } as const);
 
 export const saveEditProfileSuccess = (save: boolean) =>
   ({
-    type: SAVE_EDIT_PROFILE_SUCCESS,
+    type: PROFILE.SAVE_EDIT_PROFILE_SUCCESS,
     save,
   } as const);
 

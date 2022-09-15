@@ -11,18 +11,23 @@ import {
   TextField,
 } from "@mui/material";
 import { Navigate } from "react-router-dom";
-import { login } from "../../Redux/auth-reducer";
-import { isAuthSelector } from "../../Selectors/appSelector";
+import { getCaptchaUrl, login } from "../../Redux/auth-reducer";
+import {
+  captchaUrlSelector,
+  isAuthSelector,
+} from "../../Selectors/appSelector";
 
 type FormikErrorType = {
   email?: string;
   password?: string;
   rememberMe?: boolean;
+  captcha?: string;
 };
 
 export const Login = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(isAuthSelector);
+  const captchaUrl = useAppSelector((state) => state.auth.captchaUrl);
 
   const style = { width: "30ch", marginBottom: "25px", textColor: "black" };
 
@@ -31,6 +36,7 @@ export const Login = () => {
       email: "",
       password: "",
       rememberMe: false,
+      captcha: "",
     },
     validate: (values) => {
       const errors: FormikErrorType = {};
@@ -47,6 +53,7 @@ export const Login = () => {
       } else if (values.password.length < 6) {
         errors.password = "Password must be more than 6 characters";
       }
+
       return errors;
     },
     onSubmit: (values) => {
@@ -111,6 +118,17 @@ export const Login = () => {
               label={"Remember me"}
               control={<Checkbox {...formik.getFieldProps("rememberMe")} />}
             />
+            {captchaUrl && <img src={captchaUrl} />}
+
+            {captchaUrl && (
+              <TextField
+                sx={style}
+                label="Symbols from image"
+                variant="standard"
+                {...formik.getFieldProps("captcha")}
+              />
+            )}
+
             <Button
               sx={{ width: "33ch", marginBottom: "25px" }}
               type={"submit"}

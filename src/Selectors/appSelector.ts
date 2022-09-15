@@ -15,3 +15,9 @@ export const isInitializedSelector = (state: AppRootStateType): boolean => {
 export const userIDSelector = (state: AppRootStateType): number => {
   return state.auth.id;
 };
+
+export const captchaUrlSelector = (
+  state: AppRootStateType
+): string | null | undefined => {
+  return state.auth.captchaUrl;
+};

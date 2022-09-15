@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { AppStateType } from "../../Redux/redux-store";
-import { setAuthUserData } from "../../Redux/auth-reducer";
+import { getCaptchaUrl, setAuthUserData } from "../../Redux/auth-reducer";
 import Header from "./Header";
 import { initializeApp } from "../../Redux/app-reducer";
 
@@ -17,7 +17,12 @@ type MapStatePropsType = {
 };
 
 type MapDispatchPropsType = {
-  setAuthUserData: (id: number, login: string, email: string) => void;
+  setAuthUserData: (
+    id: number,
+    login: string,
+    email: string,
+    CaptchaUrl: string | undefined
+  ) => void;
   initializeApp: () => void;
 };
 
@@ -33,4 +38,5 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 export default connect(mapStateToProps, {
   setAuthUserData,
   initializeApp,
+  getCaptchaUrl,
 })(HeaderContainer);

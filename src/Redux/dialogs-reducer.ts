@@ -1,6 +1,5 @@
 import { v1 } from "uuid";
-
-const ADD_MESSAGE = "dialogs/ADD-MESSAGE";
+import { DIALOGS } from "./Enum";
 
 let initialState: DialogsStateType = {
   dialogs: [
@@ -46,7 +45,7 @@ const dialogsReducer = (
   action: DialogsActionsType
 ): DialogsStateType => {
   switch (action.type) {
-    case ADD_MESSAGE:
+    case DIALOGS.ADD_MESSAGE:
       return {
         ...state,
         messages: [
@@ -63,7 +62,7 @@ const dialogsReducer = (
 };
 
 export const addMessageAction = (newMessage: string) =>
-  ({ type: ADD_MESSAGE, newMessage } as const);
+  ({ type: DIALOGS.ADD_MESSAGE, newMessage } as const);
 
 export default dialogsReducer;
 
