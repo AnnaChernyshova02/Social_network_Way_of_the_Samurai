@@ -1,5 +1,5 @@
 import { AppRootStateType } from "../Redux/redux-store";
-import { ProfileType } from "../components/Profile/Profile";
+import { ContactsType, ProfileType } from "../components/Profile/Profile";
 import { ProfileStateType } from "../Redux/profile-reducer";
 
 export const profilePageSelector = (
@@ -10,6 +10,10 @@ export const profilePageSelector = (
 
 export const profileSelector = (state: AppRootStateType): ProfileType => {
   return state.profilePage.profile;
+};
+
+export const contactsSelector = (state: AppRootStateType): ContactsType => {
+  return state.profilePage.profile?.contacts;
 };
 
 export const profileStatusSelector = (state: AppRootStateType): string => {

@@ -19,6 +19,7 @@ import {
 } from "./Selectors/appSelector";
 import { Error404 } from "./components/404_Error/Error_404";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import { RoutesApp } from "./Routes";
 
 const App = () => {
   const isInitialized = useAppSelector(isInitializedSelector);
@@ -60,10 +61,11 @@ const App = () => {
             <LinearProgress />
           </Box>
         )}
-        <div className="app-wrapper-content">
+        <RoutesApp />
+        {/*<div className="app-wrapper-content">
           <Routes>
             <Route index element={() => navigate("/login")} />
-            {/* index => path='/' */}
+             index => path='/'
             <Route path="/profile" element={<ProfileContainer />} />
             <Route path="/profile/:userId" element={<ProfileContainer />} />
             <Route path="/dialogs/*" element={<DialogsContainer />} />
@@ -74,7 +76,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/*" element={<Error404 />} />
           </Routes>
-        </div>
+        </div>*/}
       </div>
     </div>
   );

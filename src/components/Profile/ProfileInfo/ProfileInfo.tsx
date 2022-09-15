@@ -41,9 +41,8 @@ const ProfileInfo = () => {
       <div>Looking for a job: {profile.lookingForAJob ? "Yes" : "No"}</div>
       <div>My professional skills: {profile.lookingForAJobDescription}</div>
       <div>About me : {profile.aboutMe}</div>
-
-      {userID === profile?.userId && <ModalUpdateProfile />}
       <ProfileContacts />
+      {userID === profile?.userId && <ModalUpdateProfile />}
     </div>
   );
 };

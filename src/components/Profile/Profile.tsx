@@ -48,14 +48,14 @@ export type ProfileDescriptionType = {
 
 export type ContactsType =
   | {
-      facebook: string | null | undefined;
-      website: string | null | undefined;
-      vk: string | null | undefined;
-      twitter: string | null | undefined;
-      instagram: string | null | undefined;
-      youtube: string | null | undefined;
-      github: string | null | undefined;
-      mainLink: string | null | undefined;
+      facebook: string;
+      website: string;
+      vk: string;
+      twitter: string;
+      instagram: string;
+      youtube: string;
+      github: string;
+      mainLink: string;
     }
   | any;
 

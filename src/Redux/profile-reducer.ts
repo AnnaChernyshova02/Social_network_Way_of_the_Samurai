@@ -64,6 +64,7 @@ const profileReducer = (
         profile: { ...state.profile, photos: action.file },
       };
     case SAVE_PROFILE_SUCCESS:
+      console.log(action.profile);
       return {
         ...state,
         profile: action.profile,
@@ -176,9 +177,10 @@ export const saveProfile =
     const userID = getState().auth.id;
     try {
       const response = await profileAPI.saveProfile(profile);
+      console.log(profile);
       if (response.data.resultCode === 0) {
-        dispatch(saveProfileSuccess(response.data));
-        dispatch(getUserProfile(userID.toString()));
+        dispatch(saveProfileSuccess(response.data.data.profile));
+        await dispatch(getUserProfile(userID.toString()));
         dispatch(setAppStatus("succeeded"));
       }
     } catch (error: any) {

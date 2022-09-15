@@ -45,6 +45,7 @@ export const profileAPI = {
     return instance.put(`profile/photo`, formData);
   },
   saveProfile(profile: ProfileDescriptionType) {
+    console.log(profile);
     return instance.put(`profile`, profile);
   },
 };
