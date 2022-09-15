@@ -179,7 +179,6 @@ export const saveProfile =
       const response = await profileAPI.saveProfile(profile);
       console.log(profile);
       if (response.data.resultCode === 0) {
-        dispatch(saveProfileSuccess(response.data.data.profile));
         await dispatch(getUserProfile(userID.toString()));
         dispatch(setAppStatus("succeeded"));
       }
