@@ -11,7 +11,6 @@ import { Box, LinearProgress } from "@mui/material";
 import { ChangeProfileImage } from "./ChangeProfileImage";
 import { ProfileContacts } from "./ProfileContacts";
 import { userIDSelector } from "../../../Selectors/appSelector";
-import { ProfileDataForm } from "./ProfileDataForm";
 import { ModalUpdateProfile } from "../../Modal/ModalUpdateProfile";
 
 const ProfileInfo = () => {

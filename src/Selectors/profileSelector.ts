@@ -25,3 +25,8 @@ export const profileImageSelector = (
 ): string | undefined => {
   return state.profilePage.profile?.photos?.large;
 };
+export const SaveEditSelector = (
+  state: AppRootStateType
+): boolean | undefined => {
+  return state.profilePage.save;
+};

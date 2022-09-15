@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const StyledModal = styled.div`
   width: 350px;
   min-height: 200px;
+  max-height: 715px;
   padding: 20px 30px;
   background-color: white;
   border-radius: 10px;
@@ -11,27 +12,6 @@ export const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-`;
-
-export const Title = styled.h3`
-  text-align: center;
-  color: #0760b8;
-  font-size: 24px;
-`;
-
-export const Label = styled.label`
-  display: block;
-  margin-top: 20px;
-  font-size: 16px;
-  font-style: italic;
-  font-weight: bold;
-`;
-
-export const BtnsBlock = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin: 30px 0 24px;
 `;
 
 export const StyledInput = styled.input`

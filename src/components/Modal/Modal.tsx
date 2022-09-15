@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import styled from "styled-components";
 
 type ModalPropsType = {
-  isModal: boolean;
+  isModal: boolean | undefined;
   children: ReactNode;
   opacity?: number;
 };

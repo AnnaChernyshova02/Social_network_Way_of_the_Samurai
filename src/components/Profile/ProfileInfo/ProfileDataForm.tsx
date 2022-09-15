@@ -14,7 +14,10 @@ import {
   FormGroup,
   TextField,
 } from "@mui/material";
-import { saveProfile } from "../../../Redux/profile-reducer";
+import {
+  saveEditProfileSuccess,
+  saveProfile,
+} from "../../../Redux/profile-reducer";
 
 type FormikErrorType = {
   fullName?: string;
@@ -37,7 +40,7 @@ export const ProfileDataForm = () => {
   const dispatch = useAppDispatch();
   const profile = useAppSelector(profileSelector);
   const contacts = useAppSelector(contactsSelector);
-  const style = { width: "30ch", marginBottom: "25px", textColor: "black" };
+  const style = { width: "30ch", textColor: "black" };
 
   const formik = useFormik({
     initialValues: {
@@ -89,8 +92,8 @@ export const ProfileDataForm = () => {
       return errors;
     },
     onSubmit: (values) => {
-      console.log(values);
       dispatch(saveProfile(values));
+      dispatch(saveEditProfileSuccess(false));
     },
   });
 
@@ -102,6 +105,7 @@ export const ProfileDataForm = () => {
             sx={style}
             label="Full name"
             variant="standard"
+            color="secondary"
             {...formik.getFieldProps("fullName")}
           />
           {formik.touched.fullName && formik.errors.fullName && (
@@ -115,6 +119,7 @@ export const ProfileDataForm = () => {
             sx={style}
             label="My professional skills"
             variant="standard"
+            color="secondary"
             {...formik.getFieldProps("lookingForAJobDescription")}
           />
           {formik.touched.lookingForAJobDescription &&
@@ -127,18 +132,22 @@ export const ProfileDataForm = () => {
             sx={style}
             label="About me"
             variant="standard"
+            color="secondary"
             {...formik.getFieldProps("aboutMe")}
           />
           {formik.touched.aboutMe && formik.errors.aboutMe && (
             <div style={{ color: "red" }}>{formik.errors.aboutMe}</div>
           )}
-          My contacts:
+          <div style={{ marginTop: "10px", marginBottom: "5px" }}>
+            My contacts:
+          </div>
           {Object.keys(contacts).map((key) => (
             <div key={key}>
               <TextField
                 sx={style}
                 label={key}
                 variant="standard"
+                color="secondary"
                 {...formik.getFieldProps(`contacts.${key}`)}
               />
               {formik.touched.contacts && formik.errors.contacts && (
@@ -146,7 +155,12 @@ export const ProfileDataForm = () => {
               )}
             </div>
           ))}
-          <Button type={"submit"} variant={"contained"} color={"secondary"}>
+          <Button
+            style={{ marginTop: "10px" }}
+            type={"submit"}
+            variant={"contained"}
+            color={"secondary"}
+          >
             Save
           </Button>
         </FormGroup>

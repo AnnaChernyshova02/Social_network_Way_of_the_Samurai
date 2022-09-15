@@ -1,18 +1,18 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React from "react";
 import { Modal } from "./Modal";
 import Button from "@mui/material/Button";
 import { ProfileDataForm } from "../Profile/ProfileInfo/ProfileDataForm";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useAppDispatch, useAppSelector } from "../../Redux/redux-store";
+import { saveEditProfileSuccess } from "../../Redux/profile-reducer";
+import { SaveEditSelector } from "../../Selectors/profileSelector";
 
-type ModalAddCardPropsType = {
-  addCard?: (title: string) => void;
-};
+export const ModalUpdateProfile = () => {
+  const saveEdit = useAppSelector(SaveEditSelector);
+  const dispatch = useAppDispatch();
 
-export const ModalUpdateProfile: FC<ModalAddCardPropsType> = () => {
-  const [isModal, setIsModal] = useState<boolean>(false);
-
-  const openModal = () => setIsModal(true);
-  const closeModal = () => setIsModal(false);
+  const openModal = () => dispatch(saveEditProfileSuccess(true));
+  const closeModal = () => dispatch(saveEditProfileSuccess(false));
 
   return (
     <>
@@ -24,7 +24,7 @@ export const ModalUpdateProfile: FC<ModalAddCardPropsType> = () => {
       >
         Edit
       </Button>
-      <Modal isModal={isModal}>
+      <Modal isModal={saveEdit}>
         <CancelIcon
           sx={{ marginLeft: "260px", cursor: "pointer" }}
           color={"secondary"}

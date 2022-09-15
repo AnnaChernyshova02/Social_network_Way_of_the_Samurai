@@ -3,12 +3,11 @@ import {
   ProfileDescriptionType,
   ProfileType,
 } from "../components/Profile/Profile";
-import { profileAPI, usersAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 import { AppActionsType, AppStateType, ThunkType } from "./redux-store";
 import { setAppStatus } from "./app-reducer";
 import { handleServerNetworkError } from "../utils/error-utils";
 import { ThunkDispatch } from "redux-thunk";
-import { follow, UsersActionsType } from "./users-reducer";
 
 const ADD_POST = "profile/ADD-POST";
 const SET_USER_PROFILE = "profile/SET_USER_PROFILE";
@@ -16,6 +15,7 @@ const SET_STATUS = "profile/SET_STATUS";
 const DELETE_POST = "profile/DELETE_POST";
 const SAVE_PHOTO_SUCCESS = "profile/SAVE_PHOTO_SUCCESS";
 const SAVE_PROFILE_SUCCESS = "profile/SAVE_PROFILE_SUCCESS";
+const SAVE_EDIT_PROFILE_SUCCESS = "profile/SAVE_EDIT_PROFILE_SUCCESS";
 
 let initialState: ProfileStateType = {
   posts: [
@@ -24,6 +24,7 @@ let initialState: ProfileStateType = {
   ],
   profile: null,
   status: "",
+  save: false,
 };
 
 const profileReducer = (
@@ -64,10 +65,14 @@ const profileReducer = (
         profile: { ...state.profile, photos: action.file },
       };
     case SAVE_PROFILE_SUCCESS:
-      console.log(action.profile);
       return {
         ...state,
         profile: action.profile,
+      };
+    case SAVE_EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        save: action.save,
       };
     default:
       return state;
@@ -97,6 +102,12 @@ export const saveProfileSuccess = (profile: ProfileDescriptionType) =>
   ({
     type: SAVE_PROFILE_SUCCESS,
     profile,
+  } as const);
+
+export const saveEditProfileSuccess = (save: boolean) =>
+  ({
+    type: SAVE_EDIT_PROFILE_SUCCESS,
+    save,
   } as const);
 
 export const getUserProfile =
@@ -194,6 +205,7 @@ export type ProfileStateType = {
   posts: Array<PostPropsType>;
   profile: ProfileType;
   status: string;
+  save?: boolean;
 };
 
 export type PostPropsType = {
@@ -208,6 +220,7 @@ export type ProfileActionsType =
   | ReturnType<typeof setStatus>
   | ReturnType<typeof deletePost>
   | ReturnType<typeof savePhotoSuccess>
-  | ReturnType<typeof saveProfileSuccess>;
+  | ReturnType<typeof saveProfileSuccess>
+  | ReturnType<typeof saveEditProfileSuccess>;
 
 export default profileReducer;
